@@ -1076,6 +1076,18 @@ img { -webkit-user-drag: none; }
 .notice-item { padding: 10px 12px; border-bottom: 1.5px dashed var(--ink); } .notice-item b { font-weight: 400; font-size: 15px; }
 .mail-item .stamp-ic img { width: 28px; height: 28px; }
 .hatch-grid .hg, .hatch-grid .hg > span { color: var(--ink); } .hatch-grid .hg > span { font-size: 11px; margin-top: 2px; }
+
+.breed-cta { display: flex; align-items: center; gap: 10px; margin: 10px 0 4px; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 14px; background: linear-gradient(90deg, #F3EAFF, #FFF0F5); }
+.aff { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; } .aff .bar { height: 20px; }
+.bar.pink i { background: #FFA3BA; }
+.stamp.picked { outline: 4px solid var(--coral); outline-offset: 2px; transform: rotate(-2deg) scale(1.03); }
+.stamp[disabled] { opacity: .5; }
+button.tag { cursor: pointer; font: inherit; } button.tag small { font-size: 10px; text-decoration: underline; }
+.reco { position: absolute; left: 50%; transform: translateX(-50%); top: 128px; z-index: 6; display: flex; align-items: center; gap: 6px; max-width: 70%; padding: 5px 12px 5px 8px; border: 2px solid var(--ink); border-radius: 18px; background: rgba(255,251,234,.95); box-shadow: 0 3px 0 var(--ink); font-size: 13px; white-space: nowrap; }
+.reco small { font-size: 10px; background: var(--coral); color: #fff; border-radius: 8px; padding: 1px 6px; }
+.reco img { width: 20px; height: 20px; } .reco b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; }
+.reco:active { transform: translateX(-50%) translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.coach .bubble small { display: inline-block; font-size: 11px; background: var(--ink); color: #fff; border-radius: 8px; padding: 0 6px; margin-right: 4px; }
 </style>
   <script>
     // 런타임 설정. 운영 빌드에서는 Vite 가 import.meta.env 로 주입 (client/src/config 참고)
@@ -3772,7 +3784,7 @@ function createSheets(G) {
   function open(name, p = {}) {
     const wasOpen = !!cur;
     cur = name; P = p; asyncData = {};
-    const [t, c] = TITLES[name];
+    const [t, c] = P.breed ? ['구름 교배소', 'lilac'] : TITLES[name];
     head.innerHTML = `${P.back ? `<button class="iconbtn" data-a="back" aria-label="뒤로">${img('arrowUp')}</button>` : ''}<div class="ribbon ${c}">${t}</div><span class="sub"></span><button class="iconbtn x" data-a="close" aria-label="닫기">${img('close')}</button>`;
     head.querySelector('[data-a="back"] img')?.setAttribute('style', 'transform:rotate(-90deg)');
     render(true); body.scrollTop = 0;
@@ -3809,6 +3821,7 @@ function createSheets(G) {
 
   // ---------------- 뭉게 ----------------
   function cloudsView(s) {
+    if (P.breed) return breedView(s);
     if (P.id) return cloudDetail(s, P.id);
     const owned = Object.keys(s.clouds).length;
     const seedLeft = D.HATCH_PITY_RARE - s.hatch.pityRare;
@@ -3820,6 +3833,7 @@ function createSheets(G) {
       <button class="btn paper sm" data-a="buySeed" data-n="1">${img('seed')}+1 ${costHtml('shard', D.SHARD_PRICES.seed, s.wallet.shard)}</button>
       <button class="btn paper sm" data-a="ad" data-pl="free_hatch" ${adLeft < 1 ? 'disabled' : ''}><span class="ad">AD</span>무료 씨앗 ${adLeft}/1</button></div>
       <button class="muted" data-a="rates" style="margin-top:6px;text-decoration:underline">확률 정보 보기</button></div></div>
+    <div class="breed-cta"><span class="grow"><b>구름 교배소</b><br><small class="muted">${s.village.lv >= D.FEATURE_UNLOCK.breed.village ? '서로 다른 날씨의 2단계 뭉게를 짝지어 새 뭉게를 만나요' : D.FEATURE_UNLOCK.breed.label}</small></span><button class="btn lilac sm" data-a="breedOpen" ${s.village.lv >= D.FEATURE_UNLOCK.breed.village ? '' : 'disabled'}>교배하기</button></div>
     <div class="sec">내 뭉게 <span class="num">${owned}/${D.SPECIES_KEYS.length}</span></div>
     <div class="stamps">${D.SPECIES_KEYS.map((id) => stampHtml(s, id)).join('')}</div>`;
   }
@@ -3855,11 +3869,12 @@ function createSheets(G) {
       <div class="statbox"><div>물방울 생산<b class="num">${fmtRate(R.cloudDropRate(c, id) * g)}/초</b></div><div>${D.ELEMENTS[sp.el].name} 기운<b class="num">${fmtRate(R.cloudElemRate(c, id))}/초</b></div>
         <div>레벨<b class="num">${c.lv} / ${maxLv}</b></div><div>별 등급<b class="num">${'★'.repeat(c.stars) || '-'} <small class="muted">(+${c.stars * 25}%)</small></b></div></div>
       <div class="bar butter" style="margin-bottom:10px"><i style="width:${(c.lv / maxLv) * 100}%"></i><span>Lv ${c.lv}/${maxLv}</span></div>
+      ${affHtml(c)}
       ${c.lv < maxLv ? `<div class="actions"><button class="btn" data-a="lv" data-id="${id}" data-n="1" ${s.wallet.drop < cost ? 'disabled' : ''}>+1 ${costHtml('drop', cost, s.wallet.drop)}</button>
         <button class="btn" data-a="lv" data-id="${id}" data-n="10" ${nMax < 10 ? 'disabled' : ''}>+10</button>
         <button class="btn mint" data-a="lv" data-id="${id}" data-n="${nMax}" ${nMax < 1 ? 'disabled' : ''}>MAX +${nMax}</button></div>` : `<div class="muted">이 단계의 최고 레벨이에요${req ? ' · 진화할 수 있어요!' : ''}</div>`}
       ${req ? `<div class="sec">진화 → ${sp.names[c.stage]}</div><div class="row" style="justify-content:center;gap:10px;flex-wrap:wrap">
-        <span class="tag">Lv ${req.lv} ${c.lv >= req.lv ? '✓' : ''}</span>${Object.entries(req.mats).map(([k, n]) => `<span class="tag">${img(k)}${D.MATERIALS[k].name} <span class="num ${s.mats[k] < n ? 'cost lack' : ''}">${s.mats[k]}/${n}</span></span>`).join('')}</div>
+        <span class="tag">Lv ${req.lv} ${c.lv >= req.lv ? '✓' : ''}</span>${Object.entries(req.mats).map(([k, n]) => `<button class="tag" data-a="matGuide" data-m="${k}">${img(k)}${D.MATERIALS[k].name} <span class="num ${s.mats[k] < n ? 'cost lack' : ''}">${s.mats[k]}/${n}</span> <small>어디서?</small></button>`).join('')}</div>
         <button class="btn coral block" style="margin-top:10px" data-a="evolve" data-id="${id}" ${c.lv < req.lv || Object.entries(req.mats).some(([k, n]) => s.mats[k] < n) ? 'disabled' : ''}>진화하기</button>` : ''}
       <div class="sec">별 승급</div>
       <div class="row"><div class="grow muted" style="text-align:left">같은 뭉게가 부화하면 별 조각이 돼요. 생산량 +25%/별</div>
@@ -3870,6 +3885,36 @@ function createSheets(G) {
       <div class="desc">${esc(sp.desc)}</div></div>`;
   }
 
+  function affHtml(c) {
+    const A = D.AFFECTION; const lv = R.affLevel(c.aff); const next = A.levels[lv]; const prevT = lv ? A.levels[lv - 1] : 0;
+    const pct = next ? ((c.aff || 0) - prevT) / (next - prevT) * 100 : 100;
+    return `<div class="aff"><span class="tag">친밀도 · ${A.titles[lv]}</span><div class="bar pink grow"><i style="width:${pct}%"></i><span class="num">${next ? `${c.aff || 0}/${next}` : '최고 단계'}</span></div><small class="muted">생산 +${Math.round(lv * A.bonus * 100)}%</small></div>
+      <div class="muted" style="font-size:12px;margin:-4px 0 10px">쓰다듬으면 친밀도가 올라요 (하루 ${A.dailyCap}번까지)</div>`;
+  }
+  function breedView(s) {
+    const now = G.store.now(); const pick = P.pick || [];
+    const ok = Object.entries(s.clouds).filter(([, c]) => c.stage >= D.BREED.minStage);
+    const els = pick.map((id) => D.SPECIES[id].el);
+    const combo = pick.length === 2 ? D.BREED.combos.find((c) => (c.a === els[0] && c.b === els[1]) || (c.a === els[1] && c.b === els[0])) : null;
+    const cdOf = (id) => Math.max(0, (s.breed?.cd?.[id] || 0) - now);
+    const cost = D.BREED.cost; const lack = s.wallet.drop < cost.drop || Object.entries(cost.mats).some(([k, n]) => s.mats[k] < n);
+    const valid = pick.length === 2 && els[0] !== els[1] && !pick.some((id) => cdOf(id) > 0);
+    return `<div class="muted" style="margin-bottom:8px">2단계 이상, 서로 다른 날씨의 뭉게 둘을 골라요. 결과는 서버에서 정해지고 확률은 아래에 공개돼요.</div>
+      ${ok.length < 2 ? '<div class="note" style="padding:12px">2단계 뭉게가 2마리 이상 필요해요. 뭉게 앨범에서 진화시켜 보세요.</div>' : `<div class="stamps">${ok.map(([id, c]) => { const cd = cdOf(id); return `<button class="stamp el-${D.SPECIES[id].el} ${pick.includes(id) ? 'picked' : ''}" data-a="breedPick" data-id="${id}" ${cd ? 'disabled' : ''}><div class="stamp-in">${svgImg(cloudSVG(id, { stage: c.stage, hat: c.hat }))}<div class="nm">${D.SPECIES[id].names[c.stage - 1]}</div>${cd ? `<small class="muted">${dur(cd)} 휴식</small>` : ''}</div></button>`; }).join('')}</div>`}
+      <div class="sec">조합</div>
+      ${pick.length < 2 ? '<div class="muted">뭉게 둘을 골라 주세요</div>' : els[0] === els[1] ? `<div class="muted">${errMsg('SAME_ELEMENT')}</div>` : combo
+        ? `<div class="note" style="padding:10px"><b>${combo.name}</b> · ${combo.hint}<div class="list">${combo.result.map(([id, w]) => `<div class="li"><span>${s.dex.seen.includes(id + ':1') ? D.SPECIES[id].names[0] : '???'} <span class="rarity r-${D.SPECIES[id].rarity}">${D.RARITY[D.SPECIES[id].rarity].name}</span></span><span class="num">${Math.round(w * 100)}%</span></div>`).join('')}</div></div>`
+        : `<div class="note" style="padding:10px">특별 조합이 아니에요. ${D.BREED.fallback.map(([r, w]) => `${D.RARITY[r].name} ${Math.round(w * 100)}%`).join(' · ')}</div>`}
+      <div class="row" style="justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px">${costHtml('drop', cost.drop, s.wallet.drop)}${Object.entries(cost.mats).map(([k, n]) => `<span class="tag">${img(k)}${D.MATERIALS[k].name} <span class="num ${s.mats[k] < n ? 'cost lack' : ''}">${s.mats[k]}/${n}</span></span>`).join('')}</div>
+      <button class="btn coral block" style="margin-top:10px" data-a="breedGo" ${valid && !lack ? '' : 'disabled'}>교배하기 · ${D.BREED.cooldownMs / 3600000}시간 휴식</button>`;
+  }
+  function matGuideHtml(k) {
+    const regions = Object.values(D.REGIONS).filter((r) => r.loot[k]).map((r) => `${r.name} (마을 Lv ${r.unlock}) ${r.loot[k][0]}~${r.loot[k][1]}개`);
+    const recipes = Object.entries(D.RECIPES).filter(([, r]) => r.cost.mats?.[k]).map(([id]) => D.ITEMS[id].name);
+    const evo = D.EVOLVE_REQ.filter(Boolean).map((q, i) => (q.mats[k] ? `${i + 2}단계 진화 ${q.mats[k]}개` : null)).filter(Boolean);
+    return `<div class="list" style="text-align:left"><div class="li"><span><b>얻는 곳</b><br>${regions.join('<br>') || '-'}${['feather', 'pinecone'].includes(k) ? '<br>주민 의뢰 보상 (가끔)' : ''}</span></div>
+      <div class="li"><span><b>쓰는 곳</b><br>${[...evo, ...recipes.map((n) => `공방: ${n}`), ...(D.BREED.cost.mats[k] ? [`교배 ${D.BREED.cost.mats[k]}개`] : [])].join('<br>') || '-'}</span></div></div>`;
+  }
   // ---------------- 공방 ----------------
   function workshopView(s) {
     const now = G.store.now();
@@ -4142,6 +4187,10 @@ function createSheets(G) {
     cloud: (d) => open('clouds', { id: d.id, back: true }),
     hatch: () => G.flows.hatch(),
     hatch10: () => G.flows.hatch10(),
+    breedOpen: () => open('clouds', { breed: true, pick: [], back: true }),
+    breedPick: (d) => { const p = P.pick; const i = p.indexOf(d.id); if (i >= 0) p.splice(i, 1); else { if (p.length >= 2) p.shift(); p.push(d.id); } G.sfx.tap(); render(true); },
+    breedGo: async () => { const [a, b] = P.pick; const r = await G.act('breed', { a, b }); if (!r.ok) return; G.sfx.fanfare(); G.haptic('confetti'); const sp = D.SPECIES[r.r.id]; P.pick = []; await modal({ burst: true, art: `<div class="art">${svgImg(cloudSVG(r.r.id, { stage: 1, mood: 'joy' }))}</div>`, title: r.r.isNew ? `${sp.names[0]}${josa(sp.names[0], '이', '가')} 태어났어요!` : `또 만난 ${sp.names[0]}`, body: `<span class="rarity r-${sp.rarity}">${D.RARITY[sp.rarity].name}</span>${r.r.combo ? `<p>${r.r.combo} 조합 성공</p>` : ''}<p class="muted">${r.r.isNew ? esc(sp.desc) : '별 조각 +1'}</p>` }); render(true); },
+    matGuide: (d) => modal({ title: `${D.MATERIALS[d.m].name} 얻는 곳`, art: `<div class="art" style="height:80px">${img(d.m)}</div>`, body: matGuideHtml(d.m) }),
     claimAll: () => G.flows.claimAll('all').then(() => render(true)),
     rankMode: (d) => { P.mode = d.m; asyncData.rank = null; render(true); loadRank(); },
     openMail: (d) => open('mail', { tab: d.t }),
@@ -4273,7 +4322,7 @@ function setupUI() {
     onPet: async (id, x, y) => {
       unlockAudio();
       const r = await G.act('pet', { id }, true);
-      if (r.ok) { G.island.petAnim(id); G.sfx.pop(); G.haptic('tap'); floaty(x, y - 30, `${img('drop')}+${fmt(r.r.drop)}`); }
+      if (r.ok) { G.island.petAnim(id); G.sfx.pop(); G.haptic('tap'); floaty(x, y - 30, `${img('drop')}+${fmt(r.r.drop)}`); if (r.r.affUp) { G.sfx.fanfare(); toast(`${D.SPECIES[id].names[0]}와(과) 더 친해졌어요! 「${D.AFFECTION.titles[R.affLevel(r.r.aff)]}」 생산 +${Math.round(R.affLevel(r.r.aff) * D.AFFECTION.bonus * 100)}%`, 'star'); } }
       else if (r.code === 'COOLDOWN') { G.island.shakeAnim(id); G.haptic('tickWeak'); }
     },
     onWhale: async (x, y) => {
@@ -4347,11 +4396,13 @@ function buildHud() {
       <button data-tab="shop">${img('shop')}장터<b class="badge hidden" data-b="shop"></b></button>
     </nav>
   </div>
+  <button class="reco hidden" aria-label="오늘의 추천"></button>
   <div class="coach hidden"></div>`);
   app.addEventListener('click', (e) => {
     const o = e.target.closest('[data-open]'); if (o) { G.sfx.tap(); G.haptic('tickWeak'); G.sheets.open(o.dataset.open); return; }
     const t = e.target.closest('[data-tab]'); if (t) { G.sfx.tap(); G.haptic('tickWeak'); if (t.dataset.tab === 'home') G.sheets.close(); else G.sheets.open(t.dataset.tab); return; }
-    if (e.target.closest('[data-rush]')) { unlockAudio(); flows.rush(); }
+    if (e.target.closest('[data-rush]')) { unlockAudio(); flows.rush(); return; }
+    const rc = e.target.closest('.reco'); if (rc) { G.sfx.tap(); if (rc.dataset.to === 'rush') flows.rush(); else G.sheets.open(rc.dataset.to); }
   });
 }
 
@@ -4397,17 +4448,28 @@ function hudTick(force) {
   badge('shop', R.monthlyActive(s, now) && s.ent.mDay !== R.dayKey(now) ? 1 : 0);
   G.island.setState(s, now);
   coachTick(s);
+  const rc = document.querySelector('.reco');
+  if (rc) { const hide = s.tut > 0 && s.tut <= D.TUTORIAL.length; const [to, label, ic] = recommend(s, now); const key = to + label; rc.classList.toggle('hidden', hide); if (prev.reco !== key) { prev.reco = key; rc.dataset.to = to; rc.innerHTML = `<small>오늘의 추천</small>${img(ic)}<b>${label}</b>`; } }
 }
 
 // ---------------------------------------------------------------- 튜토리얼
-const COACH = [
-  null,
-  { sel: '#scene', text: '뭉게를 톡 쓰다듬어 보세요', done: (s) => s.stats.pets > 0, pos: 'center' },
-  { sel: '[data-tab="clouds"]', text: '구름씨를 부화해 새 뭉게를 만나요', done: (s) => s.stats.hatches > 0 },
-  { sel: '[data-open="orders"]', text: '모은 비로 주민 의뢰를 해결해요', done: (s) => s.stats.orders > 0 },
-  { sel: '[data-rush]', text: '소나기 배달로 직접 날씨를 내려요!', done: (s) => s.stats.runs > 0 },
-  { sel: '[data-tab="explore"]', text: '탐험을 보내 진화 재료를 모아요', done: (s) => s.stats.expeditions > 0 },
-];
+// 튜토리얼: D.TUTORIAL 7단계. 실제 행동(통계)으로 진행되며 서버에 단계가 저장된다.
+const TUT_SEL = { pet: ['#scene', 'center'], hatch: ['[data-tab="clouds"]'], levelup: ['[data-tab="clouds"]'], order: ['[data-open="orders"]'], explore: ['[data-tab="explore"]'], rush: ['[data-rush]'], evolve: ['[data-tab="clouds"]'] };
+const COACH = [null, ...D.TUTORIAL.map((t) => ({ sel: TUT_SEL[t.key][0], pos: TUT_SEL[t.key][1], text: `<small>${D.TUTORIAL.indexOf(t) + 1}/${D.TUTORIAL.length}</small> ${t.text}`, done: (s) => (s.stats[t.stat] || 0) > 0 }))];
+// 오늘의 추천: 지금 하면 좋은 행동 하나
+function recommend(s, now) {
+  const m = s.missions;
+  const ready = m.keys.filter((k) => !m.claimed.includes(k) && (m.prog[k] || 0) >= D.DAILY_POOL[k].goal).length + D.ACHIEVEMENTS.filter((a) => !s.ach.includes(a.id) && R.statValue(s, a.stat) >= a.goal).length;
+  if (s.login.day !== R.dayKey(now)) return ['missions', '출석 보상 받기', 'mission'];
+  if (ready) return ['missions', `보상 ${ready}개 모두 받기`, 'mission'];
+  if (s.exp.some((e) => e && e.endAt <= now)) return ['explore', '열기구가 돌아왔어요', 'balloon'];
+  if (s.wallet.seed >= D.HATCH_MULTI) return ['clouds', `구름씨 ${D.HATCH_MULTI}회 부화`, 'seed'];
+  if (s.wallet.seed > 0) return ['clouds', '구름씨 부화하기', 'seed'];
+  if (Object.entries(s.clouds).some(([, c]) => { const q = D.EVOLVE_REQ[c.stage]; return q && c.lv >= q.lv && Object.entries(q.mats).every(([k, n]) => s.mats[k] >= n); })) return ['clouds', '진화할 수 있는 뭉게가 있어요', 'star'];
+  if (s.exp.some((e) => !e)) return ['explore', '빈 열기구로 탐험 보내기', 'balloon'];
+  if (s.wind.n >= D.RUSH.windMax) return ['rush', '바람병 가득! 소나기 배달', 'wind'];
+  return ['missions', '오늘의 미션 확인하기', 'mission'];
+}
 let storyShown = false;
 function coachTick(s) {
   const el = $('.coach');

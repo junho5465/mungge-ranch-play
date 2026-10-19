@@ -959,9 +959,10 @@ img { -webkit-user-drag: none; }
 
 /* 리스트 */
 .list .li { display: flex; justify-content: space-between; padding: 10px 4px; border-bottom: 2px dashed var(--paper-3); font-size: 15px; }
-.toggle { width: 54px; height: 30px; border-radius: 16px; border: 2px solid var(--ink); background: var(--paper-2); position: relative; transition: background .2s; }
-.toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--white); border: 2px solid var(--ink); transition: left .2s; }
-.toggle.on { background: var(--mint); } .toggle.on::after { left: 26px; }
+.toggle { box-sizing: border-box; flex: none; width: 54px; height: 30px; padding: 0; border-radius: 15px; border: 2px solid var(--ink); background: var(--paper-2); position: relative; transition: background .2s; }
+.toggle::after { content: ''; box-sizing: border-box; position: absolute; top: 50%; left: 2px; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--white); border: 2px solid var(--ink); transition: transform .2s; }
+.toggle.on { background: var(--mint); } .toggle.on::after { transform: translateX(24px); }
+.toggle:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
 .field { width: 100%; height: 44px; border: 2px solid var(--ink); border-radius: 12px; padding: 0 12px; font-family: inherit; font-size: 16px; background: var(--white); color: var(--ink); }
 
 /* ---------- 모달 ---------- */
@@ -1039,6 +1040,42 @@ img { -webkit-user-drag: none; }
 @keyframes floaty { 0% { transform: translateY(0) scale(.7); opacity: 0; } 15% { transform: translateY(-8px) scale(1.1); opacity: 1; } 100% { transform: translateY(-60px) scale(1); opacity: 0; } }
 @keyframes tap { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-4px, -8px); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+/* ===== v2 UI ===== */
+.mode-pick { display: grid; gap: 8px; margin: 6px 0; }
+.mode-card { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; text-align: left; padding: 12px 14px; border: 2px solid var(--ink); border-radius: 16px; background: var(--white); box-shadow: 0 3px 0 var(--ink); }
+.mode-card b { font-size: 18px; font-weight: 400; } .mode-card small { width: 100%; color: var(--ink-2, #6B5D7E); }
+.mode-card.on { background: #E9FFF5; } .mode-card:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.rush-mode { position: absolute; top: 58px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,.85); border: 2px solid var(--ink); border-radius: 12px; padding: 2px 10px; font-size: 13px; pointer-events: none; }
+.wbtns.auto { pointer-events: none; opacity: .75; } .wbtns.auto::before { content: '자동'; position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 12px; background: var(--white); border: 2px solid var(--ink); border-radius: 10px; padding: 0 8px; }
+.guide-arrows { display: inline-block; margin-top: 6px; font-size: 18px; animation: guideSway 1.2s ease-in-out infinite; }
+@keyframes guideSway { 0%, 100% { transform: translateX(-10px); } 50% { transform: translateX(10px); } }
+.hatch-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 8px 0; }
+.hatch-grid .hg { position: relative; border: 2px solid var(--ink); border-radius: 12px; background: var(--white); padding: 4px 2px; display: flex; flex-direction: column; align-items: center; font-size: 11px; }
+.hatch-grid .hg img { width: 100%; aspect-ratio: 1; } .hatch-grid .hg i { font-style: normal; font-size: 10px; padding: 0 4px; margin-top: 2px; }
+.hatch-grid .hg.r-rare { background: #EAF6FF; } .hatch-grid .hg.r-epic { background: #F3EAFF; } .hatch-grid .hg.r-legendary { background: linear-gradient(135deg, #FFE3EC, #FFF6CC, #E3F7FF); }
+.hatch-grid .new { position: absolute; top: -6px; right: -4px; background: var(--coral); color: #fff; border: 2px solid var(--ink); border-radius: 8px; font-size: 10px; padding: 0 4px; }
+.claim-all { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 10px 12px; border: 2px dashed var(--ink); border-radius: 14px; background: #FFFBEA; }
+/* 상점 조각 패키지 */
+.shard-packs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.spack { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 14px 8px 10px; border: 2px solid var(--ink); border-radius: 16px; background: var(--white); box-shadow: 0 3px 0 var(--ink); text-align: center; }
+.spack.popular { background: #FFF4E0; border-width: 3px; }
+.spack .flag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); white-space: nowrap; background: var(--coral); color: #fff; border: 2px solid var(--ink); border-radius: 10px; font-size: 12px; padding: 0 8px; }
+.spack .amt { font-size: 20px; } .spack .bonus-line { font-size: 12px; color: #D9534F; } .spack .unit { font-size: 11px; color: var(--ink-2, #6B5D7E); }
+.spack .pic img { width: 44px; height: 44px; }
+.value-note { font-size: 12px; color: var(--ink-2, #6B5D7E); margin: 6px 2px; line-height: 1.5; }
+.kind-tag { display: inline-block; font-size: 11px; border: 1.5px solid var(--ink); border-radius: 8px; padding: 0 6px; margin-left: 4px; background: #F3F7FF; }
+/* 우체국 */
+.post-head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 16px; background: linear-gradient(180deg, #FFE7D6, #FFF6E8); margin-bottom: 10px; }
+.post-head .box { width: 54px; height: 54px; flex: none; }
+.mail-item { position: relative; display: flex; gap: 10px; align-items: flex-start; padding: 12px; margin-bottom: 8px; background: #FFFDF6; border: 2px solid var(--ink); border-radius: 12px; background-image: repeating-linear-gradient(135deg, #FF8F7E 0 8px, transparent 8px 16px, #79C4F0 16px 24px, transparent 24px 32px); background-size: 100% 5px; background-repeat: no-repeat; background-position: top; }
+.mail-item.claimed { opacity: .6; } .mail-item .stamp-ic { width: 40px; height: 40px; flex: none; border: 2px dashed var(--ink); border-radius: 6px; display: grid; place-items: center; background: var(--white); }
+.mail-item h5 { margin: 0 0 2px; font-size: 15px; font-weight: 400; } .mail-item .meta { font-size: 11px; color: var(--ink-2, #6B5D7E); }
+.mail-item .unread { position: absolute; top: 8px; right: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--coral); border: 1.5px solid var(--ink); }
+.coupon-box { display: flex; gap: 8px; } .coupon-box input { flex: 1; text-transform: uppercase; letter-spacing: 1px; }
+.notice-item { padding: 10px 12px; border-bottom: 1.5px dashed var(--ink); } .notice-item b { font-weight: 400; font-size: 15px; }
+.mail-item .stamp-ic img { width: 28px; height: 28px; }
+.hatch-grid .hg, .hatch-grid .hg > span { color: var(--ink); } .hatch-grid .hg > span { font-size: 11px; margin-top: 2px; }
 </style>
   <script>
     // 런타임 설정. 운영 빌드에서는 Vite 가 import.meta.env 로 주입 (client/src/config 참고)
@@ -1065,6 +1102,9 @@ img { -webkit-user-drag: none; }
 // 밸런스 수치는 모두 여기서 조정한다. 서버가 동일 모듈을 사용하므로 클라이언트 변조는 무의미하다.
 
 const SCHEMA_VERSION = 1;
+// 경제 v2: 무지개 조각 단위 2배 (유료 패키지 재설계에 맞춰 모든 조각 가격·무료 지급을 2배로 환산). 기존 세이브는 migrate 에서 보유 조각 2배 환산.
+const SHARD_UNIT = 2;
+const ECON_VERSION = 2;
 
 const ELEMENTS = {
   rain: { name: '비', color: '#79C4F0', ink: '#2F6E9C' },
@@ -1089,6 +1129,7 @@ const RARITY_ORDER = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
 const HATCH_RATES = { common: 0.62, uncommon: 0.25, rare: 0.10, epic: 0.027, legendary: 0.003 };
 const HATCH_PITY_RARE = 10; // 10회 내 반짝 이상 1회 보장
 const HATCH_PITY_LEGEND = 100; // 100회 내 전설 1회 보장
+const HATCH_MULTI = 10; // 10회 부화 (구름씨 10개, 천장은 회차마다 개별 계산)
 
 // 뭉게 종 (3단계 진화). look = 아트 파라미터
 const SPECIES = {
@@ -1115,11 +1156,12 @@ const COST_GROWTH = 1.22;
 const EVOLVE_REQ = [
   null,
   { lv: 10, mats: { feather: 10, pinecone: 5 } },
-  { lv: 25, mats: { starsand: 10, thunderstone: 4 } },
+  { lv: 25, mats: { starsand: 10, thunderstone: 4, aurora: 2 } }, // 3단계는 오로라 언덕(마을 15) 재료 필요
 ];
 const STAR_REQ = [2, 4, 6, 8, 10]; // 별 승급에 필요한 중복 뭉게 수
 const STAR_BONUS = 0.25;
 
+const MATERIAL_USE = '뭉게 진화와 공방 제작에 쓰이는 재료예요';
 const MATERIALS = {
   feather: { name: '구름깃털', desc: '바람에 날려 온 보송한 깃털' },
   pinecone: { name: '솔방울', desc: '솔방울 숲 다람쥐가 흘린 것' },
@@ -1143,17 +1185,17 @@ const RECIPES = {
   wind_bottle: { unlock: 2, time: 240, cost: { mats: { feather: 4 }, elem: { wind: 40 } } },
   tailwind: { unlock: 3, time: 180, cost: { mats: { feather: 8 }, elem: { wind: 60 } } },
   sun_jam: { unlock: 4, time: 300, cost: { mats: { pinecone: 3 }, elem: { sun: 80 } } },
-  seed_pouch: { unlock: 6, time: 1200, cost: { mats: { pinecone: 6, starsand: 2 }, elem: { snow: 60 } } },
+  seed_pouch: { unlock: 6, time: 3600, dailyCap: 1, cost: { mats: { pinecone: 6, starsand: 2 }, elem: { snow: 60 } } },
   rainbow_candy: { unlock: 9, time: 1800, cost: { mats: { starsand: 4, thunderstone: 2 }, elem: { rain: 100, sun: 100 } } },
 };
 
 // 탐험 지역 (time: 초)
 const REGIONS = {
-  dandelion: { name: '민들레 들판', unlock: 1, time: 900, el: 'wind', loot: { feather: [3, 6] }, drop: 60, seed: 0.08 },
-  pine: { name: '솔방울 숲', unlock: 3, time: 3600, el: 'rain', loot: { pinecone: [2, 5], feather: [1, 3] }, drop: 240, seed: 0.15 },
-  beach: { name: '별모래 해변', unlock: 6, time: 14400, el: 'sun', loot: { starsand: [2, 4], pinecone: [1, 2] }, drop: 900, seed: 0.25 },
-  pass: { name: '천둥 고개', unlock: 10, time: 28800, el: 'thunder', loot: { thunderstone: [1, 3], starsand: [1, 2] }, drop: 1800, seed: 0.35 },
-  aurora: { name: '오로라 언덕', unlock: 15, time: 43200, el: 'snow', loot: { aurora: [1, 2], thunderstone: [1, 2] }, drop: 3000, seed: 0.45 },
+  dandelion: { name: '민들레 들판', unlock: 1, time: 900, el: 'wind', loot: { feather: [3, 6] }, drop: 60, seed: 0.03 },
+  pine: { name: '솔방울 숲', unlock: 3, time: 3600, el: 'rain', loot: { pinecone: [2, 5], feather: [1, 3] }, drop: 240, seed: 0.06 },
+  beach: { name: '별모래 해변', unlock: 6, time: 14400, el: 'sun', loot: { starsand: [2, 4], pinecone: [1, 2] }, drop: 900, seed: 0.10 },
+  pass: { name: '천둥 고개', unlock: 10, time: 28800, el: 'thunder', loot: { thunderstone: [1, 3], starsand: [1, 2] }, drop: 1800, seed: 0.15 },
+  aurora: { name: '오로라 언덕', unlock: 15, time: 43200, el: 'snow', loot: { aurora: [1, 2], thunderstone: [1, 2] }, drop: 3000, seed: 0.20 },
 };
 
 // 할멈의 편지 (탐험 중 발견, 순서대로 수집되는 스토리)
@@ -1198,13 +1240,18 @@ const VILLAGERS = {
 const VILLAGER_KEYS = Object.keys(VILLAGERS);
 
 // 소나기 배달 (액티브 미니게임)
+// 소나기 배달 모드: 기본=날씨 자동 선택(위치·회피·보너스는 직접), 숙련자=날씨 직접 선택(점수 배율↑). 랭킹은 모드별 분리.
+const RUSH_MODES = {
+  assist: { name: '기본', duration: 30, mult: 1, autoWeather: true, desc: '한 손가락으로 좌우 이동만! 날씨는 자동으로 바뀌어요' },
+  expert: { name: '숙련자', duration: 40, mult: 1.3, autoWeather: false, desc: '날씨를 직접 골라요. 점수 1.3배 + 별도 랭킹' },
+};
 const RUSH = {
-  duration: 45, // 초
+  duration: 45, // (v1 호환용) 현재는 RUSH_MODES[mode].duration 사용
   lanes: 3,
   windMax: 5,
   windRegenSec: 1200,
-  windRefillShard: 30,
-  feverEvery: 10,
+  windRefillShard: 60,
+  feverEvery: 8,
   feverSec: 5,
   fieldBase: 100,
   pickupBase: 30,
@@ -1221,8 +1268,8 @@ const DAILY_POOL = {
   build: { name: '마을 건물 강화 1회', goal: 1 },
 };
 const DAILY_COUNT = 5;
-const DAILY_REWARD = { shard: 10, sxp: 20 };
-const DAILY_ALL_REWARD = { shard: 30, sxp: 50 };
+const DAILY_REWARD = { shard: 20, sxp: 20 };
+const DAILY_ALL_REWARD = { shard: 60, sxp: 50 };
 const WEEKLY = {
   rush: { name: '소나기 배달 15회', goal: 15 },
   order: { name: '주민 의뢰 15건 해결', goal: 15 },
@@ -1230,10 +1277,10 @@ const WEEKLY = {
   hatch: { name: '구름씨 3회 부화', goal: 3 },
   craft: { name: '공방 제작 6회', goal: 6 },
 };
-const WEEKLY_REWARD = { shard: 40, seed: 1, sxp: 150 };
+const WEEKLY_REWARD = { shard: 80, seed: 1, sxp: 150 };
 
 const LOGIN_CALENDAR = [
-  { drop: 500 }, { shard: 20 }, { seed: 1 }, { shard: 30 }, { wind: 3 }, { shard: 50 }, { seed: 2 },
+  { drop: 500 }, { shard: 40 }, { seed: 1 }, { shard: 60 }, { wind: 3 }, { shard: 100 }, { seed: 2 },
 ];
 
 // 업적
@@ -1249,7 +1296,7 @@ const ACHIEVEMENTS = [
   ['drop1e5', '물방울 10만', 'dropTotal', 1e5, 30], ['drop1e7', '물방울 1천만', 'dropTotal', 1e7, 100], ['drop1e9', '바다를 만든 목동', 'dropTotal', 1e9, 300],
   ['letter3', '편지 수집가', 'letters', 3, 30], ['letter12', '할멈의 이야기', 'letters', 12, 200],
   ['cycle1', '첫 계절 순환', 'prestige', 1, 100], ['combo30', '30콤보', 'bestCombo', 30, 50],
-].map(([id, name, stat, goal, shard]) => ({ id, name, stat, goal, shard }));
+].map(([id, name, stat, goal, shard]) => ({ id, name, stat, goal, shard: shard * SHARD_UNIT }));
 
 // 계절 순환 (프레스티지)
 const PRESTIGE = { unlockVillage: 12, perCrystal: 0.04, divisor: 1e5 };
@@ -1267,13 +1314,13 @@ const AD_PLACEMENTS = {
   wind_refill: { name: '바람병 +1', cap: 5 },
   exp_speed: { name: '탐험 30분 단축', cap: 3 },
   order_refresh: { name: '의뢰 즉시 새로고침', cap: 3 },
-  shop_shard: { name: '무지개 조각 5개', cap: 3 },
+  shop_shard: { name: '무지개 조각 10개', cap: 3 },
 };
 const AD_MIN_WATCH_MS = 5000;
-const AD_TICKET_TTL_MS = 10 * 60 * 1000;
+const AD_TICKET_TTL_MS = 30 * 60 * 1000; // 시청 후 네트워크 오류 시 재시도 허용 시간
 
 // 무지개 조각 사용처
-const SHARD_PRICES = { seed: 100, seed11: 1000, expPer10min: 5, orderSkip: 20, craftSlot: 0 };
+const SHARD_PRICES = { seed: 200, seed11: 2000, expPer10min: 10, orderSkip: 40, craftSlot: 0 };
 
 // 꾸미기 (모자) - 모든 꾸미기는 능력치 없음 (P2W 방지)
 const HATS = {
@@ -1307,13 +1354,13 @@ const SEASON_RUSH_XP_DAILY_CAP = 300;
 const seasonReward = (tier, track, hat) => {
   if (track === 'free') {
     if (tier % 5 === 0) return { seed: 1 };
-    if (tier % 3 === 0) return { shard: 15 };
+    if (tier % 3 === 0) return { shard: 30 };
     return { drop: 400 * tier };
   }
   if (tier === SEASON_TIERS) return { hat };
   if (tier % 10 === 0) return { item: 'rainbow_candy', n: 1 };
   if (tier % 5 === 0) return { seed: 2 };
-  if (tier % 2 === 0) return { shard: 30 };
+  if (tier % 2 === 0) return { shard: 150 };
   return { item: tier % 3 === 0 ? 'sun_jam' : 'shower_jar', n: 1 };
 };
 
@@ -1332,18 +1379,54 @@ const OFFLINE = { thresholdSec: 180, baseCapH: 4, monthlyBonusH: 8 };
 const WHALE = { slotMs: 15 * 60 * 1000, visibleMs: 90 * 1000, chanceMod: 3 };
 
 // 인앱 상품 카탈로그. sku는 앱인토스 콘솔에 등록한 상품 ID와 일치해야 한다.
+// 첫 구매 보너스: 기본 지급량의 25% (상품별 1회, 서버 검증). SKU ID는 토스 콘솔 등록값이므로 변경하지 않는다.
+const FIRST_BONUS = 0.25;
 const PRODUCTS = {
-  shard_60: { name: '무지개 조각 60개', price: 1200, type: 'consumable', grant: { shard: 60 }, firstBonus: true },
-  shard_330: { name: '무지개 조각 330개', price: 5900, type: 'consumable', grant: { shard: 330 }, firstBonus: true },
-  shard_700: { name: '무지개 조각 700개', price: 11000, type: 'consumable', grant: { shard: 700 }, firstBonus: true },
-  shard_1500: { name: '무지개 조각 1,500개', price: 22000, type: 'consumable', grant: { shard: 1500 }, firstBonus: true },
-  starter: { name: '새내기 목동 꾸러미', price: 3300, type: 'non_consumable', grant: { shard: 300, seed: 3, item: 'rainbow_candy' }, once: true },
-  monthly: { name: '구름우편 정기권 (30일)', price: 4400, type: 'consumable', grant: { shard: 300, monthlyDays: 30 }, daily: 100 },
+  shard_60: { name: '무지개 조각 200개', price: 1200, type: 'consumable', grant: { shard: 200 }, firstBonus: true },
+  shard_330: { name: '무지개 조각 1,200개', price: 5900, type: 'consumable', grant: { shard: 1200 }, firstBonus: true, popular: true },
+  shard_700: { name: '무지개 조각 2,500개', price: 11000, type: 'consumable', grant: { shard: 2500 }, firstBonus: true },
+  shard_1500: { name: '무지개 조각 5,500개', price: 22000, type: 'consumable', grant: { shard: 5500 }, firstBonus: true },
+  starter: { name: '새내기 목동 꾸러미', price: 3300, type: 'non_consumable', grant: { shard: 1000, seed: 3, item: 'rainbow_candy' }, once: true },
+  // 기간제 이용권(자동 갱신 없음)과 자동 갱신 구독을 명확히 구분
+  monthly: { name: '구름우편 30일권', kind: '기간제 · 자동 갱신 없음', price: 4400, type: 'consumable', grant: { shard: 600, monthlyDays: 30 }, daily: 200 },
+  monthly_sub: { name: '구름우편 정기구독', kind: '자동 갱신 구독 · 언제든 해지', price: 3900, type: 'subscription', grant: { shard: 600, monthlyDays: 30 }, daily: 200 },
+  hat_pack: { name: '사계절 모자 꾸러미', kind: '꾸미기 · 능력치 없음', price: 3300, type: 'non_consumable', grant: { hats: ['flower', 'straw', 'beanie', 'goggles'] }, once: true },
   season: { name: '시즌 패스', price: 9900, type: 'consumable', grant: { seasonPremium: true }, perSeason: true },
   lifetime: { name: '목장주 증서 (영구)', price: 12000, type: 'non_consumable', grant: { lifetime: true }, once: true },
 };
 
-Object.assign(__e,{SCHEMA_VERSION,ELEMENTS,ELEMENT_KEYS,RARITY,RARITY_ORDER,HATCH_RATES,HATCH_PITY_RARE,HATCH_PITY_LEGEND,SPECIES,SPECIES_KEYS,STAGE_MULT,STAGE_MAX_LV,STAGE_COST,LEVEL_GROWTH,COST_GROWTH,EVOLVE_REQ,STAR_REQ,STAR_BONUS,MATERIALS,ITEMS,RECIPES,REGIONS,LETTERS,BUILDINGS,VILLAGE_MAX,villageXpNeed,VILLAGERS,VILLAGER_KEYS,RUSH,DAILY_POOL,DAILY_COUNT,DAILY_REWARD,DAILY_ALL_REWARD,WEEKLY,WEEKLY_REWARD,LOGIN_CALENDAR,ACHIEVEMENTS,PRESTIGE,TALENTS,talentCost,AD_PLACEMENTS,AD_MIN_WATCH_MS,AD_TICKET_TTL_MS,SHARD_PRICES,HATS,SEASON_THEMES,SEASON_TIERS,SEASON_XP_PER_TIER,SEASON_RUSH_XP_DAILY_CAP,seasonReward,DAY_WEATHER,OFFLINE,WHALE,PRODUCTS});})();
+// ===== v2 확장 =====
+// 친밀도: 쓰다듬기로 상승(뭉게별 하루 상한). 단계마다 해당 뭉게 생산 +3% (최대 +15%)
+const AFFECTION = { perPet: 1, dailyCap: 12, levels: [10, 30, 60, 100, 150], bonus: 0.03, titles: ['낯가림', '친해짐', '단짝', '절친', '영혼의 단짝', '평생 친구'] };
+// 교배: 서로 다른 원소의 2단계 이상 뭉게 둘 + 재료. 결과는 서버 RNG. 결과 풀은 기존 종만 사용(신규 히든 종은 아트 제작 후 추가).
+const BREED = {
+  cost: { drop: 5000, mats: { feather: 6, starsand: 2 } }, cooldownMs: 4 * 3600 * 1000, minStage: 2,
+  combos: [
+    { a: 'rain', b: 'sun', name: '비 + 햇살', result: [['mujigae', 0.08], ['jangma', 0.3], ['hannat', 0.3], ['noeul', 0.32]], hint: '비와 해가 같이 웃는 날' },
+    { a: 'snow', b: 'thunder', name: '눈 + 번개', result: [['ureureung', 0.2], ['hambak', 0.4], ['hoeori', 0.4]], hint: '얼어붙은 천둥' },
+    { a: 'wind', b: 'sun', name: '바람 + 햇살', result: [['hoeori', 0.35], ['hannat', 0.35], ['noeul', 0.3]], hint: '황금빛 바람' },
+    { a: 'rain', b: 'snow', name: '비 + 눈', result: [['hambak', 0.35], ['iseul', 0.35], ['jangma', 0.3]], hint: '진눈깨비' },
+    { a: 'rain', b: 'wind', name: '비 + 바람', result: [['jangma', 0.35], ['hoeori', 0.35], ['iseul', 0.3]], hint: '태풍의 눈' },
+  ],
+  fallback: [['common', 0.6], ['uncommon', 0.3], ['rare', 0.1]],
+};
+// 우편/쿠폰/자동화로 지급 가능한 보상 키 (서버가 이 목록 외 키는 거부)
+const REWARD_KEYS = { drop: '물방울', shard: '무지개 조각', seed: '구름씨', wind: '바람병', mats: '재료', items: '아이템', hats: '모자' };
+const REWARD_LIMITS = { drop: 1e12, shard: 100000, seed: 1000, wind: 100, mat: 100000, item: 1000 };
+// 튜토리얼 (실제 행동으로 진행)
+const TUTORIAL = [
+  { key: 'pet', text: '뭉게를 톡 쓰다듬어 보세요', stat: 'pets' },
+  { key: 'hatch', text: '구름씨를 부화해 새 뭉게를 만나요', stat: 'hatches' },
+  { key: 'levelup', text: '뭉게 앨범에서 몽실이를 레벨업해요', stat: 'levelups' },
+  { key: 'order', text: '모은 비로 주민 의뢰를 해결해요', stat: 'orders' },
+  { key: 'explore', text: '탐험을 보내 진화 재료를 모아요', stat: 'expeditions' },
+  { key: 'rush', text: '소나기 배달로 직접 날씨를 내려요!', stat: 'runs' },
+  { key: 'evolve', text: '재료를 모아 뭉게를 진화시켜요', stat: 'evolves' },
+];
+// 기능 해금 (초보자에게 메뉴를 한꺼번에 보여주지 않음)
+const FEATURE_UNLOCK = { workshop: { tut: 6, label: '탐험을 보낸 뒤 열려요' }, season: { tut: 7, label: '소나기 배달 후 열려요' }, rank: { tut: 7, label: '소나기 배달 후 열려요' }, breed: { village: 6, label: '마을 Lv 6에 열려요' } };
+
+Object.assign(__e,{SCHEMA_VERSION,SHARD_UNIT,ECON_VERSION,ELEMENTS,ELEMENT_KEYS,RARITY,RARITY_ORDER,HATCH_RATES,HATCH_PITY_RARE,HATCH_PITY_LEGEND,HATCH_MULTI,SPECIES,SPECIES_KEYS,STAGE_MULT,STAGE_MAX_LV,STAGE_COST,LEVEL_GROWTH,COST_GROWTH,EVOLVE_REQ,STAR_REQ,STAR_BONUS,MATERIAL_USE,MATERIALS,ITEMS,RECIPES,REGIONS,LETTERS,BUILDINGS,VILLAGE_MAX,villageXpNeed,VILLAGERS,VILLAGER_KEYS,RUSH_MODES,RUSH,DAILY_POOL,DAILY_COUNT,DAILY_REWARD,DAILY_ALL_REWARD,WEEKLY,WEEKLY_REWARD,LOGIN_CALENDAR,ACHIEVEMENTS,PRESTIGE,TALENTS,talentCost,AD_PLACEMENTS,AD_MIN_WATCH_MS,AD_TICKET_TTL_MS,SHARD_PRICES,HATS,SEASON_THEMES,SEASON_TIERS,SEASON_XP_PER_TIER,SEASON_RUSH_XP_DAILY_CAP,seasonReward,DAY_WEATHER,OFFLINE,WHALE,FIRST_BONUS,PRODUCTS,AFFECTION,BREED,REWARD_KEYS,REWARD_LIMITS,TUTORIAL,FEATURE_UNLOCK});})();
 /* shared\rules.js */
 (function(){const __e=__m["shared\\rules.js"]={};
 // 뭉게목장 - 결정론적 게임 룰 엔진 (클라이언트 예측 + 서버 권위 검증 공용)
@@ -1398,7 +1481,8 @@ const dayWeather = (t) => D.DAY_WEATHER[hash32(dayKey(t) * 7919) % D.DAY_WEATHER
 function newState(now, rngSeed, useed) {
   const s = {
     v: D.SCHEMA_VERSION, rev: 0, createdAt: now, lastTick: now, useed: useed >>> 0, rng: rngSeed >>> 0,
-    wallet: { drop: 30, shard: 50, seed: 1, crystal: 0 },
+    econ: D.ECON_VERSION,
+    wallet: { drop: 30, shard: 100, seed: 1, crystal: 0 },
     wind: { n: D.RUSH.windMax, t: now },
     elem: { rain: 0, sun: 0, snow: 0, wind: 0, thunder: 0, rainbow: 0 },
     mats: { feather: 0, pinecone: 0, starsand: 0, thunderstone: 0, aurora: 0 },
@@ -1433,13 +1517,46 @@ function newState(now, rngSeed, useed) {
   };
   return s;
 }
-const newCloud = () => ({ lv: 1, stage: 1, stars: 0, dupes: 0, hat: null, pet: 0, petCd: 0 });
+const newCloud = () => ({ lv: 1, stage: 1, stars: 0, dupes: 0, hat: null, pet: 0, petCd: 0, aff: 0, affDay: -1, affToday: 0 });
+function addCloud(s, id) {
+  const isNew = !s.clouds[id];
+  if (isNew) { s.clouds[id] = newCloud(); if (!s.dex.seen.includes(`${id}:1`)) s.dex.seen.push(`${id}:1`); } else s.clouds[id].dupes++;
+  return { id, isNew, rarity: D.SPECIES[id].rarity, dupes: s.clouds[id].dupes };
+}
+// 운영 보상(우편·쿠폰·자동화) 검증: 허용 키·수량 범위 외는 거부 (서버 전용)
+function validateRewards(r) {
+  if (!r || typeof r !== 'object' || Array.isArray(r)) fail('BAD_REWARD');
+  const L = D.REWARD_LIMITS; const out = {};
+  for (const [k, v] of Object.entries(r)) {
+    if (!Object.hasOwn(D.REWARD_KEYS, k)) fail('BAD_REWARD');
+    if (['drop', 'shard', 'seed', 'wind'].includes(k)) { if (!Number.isFinite(v) || v < 0 || v > L[k] || (k !== 'drop' && !Number.isInteger(v))) fail('BAD_REWARD'); if (v) out[k] = v; }
+    else if (k === 'mats' || k === 'items') {
+      const tbl = k === 'mats' ? D.MATERIALS : D.ITEMS; const lim = k === 'mats' ? L.mat : L.item; const o = {};
+      for (const [kk, n] of Object.entries(v || {})) { if (!Object.hasOwn(tbl, kk) || !Number.isInteger(n) || n < 0 || n > lim) fail('BAD_REWARD'); if (n) o[kk] = n; }
+      if (Object.keys(o).length) out[k] = o;
+    } else if (k === 'hats') { if (!Array.isArray(v) || v.some((h) => !Object.hasOwn(D.HATS, h))) fail('BAD_REWARD'); if (v.length) out.hats = [...new Set(v)]; }
+  }
+  if (!Object.keys(out).length) fail('BAD_REWARD');
+  return out;
+}
+function grantRewards(s, r, now) {
+  const v = validateRewards(r); tick(s, now);
+  if (v.drop) addDrop(s, v.drop);
+  if (v.shard) s.wallet.shard += v.shard;
+  if (v.seed) s.wallet.seed += v.seed;
+  if (v.wind) s.wind.n = Math.min(99, s.wind.n + v.wind);
+  if (v.mats) for (const [k, n] of Object.entries(v.mats)) s.mats[k] = (s.mats[k] || 0) + n;
+  if (v.items) for (const [k, n] of Object.entries(v.items)) s.items[k] = (s.items[k] || 0) + n;
+  if (v.hats) for (const h of v.hats) if (!s.hats.includes(h)) s.hats.push(h);
+  return v;
+}
 
 // ---------- 계산식 ----------
 function cloudDropRate(c, id) {
   const sp = D.SPECIES[id];
-  return D.RARITY[sp.rarity].base * 0.6 * Math.pow(D.LEVEL_GROWTH, c.lv - 1) * D.STAGE_MULT[c.stage - 1] * (1 + D.STAR_BONUS * c.stars);
+  return D.RARITY[sp.rarity].base * 0.6 * Math.pow(D.LEVEL_GROWTH, c.lv - 1) * D.STAGE_MULT[c.stage - 1] * (1 + D.STAR_BONUS * c.stars) * (1 + D.AFFECTION.bonus * affLevel(c.aff));
 }
+const affLevel = (aff) => D.AFFECTION.levels.filter((x) => (aff || 0) >= x).length;
 function cloudElemRate(c, id) {
   const sp = D.SPECIES[id];
   return 0.15 * D.RARITY[sp.rarity].base * (1 + 0.04 * (c.lv - 1)) * [1, 2, 4][c.stage - 1] * (1 + D.STAR_BONUS * c.stars);
@@ -1496,8 +1613,29 @@ function applyProduction(s, p) {
   for (const k in p.elem) s.elem[k] = (s.elem[k] || 0) + p.elem[k];
 }
 
+// ---------- v1 → v2 세이브 마이그레이션 (기존 데이터 유지, 누락 필드만 채움) ----------
+function migrate(s) {
+  if ((s.v || 1) >= 2) return migrateEcon(s);
+  s.stats.levelups ??= Object.values(s.clouds).some((c) => c.lv > 1) ? 1 : 0;
+  s.stats.breeds ??= 0;
+  for (const c of Object.values(s.clouds)) { c.aff ??= 0; c.affDay ??= -1; c.affToday ??= 0; }
+  s.breed ??= { cd: {} };
+  s.rush.bestBy ??= { assist: 0, expert: s.rush.best || 0 };
+  s.rush.weekBy ??= { assist: 0, expert: s.rush.weekBest || 0 };
+  s.dex.combos ??= [];
+  if (s.rush.active && !s.rush.active.mode) s.rush.active = null; // v1 진행 중 판은 폐기
+  s.v = 2;
+  return migrateEcon(s);
+}
+// 경제 v2: 조각 단위 2배. 기존 보유 조각의 실질 가치(구름씨 개수)를 유지하도록 2배 환산 (1회, econ 플래그로 멱등)
+function migrateEcon(s) {
+  if ((s.econ || 1) >= D.ECON_VERSION) return s;
+  s.wallet.shard *= D.SHARD_UNIT; s.econ = D.ECON_VERSION; return s;
+}
+
 // ---------- 시간 경과 처리 (결정론적, 무작위 없음) ----------
 function tick(s, now) {
+  migrate(s);
   if (now <= s.lastTick) return s;
   const gap = now - s.lastTick;
   if (gap > D.OFFLINE.thresholdSec * 1000) {
@@ -1580,7 +1718,7 @@ function makeOrder(s, rand, now) {
   const r = rates(s, now);
   const reward = { drop: Math.round(r.drop * 200 * (1 + 0.1 * s.village.b.post)) + 40 * lv, xp: 10 + 2 * lv };
   const roll = rand();
-  if (roll < 0.05) reward.seed = 1;
+  if (roll < 0.02) reward.seed = 1;
   else if (roll < 0.2) reward.mats = { [lv >= 6 && rand() < 0.4 ? 'pinecone' : 'feather']: 2 + Math.floor(rand() * 3) };
   return { id: ++s.orderSeq, v: vk, line: Math.floor(rand() * 3), req, reward };
 }
@@ -1597,20 +1735,25 @@ function maintain(s, now, rand) {
 }
 
 // ---------- 소나기 배달 코스 (시드 기반 결정론적, 클라·서버 동일) ----------
-function genCourse(seed, els) {
+function genCourse(seed, els, mode = 'expert') {
   const r = mulberry(seed);
-  const T = D.RUSH.duration, L = D.RUSH.lanes;
+  const M = D.RUSH_MODES[mode] || D.RUSH_MODES.expert;
+  const T = M.duration, L = D.RUSH.lanes;
   const fields = [], picks = [], birds = [];
-  let t = 2.2;
+  let t = 2.2, prevLane = 1;
   while (t < T - 1.5) {
-    const lane = Math.floor(r() * L);
+    const k = t / T;
+    let lane = Math.floor(r() * L);
+    // 기본 모드 초반: 한 칸씩만 이동하는 쉬운 패턴 → 점점 자유롭게
+    if (mode === 'assist' && k < 0.35) lane = Math.max(0, Math.min(L - 1, prevLane + (lane - 1)));
+    prevLane = lane;
     fields.push({ t: +t.toFixed(3), lane, need: els[Math.floor(r() * els.length)], kind: Math.floor(r() * 4) });
-    const gap = (1.3 - 0.6 * (t / T)) * (0.85 + 0.3 * r());
+    const gap = ((mode === 'assist' ? 1.3 : 1.2) - 0.55 * k) * (0.85 + 0.3 * r());
     if (r() < 0.45) picks.push({ t: +(t + gap / 2).toFixed(3), lane: (lane + 1 + Math.floor(r() * (L - 1))) % L });
-    if (t > 8 && r() < 0.28) birds.push({ t: +(t + gap * 0.5).toFixed(3), lane: Math.floor(r() * L) });
+    if (t > (mode === 'assist' ? 9 : 7) && r() < (mode === 'assist' ? 0.16 + 0.22 * k : 0.26 + 0.12 * k)) birds.push({ t: +(t + gap * 0.5).toFixed(3), lane: Math.floor(r() * L) });
     t += gap;
   }
-  return { fields, picks, birds };
+  return { mode, duration: T, fields, picks, birds };
 }
 function scoreRun(course, hits, picks, bonus) {
   const H = new Set(hits), P = new Set(picks);
@@ -1629,7 +1772,19 @@ function scoreRun(course, hits, picks, bonus) {
       } else combo = 0;
     } else if (P.has(e.p)) score += D.RUSH.pickupBase * fv;
   }
-  return { score, maxCombo, hits: hitN };
+  const mult = (D.RUSH_MODES[course.mode] || D.RUSH_MODES.expert).mult;
+  return { score: Math.round(score * mult), maxCombo, hits: hitN };
+}
+// 보상 합산 (모두 수령/다중 부화 결과 표시용)
+function sumRewards(acc, r) {
+  if (!r) return acc;
+  for (const k of ['drop', 'shard', 'seed', 'wind', 'sxp']) if (r[k]) acc[k] = (acc[k] || 0) + r[k];
+  if (r.item) { acc.items ||= {}; acc.items[r.item] = (acc.items[r.item] || 0) + (r.n || 1); }
+  if (r.items) for (const [k, n] of Object.entries(r.items)) { acc.items ||= {}; acc.items[k] = (acc.items[k] || 0) + n; }
+  if (r.mats) for (const [k, n] of Object.entries(r.mats)) { acc.mats ||= {}; acc.mats[k] = (acc.mats[k] || 0) + n; }
+  if (r.hat) { acc.hats ||= []; if (!acc.hats.includes(r.hat)) acc.hats.push(r.hat); }
+  if (r.hats) for (const h of r.hats) { acc.hats ||= []; if (!acc.hats.includes(h)) acc.hats.push(h); }
+  return acc;
 }
 const leadBonus = (s) => { const c = s.clouds[s.lead]; return c ? +(1 + 0.01 * c.lv + 0.1 * (c.stage - 1) + 0.05 * c.stars).toFixed(3) : 1; };
 function rushElements(s) { const e = ownedElements(s, ['rain', 'sun', 'snow']); return e.length ? e.sort() : ['rain']; }
@@ -1671,20 +1826,19 @@ function rollHatch(s, rand) {
 function doHatch(s, rand, forced) {
   const id = forced || (s.stats.hatches === 0 ? 'haetsom' : rollHatch(s, rand));
   const rarity = D.SPECIES[id].rarity;
-  const isNew = !s.clouds[id];
-  if (isNew) { s.clouds[id] = newCloud(); s.dex.seen.push(`${id}:1`); } else s.clouds[id].dupes++;
+  const { isNew, dupes } = addCloud(s, id);
   s.hatch.candy = false;
   s.hatch.pityRare = ['rare', 'epic', 'legendary'].includes(rarity) ? 0 : s.hatch.pityRare + 1;
   s.hatch.pityLegend = rarity === 'legendary' ? 0 : s.hatch.pityLegend + 1;
   s.stats.hatches++; bump(s, 'hatch');
-  return { id, isNew, rarity };
+  return { id, isNew, rarity, dupes };
 }
 
 function villageXp(s, xp) {
   s.village.xp += xp; const ups = [];
   while (s.village.lv < D.VILLAGE_MAX && s.village.xp >= D.villageXpNeed(s.village.lv)) {
     s.village.xp -= D.villageXpNeed(s.village.lv); s.village.lv++;
-    s.wallet.shard += 10; ups.push(s.village.lv);
+    s.wallet.shard += 10 * D.SHARD_UNIT; ups.push(s.village.lv);
   }
   return ups;
 }
@@ -1723,7 +1877,11 @@ const ACTIONS = {
     c.pet = now + 60000; c.petCd = now + 20000;
     const bonus = cloudDropRate(c, p.id) * globalDropMult(s) * 5;
     addDrop(s, bonus); s.stats.pets++; bump(s, 'pet');
-    return { drop: bonus };
+    // 친밀도 (하루 상한)
+    const dk = dayKey(now); if (c.affDay !== dk) { c.affDay = dk; c.affToday = 0; }
+    let affUp = null;
+    if (c.affToday < D.AFFECTION.dailyCap) { const before = affLevel(c.aff); c.aff = (c.aff || 0) + D.AFFECTION.perPet; c.affToday++; const after = affLevel(c.aff); if (after > before) affUp = after; }
+    return { drop: bonus, aff: c.aff, affUp };
   } },
   levelUp: { run(s, p) {
     const c = owned(s, p.id); const n = int(p.n ?? 1, 1, 100);
@@ -1734,6 +1892,7 @@ const ACTIONS = {
       s.wallet.drop -= cost; c.lv++; done++;
     }
     if (!done) fail(c.lv >= D.STAGE_MAX_LV[c.stage - 1] ? 'MAX_LEVEL' : 'NO_DROP');
+    s.stats.levelups = (s.stats.levelups || 0) + done;
     bump(s, 'levelup', done);
     return { levels: done };
   } },
@@ -1819,7 +1978,7 @@ const ACTIONS = {
     const out = { mats, drop: Math.round(R.drop * pm * globalDropMult(s)) };
     const elBonus = e.party.filter((id) => D.SPECIES[id].el === R.el).length * 0.03;
     if (rand() < R.seed + elBonus) out.seed = 1;
-    if (rand() < 0.05) { out.seed = (out.seed || 0) + 1; out.lostBaby = true; }
+    if (rand() < 0.02) { out.seed = (out.seed || 0) + 1; out.lostBaby = true; }
     if (s.dex.letters < D.LETTERS.length && rand() < 0.14) { s.dex.letters++; out.letter = s.dex.letters - 1; }
     grant(s, out, now);
     s.exp[i] = null;
@@ -1837,6 +1996,7 @@ const ACTIONS = {
     if (s.village.lv < R.unlock) fail('LOCKED');
     const i = s.craft.findIndex((c) => !c);
     if (i < 0) fail('SLOT_BUSY');
+    if (R.dailyCap) { const dk = dayKey(now); s.craftDay ??= { d: -1, c: {} }; if (s.craftDay.d !== dk) s.craftDay = { d: dk, c: {} }; if ((s.craftDay.c[r] || 0) >= R.dailyCap) fail('DAILY_CAP'); s.craftDay.c[r] = (s.craftDay.c[r] || 0) + 1; }
     payMats(s, R.cost.mats || {}); payElem(s, R.cost.elem || {});
     s.craft[i] = { recipe: r, endAt: now + craftDuration(s, r) };
     return { slot: i };
@@ -1860,11 +2020,59 @@ const ACTIONS = {
     if (it === 'seed_pouch') { s.wallet.seed++; return {}; }
     return {};
   } },
+  // 부화: n=1 또는 10. 10회도 회차마다 천장·사탕을 개별 적용 (한 트랜잭션)
   hatch: { random: true, run(s, p, now, ctx) {
     const rand = needRand(ctx);
-    if (s.wallet.seed < 1) fail('NO_SEED');
-    s.wallet.seed--;
-    return doHatch(s, rand);
+    const n = p.n === undefined ? 1 : int(p.n, 1, D.HATCH_MULTI);
+    if (n !== 1 && n !== D.HATCH_MULTI) fail('BAD_PARAM');
+    if (s.wallet.seed < n) fail('NO_SEED');
+    s.wallet.seed -= n;
+    if (n === 1) return doHatch(s, rand);
+    const results = [];
+    for (let i = 0; i < n; i++) results.push(doHatch(s, rand));
+    return { results, n };
+  } },
+  // 교배: 서로 다른 원소의 2단계 이상 뭉게 둘 + 재료 → 서버 RNG
+  breed: { random: true, run(s, p, now, ctx) {
+    const rand = needRand(ctx);
+    if (s.village.lv < (D.FEATURE_UNLOCK.breed.village || 0)) fail('LOCKED');
+    const a = owned(s, p.a), b = owned(s, p.b);
+    if (p.a === p.b) fail('BAD_PARAM');
+    const ea = D.SPECIES[p.a].el, eb = D.SPECIES[p.b].el;
+    if (ea === eb) fail('SAME_ELEMENT');
+    if (a.stage < D.BREED.minStage || b.stage < D.BREED.minStage) fail('LOW_STAGE');
+    s.breed ??= { cd: {} };
+    if ((s.breed.cd[p.a] || 0) > now || (s.breed.cd[p.b] || 0) > now) fail('COOLDOWN');
+    payMats(s, D.BREED.cost.mats); payDrop(s, D.BREED.cost.drop);
+    const combo = D.BREED.combos.find((c) => (c.a === ea && c.b === eb) || (c.a === eb && c.b === ea));
+    let id;
+    if (combo) {
+      let x = rand(); id = combo.result[combo.result.length - 1][0];
+      for (const [sid, w] of combo.result) { if (x < w) { id = sid; break; } x -= w; }
+      s.dex.combos ??= []; if (!s.dex.combos.includes(combo.name)) s.dex.combos.push(combo.name);
+    } else {
+      let x = rand(); let rar = 'common';
+      for (const [r, w] of D.BREED.fallback) { if (x < w) { rar = r; break; } x -= w; }
+      const list = D.SPECIES_KEYS.filter((k) => D.SPECIES[k].rarity === rar);
+      id = list[Math.floor(rand() * list.length)];
+    }
+    s.breed.cd[p.a] = s.breed.cd[p.b] = now + D.BREED.cooldownMs;
+    s.stats.breeds = (s.stats.breeds || 0) + 1;
+    const r = addCloud(s, id);
+    return { ...r, combo: combo ? combo.name : null };
+  } },
+  // 모두 수령: 수령 가능한 보상만 골라 한 번에 지급 (단일 액션 = 단일 트랜잭션, batchId 멱등)
+  claimAll: { run(s, p, now) {
+    const scope = ['daily', 'weekly', 'ach', 'season', 'all'].includes(p.scope) ? p.scope : fail('BAD_PARAM');
+    const acc = {}; let count = 0;
+    const tryRun = (type, q) => { const c = structuredClone(s); try { const r = ACTIONS[type].run(c, q, now); Object.assign(s, c); sumRewards(acc, r); count++; return true; } catch (e) { if (e instanceof GameError) return false; throw e; } };
+    rollDay(s, now); const M = () => s.missions; // tryRun 이 상태 객체를 교체하므로 매번 최신 참조 사용
+    if (scope === 'daily' || scope === 'all') { for (const k of [...M().keys]) if (!M().claimed.includes(k) && (M().prog[k] || 0) >= D.DAILY_POOL[k].goal) tryRun('claimMission', { kind: 'daily', key: k }); if (!M().all && M().claimed.length >= D.DAILY_COUNT) tryRun('claimMission', { kind: 'dailyAll' }); }
+    if (scope === 'weekly' || scope === 'all') for (const k of Object.keys(D.WEEKLY)) if (!M().wclaimed.includes(k) && (M().wprog[k] || 0) >= D.WEEKLY[k].goal) tryRun('claimMission', { kind: 'weekly', key: k });
+    if (scope === 'ach' || scope === 'all') for (const a of D.ACHIEVEMENTS) if (!s.ach.includes(a.id) && statValue(s, a.stat) >= a.goal) tryRun('claimAch', { id: a.id });
+    if (scope === 'season' || scope === 'all') { const t = seasonTier(s); for (let i = 1; i <= t; i++) { if (!s.season.free.includes(i)) tryRun('claimSeason', { tier: i, track: 'free' }); if (s.season.premium && !s.season.prem.includes(i)) tryRun('claimSeason', { tier: i, track: 'prem' }); } }
+    if (!count) fail('NOTHING');
+    return { count, reward: acc };
   } },
   buySeed: { run(s, p) {
     const n = int(p.n, 1, 11);
@@ -1884,7 +2092,8 @@ const ACTIONS = {
     if (s.wind.n >= D.RUSH.windMax) s.wind.t = now;
     s.wind.n--;
     const seed = Math.floor(rand() * 2147483647);
-    s.rush.active = { id: seed.toString(36), seed, startAt: now, els: rushElements(s), bonus: leadBonus(s), lead: s.lead };
+    const mode = p.mode === undefined ? 'assist' : key(p.mode, D.RUSH_MODES);
+    s.rush.active = { id: seed.toString(36), seed, startAt: now, els: rushElements(s), bonus: leadBonus(s), lead: s.lead, mode, duration: D.RUSH_MODES[mode].duration };
     return { ...s.rush.active };
   } },
   rushAbort: { run(s) { if (!s.rush.active) fail('NO_RUN'); s.rush.active = null; return {}; } },
@@ -1892,10 +2101,11 @@ const ACTIONS = {
     const a = s.rush.active;
     if (!a || p.runId !== a.id) fail('NO_RUN');
     const el = now - a.startAt;
-    if (el < (D.RUSH.duration - 3) * 1000) fail('TOO_FAST');
+    const mode = a.mode || 'expert';
+    if (el < (D.RUSH_MODES[mode].duration - 3) * 1000) fail('TOO_FAST');
     s.rush.active = null;
-    if (el > 30 * 60000) return { expired: true, score: 0, maxCombo: 0, hits: 0, total: 0, reward: {}, newBest: false };
-    const course = genCourse(a.seed, a.els);
+    if (el > 30 * 60000) return { expired: true, score: 0, maxCombo: 0, hits: 0, total: 0, reward: {}, newBest: false, mode };
+    const course = genCourse(a.seed, a.els, mode);
     if (!Array.isArray(p.hits) || !Array.isArray(p.picks) || p.hits.length > 400 || p.picks.length > 400) fail('BAD_PARAM');
     const hits = [...new Set(p.hits)].filter((x) => Number.isInteger(x) && x >= 0 && x < course.fields.length);
     const picks = [...new Set(p.picks)].filter((x) => Number.isInteger(x) && x >= 0 && x < course.picks.length);
@@ -1912,12 +2122,15 @@ const ACTIONS = {
       if (s.rush.perfectDay !== dk) { s.rush.perfectDay = dk; s.rush.perfects = 0; }
       if (++s.rush.perfects >= 3) s.rush.suspect = true;
     }
-    const newBest = res.score > s.rush.best;
+    s.rush.bestBy ??= { assist: 0, expert: 0 }; s.rush.weekBy ??= { assist: 0, expert: 0 };
+    const newBest = res.score > (s.rush.bestBy[mode] || 0);
+    s.rush.bestBy[mode] = Math.max(s.rush.bestBy[mode] || 0, res.score);
+    s.rush.weekBy[mode] = Math.max(s.rush.weekBy[mode] || 0, res.score);
     s.rush.best = Math.max(s.rush.best, res.score);
     s.rush.weekBest = Math.max(s.rush.weekBest, res.score);
     s.stats.runs++; s.stats.bestScore = Math.max(s.stats.bestScore, res.score); s.stats.bestCombo = Math.max(s.stats.bestCombo, res.maxCombo);
     bump(s, 'rush');
-    return { ...res, total: course.fields.length, reward, newBest };
+    return { ...res, total: course.fields.length, reward, newBest, mode, weekBest: s.rush.weekBy[mode] };
   } },
   claimMission: { run(s, p, now) {
     const m = s.missions;
@@ -1977,7 +2190,7 @@ const ACTIONS = {
     if (!w || now < w.start || now > w.end + 5000) fail('NO_EVENT');
     if (s.whale.last >= slot) fail('CLAIMED');
     s.whale.last = slot;
-    const r = hash32(slot ^ s.useed) % 5 === 0 ? { shard: 5 } : { drop: Math.round(rates(s, now).drop * 150) + 50 };
+    const r = hash32(slot ^ s.useed) % 5 === 0 ? { shard: 5 * D.SHARD_UNIT } : { drop: Math.round(rates(s, now).drop * 150) + 50 };
     return grant(s, r, now);
   } },
   adReward: { run(s, p, now, ctx) {
@@ -1987,7 +2200,7 @@ const ACTIONS = {
     if (pl === 'offline_double') { if (s.offline.sec <= 0) fail('NOTHING'); adUse(s, pl); return takeOffline(s, 2); }
     if (pl === 'free_hatch') { adUse(s, pl); s.wallet.seed++; return { seed: 1 }; }
     if (pl === 'wind_refill') { adUse(s, pl); s.wind.n = Math.min(99, s.wind.n + 1); return { wind: 1 }; }
-    if (pl === 'shop_shard') { adUse(s, pl); s.wallet.shard += 5; return { shard: 5 }; }
+    if (pl === 'shop_shard') { adUse(s, pl); s.wallet.shard += 10; return { shard: 10 }; }
     if (pl === 'exp_speed') { const e = s.exp[int(p.slot, 0, 9)]; if (!e || e.endAt <= now) fail('NOT_NEEDED'); adUse(s, pl); e.endAt = Math.max(now, e.endAt - 1800000); return {}; }
     if (pl === 'order_refresh') { const i = int(p.slot, 0, 9); const o = s.orders[i]; if (!o || o.req) fail('NOT_NEEDED'); adUse(s, pl); o.readyAt = now; return {}; }
     return fail('BAD_PARAM');
@@ -2028,30 +2241,35 @@ function applyAction(s, action, now, ctx) {
 const isRandomAction = (type) => !!(ACTIONS[type] && (ACTIONS[type].random || type === 'adReward'));
 
 // ---------- 결제 (서버 전용) ----------
-function grantProduct(s, sku, now) {
-  const P = D.PRODUCTS[sku]; if (!P) fail('BAD_SKU');
+// P: 서버가 적용 중인 상품 정의(운영 설정 반영). 기본값은 코드 카탈로그.
+function grantProduct(s, sku, now, P = D.PRODUCTS[sku]) {
+  if (!P || !D.PRODUCTS[sku]) fail('BAD_SKU');
   const g = P.grant; const out = { sku };
-  if (g.shard) { const bonus = P.firstBonus && !s.ent.first[sku] ? g.shard : 0; s.ent.first[sku] = true; out.shard = g.shard + bonus; s.wallet.shard += out.shard; }
+  if (g.shard) { const bonus = P.firstBonus && !s.ent.first[sku] ? Math.round(g.shard * D.FIRST_BONUS) : 0; s.ent.first[sku] = true; out.shard = g.shard + bonus; out.base = g.shard; out.bonus = bonus; s.wallet.shard += out.shard; }
+  if (g.hats) { out.hats = g.hats.filter((h) => !s.hats.includes(h)); s.hats.push(...out.hats); }
   if (g.seed) { s.wallet.seed += g.seed; out.seed = g.seed; }
   if (g.item) { s.items[g.item]++; out.item = g.item; }
   if (sku === 'starter') s.ent.starter = true;
-  if (g.monthlyDays) { s.ent.monthlyUntil = Math.max(now, s.ent.monthlyUntil) + g.monthlyDays * DAY_MS; out.monthlyUntil = s.ent.monthlyUntil; }
+  if (g.monthlyDays) { s.ent.monthlyUntil = Math.max(now, s.ent.monthlyUntil) + g.monthlyDays * DAY_MS; out.monthlyUntil = s.ent.monthlyUntil; out.monthlyDays = g.monthlyDays; }
   if (g.seasonPremium) {
     tick(s, now);
-    if (s.season.premium) { s.wallet.shard += 990; out.shard = 990; out.converted = true; } else s.season.premium = true;
+    if (s.season.premium) { const c = Math.round(P.price / 4); s.wallet.shard += c; out.shard = c; out.converted = true; } else s.season.premium = true;
   }
   if (g.lifetime) s.ent.lifetime = true;
   s.stats.purchases++;
+  out.u = D.ECON_VERSION; // 지급 기록의 조각 단위 (환불 시 환산 기준)
   return out;
 }
 // 환불 시 회수. 이미 사용한 재화는 음수 잔액(부채)으로 남겨 유료 재화 사용을 막는다.
 function revokeProduct(s, sku, granted, now) {
   const P = D.PRODUCTS[sku]; if (!P) fail('BAD_SKU');
-  if (granted?.shard) s.wallet.shard -= granted.shard;
+  // 경제 v1 시절 기록(u 없음)은 당시 단위이므로 현재 단위로 환산해 회수. 기록 자체는 수정하지 않는다.
+  if (granted?.shard) s.wallet.shard -= granted.shard * (granted.u >= 2 ? 1 : D.SHARD_UNIT);
   if (granted?.seed) s.wallet.seed -= granted.seed;
   if (granted?.item && s.items[granted.item] > 0) s.items[granted.item]--;
   if (sku === 'starter') s.ent.starter = false;
-  if (sku === 'monthly') s.ent.monthlyUntil = Math.max(0, s.ent.monthlyUntil - P.grant.monthlyDays * DAY_MS);
+  if (P.grant.monthlyDays) s.ent.monthlyUntil = Math.max(0, s.ent.monthlyUntil - (granted?.monthlyDays || P.grant.monthlyDays) * DAY_MS);
+  if (granted?.hats) { s.hats = s.hats.filter((h) => !granted.hats.includes(h)); for (const c of Object.values(s.clouds)) if (granted.hats.includes(c.hat)) c.hat = null; }
   if (sku === 'season' && !granted?.converted) s.season.premium = false;
   if (sku === 'lifetime') s.ent.lifetime = false;
   return { revoked: sku };
@@ -2061,7 +2279,7 @@ function publicView(s) {
   return rest;
 }
 
-Object.assign(__e,{DAY_MS,dayKey,weekKey,nextDayAt,GameError,hash32,mulberry,stateRand,seasonOf,dayWeather,newState,newCloud,cloudDropRate,cloudElemRate,levelCost,buildCost,globalDropMult,orderSlots,expSlots,craftSlots,monthlyActive,offlineCapSec,rates,production,tick,bump,addSeasonXp,grant,makeOrder,maintain,genCourse,scoreRun,leadBonus,rushElements,whaleWindow,doHatch,statValue,expDuration,partyPower,craftDuration,prestigeGain,seasonTier,ACTIONS,applyAction,isRandomAction,grantProduct,revokeProduct,publicView});})();
+Object.assign(__e,{DAY_MS,dayKey,weekKey,nextDayAt,GameError,hash32,mulberry,stateRand,seasonOf,dayWeather,newState,newCloud,addCloud,validateRewards,grantRewards,cloudDropRate,affLevel,cloudElemRate,levelCost,buildCost,globalDropMult,orderSlots,expSlots,craftSlots,monthlyActive,offlineCapSec,rates,production,migrate,tick,rollDay,bump,addSeasonXp,grant,makeOrder,maintain,genCourse,scoreRun,sumRewards,leadBonus,rushElements,whaleWindow,doHatch,statValue,expDuration,partyPower,craftDuration,prestigeGain,seasonTier,ACTIONS,applyAction,isRandomAction,grantProduct,revokeProduct,publicView});})();
 /* client\src\platform\toss.js */
 (function(){const __e=__m["client\\src\\platform\\toss.js"]={};
 // 앱인토스 SDK 어댑터. 토스 앱 안에서는 @apps-in-toss/web-framework 를, 일반 브라우저(개발)에서는 명시적 모의 구현을 사용한다.
@@ -2285,7 +2503,11 @@ class RemoteBackend {
   iapRefundCheck(orderIds) { return this.req('POST', '/v1/iap/refund-check', { orderIds }); }
   iapHistory() { return this.req('GET', '/v1/iap/history'); }
   mockOrder(sku) { return this.req('POST', '/dev/mock-order', { sku }).then((r) => r.orderId); }
-  rank() { return this.req('GET', '/v1/rank'); }
+  rank(mode = 'assist') { return this.req('GET', `/v1/rank?mode=${mode === 'expert' ? 'expert' : 'assist'}`); }
+  catalog() { return this.req('GET', '/v1/catalog'); }
+  mail() { return this.req('GET', '/v1/mail'); }
+  mailClaim(ids) { return this.req('POST', '/v1/mail/claim', ids ? { ids } : { all: true }, { retries: 0 }); }
+  couponRedeem(code) { return this.req('POST', '/v1/coupon/redeem', { code }, { retries: 0 }); }
   profile(p) { return this.req('POST', '/v1/profile', p); }
   log(e) { return this.req('POST', '/v1/log', e, { retries: 0 }).catch(() => {}); }
 }
@@ -2349,7 +2571,7 @@ class LocalBackend {
     const s = this.db.state; R.tick(s, Date.now());
     const P = D.PRODUCTS[sku];
     let granted;
-    if (P.once && ((sku === 'starter' && s.ent.starter) || (sku === 'lifetime' && s.ent.lifetime))) { granted = { shard: Math.round(P.price * 0.05), converted: true }; s.wallet.shard += granted.shard; } else granted = R.grantProduct(s, sku, Date.now());
+    if (P.once && ((sku === 'starter' && s.ent.starter) || (sku === 'lifetime' && s.ent.lifetime))) { granted = { shard: Math.round(P.price / 4), converted: true, u: D.ECON_VERSION }; s.wallet.shard += granted.shard; } else granted = R.grantProduct(s, sku, Date.now());
     this.db.orders[orderId] = { sku, status: 'GRANTED', created_at: Date.now(), granted };
     s.rev++; this.save();
     return this.respond({ ok: true, granted });
@@ -2357,11 +2579,43 @@ class LocalBackend {
   async iapRestore() { return this.respond({ results: [] }); }
   async iapRefundCheck() { return this.respond(); }
   async iapHistory() { return { orders: Object.entries(this.db.orders).map(([order_id, o]) => ({ order_id, sku: o.sku, status: o.status, created_at: o.created_at, name: D.PRODUCTS[o.sku]?.name, price: D.PRODUCTS[o.sku]?.price })).reverse() }; }
-  async rank() {
+  async rank(mode = 'assist') {
     const week = R.weekKey(Date.now()); const s = this.db.state;
-    const me = s.rush.weekBest ? { score: s.rush.weekBest, rank: 1 } : null;
+    const sc = s.rush.weekBy?.[mode] || 0;
+    const me = sc ? { score: sc, rank: 1 } : null;
     return { week, local: true, top: me ? [{ rank: 1, nickname: this.db.nickname, score: me.score, me: true }] : [], me, nickname: this.db.nickname };
   }
+  // 미리보기용 우편/쿠폰: 서버와 같은 규칙(보상 검증·1회 수령·계정당 1회)을 브라우저 안에서 흉내 낸다
+  seedMail() {
+    const now = Date.now(); this.db.mails ||= []; this.db.couponUses ||= {};
+    if (!this.db.mailSeeded) {
+      this.db.mailSeeded = true;
+      this.db.mails.push({ id: 1, kind: 'welcome', title: '어서 오세요, 새 목동님!', body: '구름할멈이 보낸 환영 선물이에요.\n뭉게들과 즐거운 하루 보내세요.', rewards: { seed: 2, shard: 200 }, created_at: now, expires_at: now + 14 * 86400000 });
+      this.db.mails.push({ id: 2, kind: 'notice', title: '[미리보기] 구름 우체국이 열렸어요', body: '운영 공지, 이벤트 보상, 점검 보상이 이곳으로 도착해요.\n쿠폰 탭에서 MUNGGE2026 을 입력해 보세요.', rewards: null, created_at: now, expires_at: now + 30 * 86400000 });
+    }
+  }
+  async mail() {
+    this.seedMail(); const now = Date.now();
+    const mails = this.db.mails.filter((m) => m.expires_at > now).map((m) => ({ id: m.id, kind: m.kind, title: m.title, body: m.body, rewards: m.rewards, createdAt: m.created_at, expiresAt: m.expires_at, read: !!m.read, claimed: !!m.claimed })).reverse();
+    for (const m of this.db.mails) m.read = true; this.save();
+    return { mails, unread: mails.filter((m) => !m.read || (m.rewards && !m.claimed)).length, notices: [{ id: 1, title: '뭉게목장 미리보기 안내', body: '미리보기에서는 진행 상황이 이 브라우저에만 저장돼요.\n결제는 실제로 청구되지 않는 테스트 결제예요.', pinned: true }] };
+  }
+  async mailClaim(ids) {
+    this.seedMail(); const now = Date.now(); const s = this.db.state; R.tick(s, now);
+    const list = this.db.mails.filter((m) => m.rewards && !m.claimed && m.expires_at > now && (!ids || ids.includes(m.id)));
+    const reward = {}; for (const m of list) { R.sumRewards(reward, R.grantRewards(s, m.rewards, now)); m.claimed = now; }
+    s.rev++; this.save(); return this.respond({ claimed: list.map((m) => m.id), reward });
+  }
+  async couponRedeem(code) {
+    this.seedMail(); const c = String(code).toUpperCase().replace(/[^A-Z0-9-]/g, '');
+    const demo = { MUNGGE2026: { name: '미리보기 기념 쿠폰', rewards: { seed: 3, mats: { feather: 10 } } } }[c];
+    if (!demo) throw new ApiError(400, 'COUPON_INVALID');
+    if (this.db.couponUses[c]) throw new ApiError(409, 'COUPON_USED');
+    const now = Date.now(); const s = this.db.state; R.tick(s, now);
+    const reward = R.grantRewards(s, demo.rewards, now); this.db.couponUses[c] = now; s.rev++; this.save();
+    return this.respond({ ok: true, name: demo.name, reward });
+  }
+  async catalog() { return { products: Object.entries(D.PRODUCTS).map(([sku, p]) => ({ sku, ...p })) }; }
   async profile(p) { if (p.nickname) { this.db.nickname = p.nickname; this.save(); } return { ok: true, nickname: this.db.nickname }; }
   async log() {}
 }
@@ -2680,7 +2934,7 @@ const ICONS = {
   shop: () => `<path d="M6 12h20v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" fill="#fff" ${st}/><path d="M4 12l3-7h18l3 7q-2 3-4.8 3T19 12q-1.2 3-3 3t-3-3q-1.4 3-4.2 3T4 12z" fill="#FF8F7E" ${st}/><path d="M13 28v-7h6v7" fill="#97E0C3" ${st}/>`,
   mission: () => `<rect x="7" y="4" width="18" height="24" rx="2.5" fill="#FFF6E8" ${st}/><path d="M11 11l2 2 3-4M11 18l2 2 3-4M19 11h3M19 18h3" ${st} fill="none"/><path d="M12 4v-1h8v1" ${st}/>`,
   mail: () => `<path d="M3 15L29 4l-6 23-7-7-4 6v-8z" fill="#fff" ${st}/><path d="M12 18L29 4" ${st}/>`,
-  gear: () => `<path d="M16 4l2.4.4.8 3 2.6 1.5 3-.9 1.7 1.7-.9 3 1.5 2.6 3 .8.4 2.4-.4 2.4-3 .8-1.5 2.6.9 3-1.7 1.7-3-.9-2.6 1.5-.8 3L16 28l-2.4-.4-.8-3-2.6-1.5-3 .9-1.7-1.7.9-3-1.5-2.6-3-.8L4 16l.4-2.4 3-.8 1.5-2.6-.9-3 1.7-1.7 3 .9 2.6-1.5.8-3z" fill="#DCEBFF" ${st}/><circle cx="16" cy="16" r="4" fill="#fff" ${st}/>`,
+  gear: () => { const n = 8, R1 = 13.2, R2 = 10.2, cx = 16, cy = 16; const pts = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2 - Math.PI / 2, w = Math.PI / n; for (const [ang, r] of [[a - w * 0.62, R2], [a - w * 0.36, R1], [a + w * 0.36, R1], [a + w * 0.62, R2]]) pts.push(`${(cx + Math.cos(ang) * r).toFixed(2)} ${(cy + Math.sin(ang) * r).toFixed(2)}`); } return `<path d="M${pts.join(" L")} Z" fill="#E9E2F5" ${st}/><circle cx="16" cy="16" r="4.2" fill="#FFF6E8" ${st}/>`; },
   trophy: () => `<path d="M10 5h12v7a6 6 0 0 1-12 0z" fill="#FFD84D" ${st}/><path d="M10 7H6q0 6 5 7M22 7h4q0 6-5 7" fill="none" ${st}/><path d="M16 18v5M11 27h10l-1-4h-8z" fill="#C98E62" ${st}/>`,
   book: () => `<path d="M5 6q5-2 11 1v20q-6-3-11-1z" fill="#97E0C3" ${st}/><path d="M27 6q-5-2-11 1v20q6-3 11-1z" fill="#FFF6E8" ${st}/><path d="M19 12q3-1 5 0M19 16q3-1 5 0" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>`,
   chart: () => `<path d="M5 27h22" ${st}/><rect x="7" y="16" width="5" height="11" fill="#79C4F0" ${st}/><rect x="14" y="9" width="5" height="18" fill="#FFC54D" ${st}/><rect x="21" y="13" width="5" height="14" fill="#FF8F7E" ${st}/>`,
@@ -3015,7 +3269,7 @@ Object.assign(__e,{phaseOf,Island});})();
 (function(){const __e=__m["client\\src\\minigame\\rush.js"]={};
 // 소나기 배달: 직접 조작 액션 미니게임. 서버가 내려준 시드로 코스 생성(서버도 동일 코스로 점수 재계산)
 const { genCourse } = __m["shared\\rules.js"];
-const { RUSH } = __m["shared\\data.js"];
+const { RUSH, RUSH_MODES } = __m["shared\\data.js"];
 const { cloudSVG, toImage, icon, iconURL, EL_ICON, INK } = __m["client\\src\\art\\sprites.js"];
 
 const KIND_NAME = ['논밭', '빨랫줄 집', '놀이터', '꽃밭'];
@@ -3023,7 +3277,9 @@ const KIND_NAME = ['논밭', '빨랫줄 집', '놀이터', '꽃밭'];
 class Rush {
   constructor(app, { run, cloud, sfx, haptic, onFinish, onAbort, firstTime }) {
     this.app = app; this.run = run; this.sfx = sfx; this.haptic = haptic; this.onFinish = onFinish; this.onAbort = onAbort;
-    this.course = genCourse(run.seed, run.els);
+    this.mode = run.mode || 'expert'; this.assist = this.mode === 'assist';
+    this.duration = run.duration || RUSH_MODES[this.mode].duration;
+    this.course = genCourse(run.seed, run.els, this.mode);
     this.hits = []; this.picks = []; this.done = new Set(); this.doneP = new Set(); this.doneB = new Set();
     this.score = 0; this.combo = 0; this.maxCombo = 0; this.fever = -1;
     this.gt = -3.2; this.lane = 1; this.cx = null; this.weather = run.els[0]; this.stun = 0; this.paused = !!firstTime; this.ended = false;
@@ -3031,9 +3287,10 @@ class Rush {
     this.el = document.createElement('div'); this.el.className = 'rush';
     this.el.innerHTML = `<canvas></canvas>
       <div class="rush-hud"><div class="score num">0</div><div class="combo hidden"></div><div class="time"><div class="bar sky"><i style="width:100%"></i></div></div><button class="iconbtn pause" aria-label="일시정지">${icon('clock', 26)}</button></div>
-      <div class="wbtns">${run.els.map((e) => `<button class="wbtn ${e}" data-w="${e}" aria-label="${e}"><img src="${iconURL(EL_ICON[e])}" alt=""></button>`).join('')}</div>
+      <div class="rush-mode">${this.assist ? '기본 모드 · 날씨 자동' : '숙련자 모드 · 점수 ×1.3'}</div>
+      <div class="wbtns ${this.assist ? 'auto' : ''}">${run.els.map((e) => `<button class="wbtn ${e}" data-w="${e}" aria-label="${e}"><img src="${iconURL(EL_ICON[e])}" alt=""></button>`).join('')}</div>
       <div class="countdown"></div>
-      ${firstTime ? `<div class="rush-tip"><b style="font-size:19px">소나기 배달 방법</b><br>손가락으로 <b>좌우로 끌어</b> 뭉게를 옮기고,<br>아래 버튼으로 <b>날씨를 골라</b> 집 위 말풍선과<br>같은 날씨를 내려 주세요. 새는 피하기!<br><button class="btn mint" data-go style="margin-top:10px">알겠어요!</button></div>` : ''}`;
+      ${firstTime ? `<div class="rush-tip"><b style="font-size:19px">소나기 배달 방법</b><br>${this.assist ? '한 손가락으로 <b>화면을 좌우로 끌어</b><br>말풍선이 있는 길로 뭉게를 옮겨 주세요.<br>날씨는 <b>자동으로</b> 맞춰져요. 새는 피하기!<br><span class="guide-arrows">◀ 끌어서 이동 ▶</span><br>' : '손가락으로 <b>좌우로 끌어</b> 뭉게를 옮기고,<br>아래 버튼으로 <b>날씨를 골라</b> 집 위 말풍선과<br>같은 날씨를 내려 주세요. 새는 피하기!<br>'}<button class="btn mint" data-go style="margin-top:10px">알겠어요!</button></div>` : ''}`;
     app.appendChild(this.el);
     this.c = this.el.querySelector('canvas'); this.g = this.c.getContext('2d');
     this.$score = this.el.querySelector('.score'); this.$combo = this.el.querySelector('.combo'); this.$time = this.el.querySelector('.time i'); this.$cd = this.el.querySelector('.countdown');
@@ -3095,6 +3352,10 @@ class Rush {
     if (prev < 0) { const n = Math.ceil(-this.gt); const txt = this.gt < 0 ? String(n) : '출발!'; if (this.$cd.dataset.t !== txt) { this.$cd.dataset.t = txt; this.$cd.innerHTML = `<span>${txt}</span>`; this.sfx[this.gt < 0 ? 'tap' : 'whoosh'](); } if (this.gt > 0.6) this.$cd.innerHTML = ''; }
     else if (this.$cd.innerHTML && this.gt > 0.6) this.$cd.innerHTML = '';
     this.stun = Math.max(0, this.stun - dt);
+    if (this.assist) { // 기본 모드: 현재 길의 다음 집이 원하는 날씨로 자동 전환
+      let nx = null; for (let i = 0; i < this.course.fields.length; i++) { const f = this.course.fields[i]; if (!this.done.has(i) && f.lane === this.lane) { nx = f; break; } }
+      if (nx && nx.need !== this.weather) { this.weather = nx.need; this.el.querySelectorAll('[data-w]').forEach((b) => b.classList.toggle('on', b.dataset.w === nx.need)); }
+    }
     // 시간 순으로 판정 (서버 scoreRun 과 동일한 이벤트 순서)
     const evs = [];
     this.course.fields.forEach((f, i) => { if (!this.done.has(i) && f.t <= this.gt) evs.push({ t: f.t, f: i }); });
@@ -3124,7 +3385,7 @@ class Rush {
         if (p.lane === this.lane && this.stun <= 0) { this.picks.push(e.p); this.score += RUSH.pickupBase * fv; p.got = true; this.sfx.pick(); this.text(this.laneX(p.lane), this.cy - 30, `+${RUSH.pickupBase * fv}`, '#BFE6FA', 16); }
       } else {
         this.doneB.add(e.b); const b = this.course.birds[e.b];
-        if (b.lane === this.lane && this.stun <= 0) { this.stun = 0.9; this.shake = 0.3; b.hitAt = this.gt; this.sfx.thunder(); this.haptic('error'); this.text(this.laneX(b.lane), this.cy - 60, '어지러워!', '#fff', 18); }
+        if (b.lane === this.lane && this.stun <= 0) { this.stun = this.assist ? 0.6 : 0.9; this.shake = this.assist ? 0.1 : 0.3; b.hitAt = this.gt; this.sfx.thunder(); this.haptic('error'); this.text(this.laneX(b.lane), this.cy - 60, '어지러워!', '#fff', 18); }
       }
     }
     this.$score.textContent = this.score.toLocaleString();
@@ -3132,8 +3393,8 @@ class Rush {
     this.$combo.classList.toggle('hidden', this.combo < 2);
     this.$combo.classList.toggle('fever', fever);
     this.$combo.textContent = fever ? `피버 ×2 · ${this.combo}콤보` : `${this.combo} 콤보`;
-    this.$time.style.width = `${Math.max(0, 100 - (this.gt / RUSH.duration) * 100)}%`;
-    if (this.gt >= RUSH.duration) this.finish();
+    this.$time.style.width = `${Math.max(0, 100 - (this.gt / this.duration) * 100)}%`;
+    if (this.gt >= this.duration) this.finish();
   }
   text(x, y, s, color, size) { this.texts.push({ x, y, s, color, size, life: 1 }); }
   ring(x, y, el) { this.fx.push({ k: 'ring', x, y, life: 0.5, el }); for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2; this.fx.push({ k: 'spark', x, y, vx: Math.cos(a) * 160, vy: Math.sin(a) * 160, life: 0.5 }); } }
@@ -3428,6 +3689,8 @@ function rewardChips(r) {
   if (r.crystals) out.push([img('crystal'), `계절 결정 ${r.crystals}`]);
   if (r.item) out.push([itemImg(r.item), `${ITEMS[r.item].name}${r.n > 1 ? ' ×' + r.n : ''}`]);
   if (r.hat) out.push([img('star'), HATS[r.hat]?.name || r.hat]);
+  if (r.items) for (const [k, n] of Object.entries(r.items)) out.push([itemImg(k), `${ITEMS[k]?.name || k} ×${n}`]);
+  if (r.hats) for (const h of r.hats) out.push([img('star'), HATS[h]?.name || h]);
   if (r.mats) for (const k in r.mats) out.push([img(k), `${MATERIALS[k].name} ${r.mats[k]}`]);
   if (r.elem) for (const k in r.elem) if (r.elem[k] >= 1) out.push([elImg(k), `${ELEMENTS[k].name} ${fmt(r.elem[k])}`]);
   return `<div class="rewards">${out.map(([i, t]) => `<div>${i}<span class="num">${t}</span></div>`).join('')}</div>`;
@@ -3480,6 +3743,8 @@ const ERR = {
   SLOT_BUSY: '빈 칸이 없어요', CLOUD_BUSY: '이미 탐험 중인 뭉게예요', NOT_READY: '아직 준비 중이에요', AD_CAP: '오늘 광고 보상을 모두 받았어요', NO_DUPES: '같은 뭉게가 더 필요해요',
   NETWORK: '연결이 불안정해요. 잠시 후 다시 시도해 주세요', COOLDOWN: '간지러워해요! 잠시 후에 쓰다듬어 주세요', NOT_DONE: '아직 조건을 채우지 못했어요', CLAIMED: '이미 받았어요',
   NO_PASS: '패스가 필요해요', NOT_ENOUGH: '아직 결정을 얻을 수 없어요', NO_CRYSTAL: '계절 결정이 모자라요', RUN_ACTIVE: '진행 중인 배달이 있어요', NEEDS_SERVER: '서버 연결이 필요해요',
+  NOTHING: '지금 받을 보상이 없어요', DAILY_CAP: '오늘은 더 만들 수 없어요. 내일 다시 만들어요', SAME_ELEMENT: '서로 다른 날씨의 뭉게를 골라 주세요', LOW_STAGE: '2단계 이상 뭉게만 교배할 수 있어요',
+  COUPON_INVALID: '사용할 수 없는 쿠폰 번호예요', COUPON_USED: '이미 사용한 쿠폰이에요', COUPON_EXPIRED: '기간이 끝난 쿠폰이에요', COUPON_NOT_STARTED: '아직 사용 기간이 아니에요', COUPON_SOLD_OUT: '선착순 수량이 모두 소진됐어요', ALREADY_CLAIMED: '이미 받은 우편이에요', RATE_LIMITED: '너무 자주 시도했어요. 잠시 후 다시 해 주세요',
   BAD_TICKET: '광고 확인에 실패했어요', TOO_FAST: '광고를 끝까지 봐 주세요', ALREADY_ACTIVE: '이미 사용 중이에요', NOT_NEEDED: '지금은 필요 없어요', NO_EVENT: '고래가 떠났어요',
 };
 const errMsg = (code) => ERR[code] || `잠시 후 다시 시도해 주세요 (${code})`;
@@ -3496,7 +3761,7 @@ const { $, esc, fmt, fmtRate, dur, img, elImg, itemImg, svgImg, rewardChips, cos
 
 const TITLES = {
   clouds: ['뭉게 앨범', 'sky'], workshop: ['날씨 공방', 'lilac'], explore: ['표류 탐험', 'mint'], shop: ['하늘 장터', 'coral'], village: ['아랫마을 보리울', 'mint'],
-  orders: ['주민 의뢰함', 'coral'], missions: ['목동 수첩', ''], season: ['시즌 패스', 'lilac'], rank: ['주간 랭킹', ''], dex: ['구름 도감', 'sky'], stats: ['목장 통계', ''], settings: ['설정', ''],
+  orders: ['주민 의뢰함', 'coral'], missions: ['목동 수첩', ''], mail: ['구름 우체국', 'coral'], season: ['시즌 패스', 'lilac'], rank: ['주간 랭킹', ''], dex: ['구름 도감', 'sky'], stats: ['목장 통계', ''], settings: ['설정', ''],
 };
 
 function createSheets(G) {
@@ -3515,6 +3780,7 @@ function createSheets(G) {
     if (!wasOpen) history.pushState({ sheet: name }, '');
     G.sfx.page();
     if (name === 'rank') loadRank();
+    if (name === 'mail') loadMail();
     if (name === 'shop' || name === 'settings') loadHistory();
   }
   function close(fromPop) {
@@ -3532,8 +3798,13 @@ function createSheets(G) {
     body.innerHTML = fn(v());
     body.scrollTop = st;
   }
-  async function loadRank() { try { asyncData.rank = await G.api.rank(); } catch (e) { asyncData.rank = { error: true }; } render(true); }
+  async function loadRank() { try { asyncData.rank = await G.api.rank(P.mode || 'assist'); } catch (e) { asyncData.rank = { error: true }; } render(true); }
+  async function loadMail() { try { asyncData.mail = await G.api.mail(); G.mailUnread = asyncData.mail.unread; } catch { asyncData.mail = { error: true }; } render(true); }
   async function loadHistory() { try { asyncData.history = (await G.api.iapHistory()).orders; } catch { asyncData.history = []; } render(true); }
+  async function claimMails(ids) {
+    try { const r = await G.api.mailClaim(ids); G.store.adopt(r); if (r.claimed?.length) { G.sfx.fanfare(); G.haptic('success'); modal({ burst: true, title: `우편 ${r.claimed.length}통의 선물을 받았어요`, body: rewardChips(r.reward) }); } else toast('받을 선물이 없어요'); } catch (e) { toast(errMsg(e.code)); }
+    loadMail();
+  }
   const act = async (type, p, okMsg) => { const r = await G.act(type, p); if (r.ok && okMsg) toast(okMsg); render(true); return r; };
 
   // ---------------- 뭉게 ----------------
@@ -3545,6 +3816,7 @@ function createSheets(G) {
     return `
     <div class="hatchery"><div class="egg">${svgImg(seedSVG())}</div><div class="info"><b>구름씨 부화장</b><div class="muted">보유 <b class="num">${s.wallet.seed}</b>개 · 반짝 등급 보장까지 ${seedLeft}회${s.hatch.candy ? ' · <b>무지개 사탕 적용 중</b>' : ''}</div>
       <div class="btns"><button class="btn coral sm" data-a="hatch" ${s.wallet.seed < 1 ? 'disabled' : ''}>부화하기</button>
+      <button class="btn coral sm" data-a="hatch10" ${s.wallet.seed < D.HATCH_MULTI ? 'disabled' : ''}>${D.HATCH_MULTI}회 부화</button>
       <button class="btn paper sm" data-a="buySeed" data-n="1">${img('seed')}+1 ${costHtml('shard', D.SHARD_PRICES.seed, s.wallet.shard)}</button>
       <button class="btn paper sm" data-a="ad" data-pl="free_hatch" ${adLeft < 1 ? 'disabled' : ''}><span class="ad">AD</span>무료 씨앗 ${adLeft}/1</button></div>
       <button class="muted" data-a="rates" style="margin-top:6px;text-decoration:underline">확률 정보 보기</button></div></div>
@@ -3672,26 +3944,42 @@ function createSheets(G) {
     const now = G.store.now();
     const mLeft = s.ent.monthlyUntil - now;
     const adLeft = D.AD_PLACEMENTS.shop_shard.cap - (s.ads.c.shop_shard || 0);
-    const pack = (sku, cls, art, lines, extra = '') => `<div class="pack ${cls}"><div class="pic">${art}</div><div class="grow"><h4>${D.PRODUCTS[sku].name}</h4><ul>${lines.map((l) => `<li>${l}</li>`).join('')}</ul>${extra}</div></div>`;
+    const PR = (sku) => G.catalog?.[sku] || D.PRODUCTS[sku];
+    const pack = (sku, cls, art, lines, extra = '') => `<div class="pack ${cls}"><div class="pic">${art}</div><div class="grow"><h4>${PR(sku).name}${PR(sku).kind ? `<span class="kind-tag">${PR(sku).kind}</span>` : ''}</h4><ul>${lines.map((l) => `<li>${l}</li>`).join('')}</ul>${extra}</div></div>`;
+    const st = PR('starter').grant, mo = PR('monthly'), ms = PR('monthly_sub');
+    const seedEq = (n) => (n / D.SHARD_PRICES.seed).toFixed(n % D.SHARD_PRICES.seed ? 1 : 0);
+    const shardSkus = ['shard_60', 'shard_330', 'shard_700', 'shard_1500'];
+    const baseUnit = PR('shard_60').price / PR('shard_60').grant.shard;
+    const monthlyLines = (p) => [`구매 즉시 무지개 조각 ${p.grant.shard.toLocaleString()}개`, `${p.grant.monthlyDays}일간 매일 무지개 조각 ${p.daily}개 (접속해서 받기)`, `오프라인 보상 시간 +${D.OFFLINE.monthlyBonusH}시간`];
     return `
-      ${!s.ent.starter ? pack('starter', 'butter', svgImg(cloudSVG('haetsom', { stage: 2, hat: 'sprout' })), ['무지개 조각 300개', '구름씨 3개', '무지개 사탕 1개 (반짝 이상 보장)', '계정당 1회'], `<button class="btn coral" data-a="buy" data-sku="starter">${priceLabel('starter')}</button>`) : ''}
-      ${pack('monthly', 'sky', img('letter'), ['구매 즉시 무지개 조각 300개', '30일간 매일 무지개 조각 100개', '오프라인 보상 시간 +8시간'], mLeft > 0 ? `<div class="row"><span class="tag">남은 기간 ${dur(mLeft)}</span><button class="btn mint sm" data-a="monthlyClaim" ${s.ent.mDay === R.dayKey(now) ? 'disabled' : ''}>${s.ent.mDay === R.dayKey(now) ? '오늘 받음' : '오늘 100개 받기'}</button></div>` : `<button class="btn coral" data-a="buy" data-sku="monthly">${priceLabel('monthly')} / 30일</button>`)}
+      ${!s.ent.starter ? pack('starter', 'butter', svgImg(cloudSVG('haetsom', { stage: 2, hat: 'sprout' })), [`무지개 조각 ${st.shard.toLocaleString()}개`, `구름씨 ${st.seed}개`, '무지개 사탕 1개 (반짝 이상 보장)', '계정당 1회'], `<button class="btn coral" data-a="buy" data-sku="starter">${priceLabel('starter')}</button>`) : ''}
+      ${pack('monthly', 'sky', img('letter'), monthlyLines(mo), mLeft > 0 ? `<div class="row"><span class="tag">남은 기간 ${dur(mLeft)}</span><button class="btn mint sm" data-a="monthlyClaim" ${s.ent.mDay === R.dayKey(now) ? 'disabled' : ''}>${s.ent.mDay === R.dayKey(now) ? '오늘 받음' : `오늘 ${mo.daily}개 받기`}</button></div>` : `<div class="value-note">한 번 결제로 30일 이용, 자동으로 다시 결제되지 않아요</div><button class="btn coral" data-a="buy" data-sku="monthly">${priceLabel('monthly')} / 30일</button>`)}
+      ${mLeft > 0 ? '' : pack('monthly_sub', 'sky', img('letter'), monthlyLines(ms), `<div class="value-note">30일마다 자동 결제돼요. 토스 앱에서 언제든 해지할 수 있고, 해지해도 남은 기간은 유지돼요</div><button class="btn paper" data-a="buy" data-sku="monthly_sub">${priceLabel('monthly_sub')} / 30일마다</button>`)}
       ${pack('season', 'lilac', img('star'), [`${R.seasonOf(now).name} 프리미엄 보상 30단계`, `시즌 한정 모자 「${D.HATS[R.seasonOf(now).hat].name}」`, '구름씨 · 무지개 사탕 · 조각'], s.season.premium ? '<span class="tag">이번 시즌 보유 중</span>' : `<button class="btn coral" data-a="buy" data-sku="season">${priceLabel('season')}</button>`)}
       <div style="position:relative">${pack('lifetime', 'mint', img('trophy'), ['보상형 광고 시청 없이 즉시 보상', '전면 광고 제거', '탐험 열기구 +1대 (영구)'], s.ent.lifetime ? '' : `<button class="btn coral" data-a="buy" data-sku="lifetime">${priceLabel('lifetime')}</button>`)}${s.ent.lifetime ? '<span class="owned" style="position:absolute;right:-28px;top:14px">보유 중</span>' : ''}</div>
+      ${s.ent.first.hat_pack || s.hats.includes('goggles') ? '' : pack('hat_pack', 'butter', svgImg(cloudSVG('mongsil', { stage: 1, hat: 'flower' })), ['꽃·밀짚·털실·고글 모자 4종', '능력치 없는 꾸미기 전용'], `<button class="btn coral" data-a="buy" data-sku="hat_pack">${priceLabel('hat_pack')}</button>`)}
       <div class="sec">무지개 조각</div>
-      <div class="tags-grid">${['shard_60', 'shard_330', 'shard_700', 'shard_1500'].map((sku) => `<button class="pricetag" data-a="buy" data-sku="${sku}">${!s.ent.first[sku] ? '<span class="bonus">첫 구매 2배</span>' : ''}<div class="pic">${img('shard')}</div><b class="num">${D.PRODUCTS[sku].name}</b><span class="btn sm block">${priceLabel(sku)}</span></button>`).join('')}</div>
+      <div class="shard-packs">${shardSkus.map((sku) => {
+        const p = PR(sku); const base = p.grant.shard; const first = p.firstBonus && !s.ent.first[sku]; const bonus = first ? Math.round(base * D.FIRST_BONUS) : 0;
+        const unit = p.price / base; const more = Math.round((baseUnit / unit - 1) * 100);
+        return `<button class="spack ${p.popular ? 'popular' : ''}" data-a="buy" data-sku="${sku}">${p.popular ? '<span class="flag">가장 많이 골라요</span>' : ''}<div class="pic">${img('shard')}</div>
+          <b class="amt num">${(base + bonus).toLocaleString()}개</b>
+          ${first ? `<span class="bonus-line">기본 ${base.toLocaleString()} + 첫 구매 보너스 ${bonus.toLocaleString()}</span>` : `<span class="bonus-line" style="color:inherit">기본 ${base.toLocaleString()}개</span>`}
+          <span class="unit">구름씨 약 ${seedEq(base + bonus)}개 분량${more > 0 ? ` · 같은 금액당 조각 ${more}% 더` : ''}</span>
+          <span class="btn sm block">${priceLabel(sku)}</span></button>`;
+      }).join('')}</div>
+      <div class="value-note">첫 구매 보너스는 상품마다 처음 한 번, 기본 수량의 ${Math.round(D.FIRST_BONUS * 100)}%가 더해져요. 지급량은 결제 후 서버 기록 기준으로 지급돼요.</div>
       <div class="sec">조각으로 교환</div>
       <div class="tags-grid">
         <button class="pricetag" data-a="buySeed" data-n="1"><div class="pic">${svgImg(seedSVG())}</div><b>구름씨 1개</b><span class="btn sm block paper">${costHtml('shard', D.SHARD_PRICES.seed, s.wallet.shard)}</span></button>
         <button class="pricetag" data-a="buySeed" data-n="11"><span class="bonus">+1 덤</span><div class="pic">${svgImg(seedSVG())}</div><b>구름씨 11개</b><span class="btn sm block paper">${costHtml('shard', D.SHARD_PRICES.seed11, s.wallet.shard)}</span></button>
         <button class="pricetag" data-a="refill"><div class="pic">${img('wind')}</div><b>바람병 가득</b><span class="btn sm block paper">${costHtml('shard', D.RUSH.windRefillShard, s.wallet.shard)}</span></button>
-        <button class="pricetag" data-a="ad" data-pl="shop_shard" ${adLeft < 1 ? 'disabled' : ''}><div class="pic">${img('tv')}</div><b>광고 보고 조각 5개</b><span class="btn sm block mint">${adLeft}/3 남음</span></button>
+        <button class="pricetag" data-a="ad" data-pl="shop_shard" ${adLeft < 1 ? 'disabled' : ''}><div class="pic">${img('tv')}</div><b>${D.AD_PLACEMENTS.shop_shard.name}</b><span class="btn sm block mint">${adLeft}/${D.AD_PLACEMENTS.shop_shard.cap} 남음</span></button>
       </div>
       <div class="sec">결제 안내</div>
       <div class="row" style="flex-wrap:wrap"><button class="btn paper sm" data-a="restore">구매 복원</button><button class="btn paper sm" data-a="rates">확률 정보</button><button class="btn paper sm" data-a="policy">결제·환불 정책</button></div>
       <div class="sec">구매 내역</div>${historyHtml()}`;
-  }
-  function historyHtml() {
+  }  function historyHtml() {
     const h = asyncData.history;
     if (!h) return '<div class="muted">불러오는 중…</div>';
     if (!h.length) return '<div class="muted">아직 구매 내역이 없어요</div>';
@@ -3744,6 +4032,8 @@ function createSheets(G) {
     const now = G.store.now();
     const row = (name, prog, goal, claimed, a) => `<div class="mission ${claimed ? 'done' : ''}"><span class="ck">${claimed ? img('check') : ''}</span><span class="t grow">${name}</span><span class="num muted">${fmt(Math.min(prog, goal))}/${fmt(goal)}</span>${claimed ? '' : `<button class="btn sm ${prog >= goal ? 'mint' : 'paper'}" ${prog >= goal ? '' : 'disabled'} ${a}>받기</button>`}</div>`;
     let inner = '';
+    const ready = (() => { const m = s.missions; let n = m.keys.filter((k) => !m.claimed.includes(k) && (m.prog[k] || 0) >= D.DAILY_POOL[k].goal).length + (!m.all && m.claimed.length + 0 >= D.DAILY_COUNT ? 1 : 0); n += Object.keys(D.WEEKLY).filter((k) => !m.wclaimed.includes(k) && (m.wprog[k] || 0) >= D.WEEKLY[k].goal).length; n += D.ACHIEVEMENTS.filter((a) => !s.ach.includes(a.id) && R.statValue(s, a.stat) >= a.goal).length; return n; })();
+    const allBar = `<div class="claim-all"><span class="grow">받을 수 있는 보상 <b class="num">${ready}</b>개<br><small class="muted">오늘·이번 주·업적·시즌 보상을 한 번에 받아요</small></span><button class="btn mint sm" data-a="claimAll" ${ready ? '' : 'disabled'}>모두 받기</button></div>`;
     if (tab === 'daily') {
       const m = s.missions;
       inner = `<div class="muted" style="margin-bottom:8px">초기화까지 ${dur(R.nextDayAt(now) - now)} · 하나당 ${img('shard')}${D.DAILY_REWARD.shard} + 시즌 ${D.DAILY_REWARD.sxp}</div>
@@ -3760,7 +4050,7 @@ function createSheets(G) {
         <div class="cal">${D.LOGIN_CALENDAR.map((r, i) => { const got = claimed ? i < (idx === 0 ? 7 : idx) : i < idx; const isToday = !claimed && i === idx; const ic = r.shard ? 'shard' : r.seed ? 'seed' : r.wind ? 'wind' : 'drop'; return `<div class="${got ? 'got' : ''} ${isToday ? 'today' : ''}">${i + 1}일${img(ic)}<span class="num">${r.shard || r.seed || r.wind || fmt(r.drop)}</span></div>`; }).join('')}</div>
         <button class="btn coral block" style="margin-top:12px" data-a="login" ${claimed ? 'disabled' : ''}>${claimed ? '내일 또 만나요' : '오늘 출석 보상 받기'}</button>`;
     }
-    return tabs + inner;
+    return tabs + (tab === 'login' ? '' : allBar) + inner;
   }
 
   // ---------------- 시즌 ----------------
@@ -3790,8 +4080,8 @@ function createSheets(G) {
     const head = `<div class="row" style="margin-bottom:8px"><input class="field grow" maxlength="10" value="${esc(nick)}" placeholder="닉네임 (2~10자)" data-nick><button class="btn sm" data-a="nick">변경</button></div>`;
     if (!d) return head + '<div class="muted">불러오는 중…</div>';
     if (d.error) return head + '<div class="muted">랭킹을 불러오지 못했어요. <button class="btn sm paper" data-a="rankReload">다시 시도</button></div>';
-    const me = d.me;
-    return `${head}<div class="pack butter" style="display:block"><h4>이번 주 내 기록</h4>${me ? `<div class="row"><span class="grow num" style="font-size:26px">${me.score.toLocaleString()}점</span><span class="tag" style="font-size:16px">${me.rank ? `${me.rank}위` : '검토 중'}</span></div>` : '<div class="muted" style="color:var(--ink)">소나기 배달을 하면 기록이 올라가요</div>'}
+    const me = d.me; const mode = P.mode || 'assist';
+    return `${head}<div class="tabs">${[['assist', '기본 모드'], ['expert', '숙련자 모드']].map(([k, n]) => `<button class="${mode === k ? 'on' : ''}" data-a="rankMode" data-m="${k}">${n}</button>`).join('')}</div><div class="pack butter" style="display:block"><h4>이번 주 내 기록</h4>${me ? `<div class="row"><span class="grow num" style="font-size:26px">${me.score.toLocaleString()}점</span><span class="tag" style="font-size:16px">${me.rank ? `${me.rank}위` : '검토 중'}</span></div>` : '<div class="muted" style="color:var(--ink)">소나기 배달을 하면 기록이 올라가요</div>'}
       ${G.platform.isToss ? '<button class="btn paper sm" style="margin-top:8px" data-a="tossRank">토스 게임 리더보드 보기</button>' : ''}</div>
       ${d.local ? '<div class="muted">미리보기 모드에서는 내 기록만 보여요. 서버 연결 시 전체 랭킹이 표시돼요.</div>' : ''}
       <div>${d.top.map((r) => `<div class="rank ${r.me ? 'me' : ''}"><span class="no ${r.rank === 1 ? 'g' : r.rank === 2 ? 's' : r.rank === 3 ? 'b' : ''}">${r.rank}</span><span class="grow">${esc(r.nickname)}</span><span class="num">${r.score.toLocaleString()}</span></div>`).join('') || '<div class="muted" style="padding:10px">아직 이번 주 기록이 없어요. 첫 번째 주인공이 되어 보세요!</div>'}</div>
@@ -3819,16 +4109,31 @@ function createSheets(G) {
   // ---------------- 설정 ----------------
   function settingsView(s) {
     const pr = G.prefs;
-    const tog = (k, n) => `<div class="li"><span>${n}</span><button class="toggle ${pr[k] ? 'on' : ''}" data-a="pref" data-k="${k}" aria-label="${n}"></button></div>`;
+    const tog = (k, n) => `<div class="li"><span>${n}</span><button class="toggle ${pr[k] ? 'on' : ''}" role="switch" aria-checked="${pr[k] ? 'true' : 'false'}" data-a="pref" data-k="${k}" aria-label="${n}"></button></div>`;
     return `<div class="list">${tog('sfx', '효과음')}${tog('bgm', '배경 음악')}${tog('haptic', '진동')}
       <div class="li"><span>알림 받기<br><small class="muted">탐험 도착 · 바람병 충전 알림 (토스 알림)</small></span><button class="btn sm paper" data-a="push">설정</button></div></div>
+      <div class="sec">쿠폰</div><div class="list"><div class="li"><span>쿠폰 입력 · 우편함</span><button class="btn sm paper" data-a="openMail" data-t="coupon">열기</button></div></div>
       <div class="sec">계정</div><div class="list"><div class="li"><span>회원 번호</span><span class="num">${G.user?.id ?? '-'}</span></div><div class="li"><span>로그인</span><span>토스 게임 계정</span></div><div class="li"><span>서버</span><span>${G.api.kind === 'local' ? '미리보기(로컬)' : '연결됨'}</span></div></div>
       <div class="sec">결제</div><div class="row" style="flex-wrap:wrap"><button class="btn paper sm" data-a="restore">구매 복원</button><button class="btn paper sm" data-a="rates">확률 정보</button><button class="btn paper sm" data-a="policy">결제·환불 정책</button></div>
       <div style="margin-top:8px">${historyHtml()}</div>
       <div class="sec">정보</div><div class="list"><div class="li"><span>운영 정책 · 고객 문의</span><button class="btn sm paper" data-a="support">보기</button></div><div class="li"><span>버전</span><span>1.0.0 (${G.platform.env})</span></div></div>`;
   }
 
-  const VIEWS = { clouds: cloudsView, workshop: workshopView, explore: exploreView, shop: shopView, village: villageView, orders: ordersView, missions: missionsView, season: seasonView, rank: rankView, dex: dexView, stats: statsView, settings: settingsView };
+  // ---------------- 구름 우체국 (우편 · 공지 · 쿠폰) ----------------
+  const KIND_NAME = { notice: '운영 공지', event: '이벤트', maintenance: '점검 보상', welcome: '환영 선물', season: '시즌 보상', personal: '개별 지급', system: '안내' };
+  function mailView() {
+    const tab = P.tab || 'mail'; const d = asyncData.mail;
+    const tabs = `<div class="tabs">${[['mail', '우편함'], ['notice', '공지'], ['coupon', '쿠폰']].map(([k, n]) => `<button class="${tab === k ? 'on' : ''}" data-a="mailTab" data-t="${k}">${n}</button>`).join('')}</div>`;
+    const headHtml = `<div class="post-head"><div class="box">${img('letter')}</div><div class="grow"><b>구름 우체국</b><div class="muted">받지 않은 선물은 기한이 지나면 사라져요</div></div></div>`;
+    if (tab === 'coupon') return headHtml + tabs + `<div class="muted" style="margin-bottom:8px">운영자가 공개한 쿠폰 번호를 입력해 주세요. 보상은 바로 지급돼요.</div><div class="coupon-box"><input class="field" maxlength="24" placeholder="쿠폰 번호" data-coupon autocomplete="off" autocapitalize="characters"><button class="btn coral sm" data-a="coupon">사용</button></div>${asyncData.couponMsg ? `<p class="muted">${asyncData.couponMsg}</p>` : ''}`;
+    if (!d) return headHtml + tabs + '<div class="muted">우편을 불러오는 중…</div>';
+    if (d.error) return headHtml + tabs + '<div class="muted">우편을 불러오지 못했어요. <button class="btn sm paper" data-a="mailReload">다시 시도</button></div>';
+    if (tab === 'notice') return headHtml + tabs + (d.notices.length ? d.notices.map((n) => `<div class="notice-item"><b>${n.pinned ? '[중요] ' : ''}${esc(n.title)}</b><div class="desc" style="color:var(--ink);white-space:pre-wrap">${esc(n.body)}</div></div>`).join('') : '<div class="muted">새 공지가 없어요</div>');
+    const now = G.store.now(); const can = d.mails.filter((m) => m.rewards && !m.claimed);
+    return headHtml + tabs + `<div class="row" style="margin-bottom:8px"><span class="grow muted">받을 선물 ${can.length}개</span><button class="btn mint sm" data-a="mailAll" ${can.length ? '' : 'disabled'}>모두 받기</button></div>` +
+      (d.mails.length ? d.mails.map((m) => `<div class="mail-item ${m.claimed ? 'claimed' : ''}">${!m.read && !m.claimed ? '<span class="unread"></span>' : ''}<div class="stamp-ic">${img(m.rewards ? 'shard' : 'letter')}</div><div class="grow"><h5>${esc(m.title)}</h5><div class="meta">${KIND_NAME[m.kind] || '안내'} · ${Math.max(0, Math.ceil((m.expiresAt - now) / 86400000))}일 남음</div><div class="desc" style="color:var(--ink);white-space:pre-wrap;margin:4px 0">${esc(m.body)}</div>${m.rewards ? rewardChips(m.rewards) : ''}</div>${m.rewards ? (m.claimed ? '<span class="tag">받음</span>' : `<button class="btn coral sm" data-a="mailClaim" data-id="${m.id}">받기</button>`) : ''}</div>`).join('') : '<div class="muted" style="padding:10px">우편함이 비어 있어요</div>');
+  }
+  const VIEWS = { mail: mailView, clouds: cloudsView, workshop: workshopView, explore: exploreView, shop: shopView, village: villageView, orders: ordersView, missions: missionsView, season: seasonView, rank: rankView, dex: dexView, stats: statsView, settings: settingsView };
 
   // ---------------- 이벤트 ----------------
   const H = {
@@ -3836,6 +4141,15 @@ function createSheets(G) {
     back: () => { P = {}; open(cur); },
     cloud: (d) => open('clouds', { id: d.id, back: true }),
     hatch: () => G.flows.hatch(),
+    hatch10: () => G.flows.hatch10(),
+    claimAll: () => G.flows.claimAll('all').then(() => render(true)),
+    rankMode: (d) => { P.mode = d.m; asyncData.rank = null; render(true); loadRank(); },
+    openMail: (d) => open('mail', { tab: d.t }),
+    mailTab: (d) => { P.tab = d.t; render(true); },
+    mailReload: () => loadMail(),
+    mailClaim: (d) => claimMails([+d.id]),
+    mailAll: () => claimMails(null),
+    coupon: async () => { const code = body.querySelector('[data-coupon]').value.trim(); if (!code) return; try { const r = await G.api.couponRedeem(code); G.store.adopt(r); G.sfx.fanfare(); asyncData.couponMsg = ''; modal({ burst: true, title: `쿠폰 사용 완료`, body: `<p>${esc(r.name || '')}</p>${rewardChips(r.reward)}` }); } catch (e) { asyncData.couponMsg = errMsg(e.code); G.sfx.error(); } render(true); },
     buySeed: (d) => act('buySeed', { n: +d.n }, `구름씨 ${d.n}개를 샀어요`),
     rates: () => G.flows.rates(),
     policy: () => G.flows.policy(),
@@ -4018,6 +4332,7 @@ function buildHud() {
     <button class="iconbtn" data-open="season">${img('star')}<span>시즌</span><b class="badge hidden" data-b="season"></b></button>
   </div>
   <div class="side r">
+    <button class="iconbtn" data-open="mail">${img('letter')}<span>우편</span><b class="badge hidden" data-b="mail"></b></button>
     <button class="iconbtn" data-open="rank">${img('trophy')}<span>랭킹</span></button>
     <button class="iconbtn" data-open="dex">${img('book')}<span>도감</span></button>
     <button class="iconbtn" data-open="stats">${img('chart')}<span>통계</span></button>
@@ -4075,6 +4390,7 @@ function hudTick(force) {
   badge('missions', mCount);
   const tier = R.seasonTier(s); let sc = 0; for (let t = 1; t <= tier; t++) { if (!s.season.free.includes(t)) sc++; if (s.season.premium && !s.season.prem.includes(t)) sc++; }
   badge('season', sc);
+  badge('mail', G.mailUnread || 0);
   badge('clouds', (s.wallet.seed > 0 ? 1 : 0) + Object.entries(s.clouds).filter(([id, c]) => { const q = D.EVOLVE_REQ[c.stage]; return q && c.lv >= q.lv && Object.entries(q.mats).every(([k, n]) => s.mats[k] >= n); }).length);
   badge('workshop', s.craft.filter((c) => c && c.endAt <= now).length);
   badge('explore', s.exp.filter((e) => e && e.endAt <= now).length);
@@ -4123,7 +4439,13 @@ function story() {
 const flows = G.flows;
 let runCount = Number(sessionStorage.getItem('mungge.runs') || 0);
 
+async function refreshMeta() {
+  try { const c = await G.api.catalog(); G.catalog = Object.fromEntries(c.products.map((p) => [p.sku, { ...D.PRODUCTS[p.sku], ...p }])); } catch { /* 코드 카탈로그 사용 */ }
+  try { G.mailUnread = (await G.api.mail()).unread; } catch { /* 다음 주기 */ }
+}
+setInterval(() => { if (G.api && !document.hidden) G.api.mail?.().then((m) => (G.mailUnread = m.unread)).catch(() => {}); }, 300000);
 function afterBoot(res) {
+  refreshMeta();
   checkOffline();
   recoverPurchases();
   if (res.user?.isNew) gameProfile().then((p) => { if (p?.nickname) G.api.profile({ nickname: p.nickname.slice(0, 10) }).catch(() => {}); });
@@ -4196,6 +4518,27 @@ flows.hatch = async () => {
   G.sheets.render(true);
 };
 
+flows.hatch10 = async () => {
+  const s = G.store.view();
+  if (s.wallet.seed < D.HATCH_MULTI) { toast(`구름씨가 ${D.HATCH_MULTI}개 필요해요`); return; }
+  let res;
+  await modal({ body: `<div class="egg-stage shake"><div class="egg">${svgImg(seedSVG())}</div></div><p class="muted">구름씨 ${D.HATCH_MULTI}개가 한꺼번에 꿈틀거려요…</p>`, buttons: [], dismiss: false,
+    onMount: async (w, close) => { G.sfx.crack(); G.haptic('wiggle'); const [r] = await Promise.all([G.store.act('hatch', { n: D.HATCH_MULTI }), new Promise((ok) => setTimeout(ok, 1500))]); res = r; close(); } });
+  if (!res?.ok) { toast(errMsg(res?.code || 'NETWORK')); return; }
+  const list = res.r.results || [];
+  const best = list.some((x) => x.rarity === 'legendary' || x.rarity === 'epic');
+  G.sfx[best ? 'fanfare' : 'level'](); G.haptic(best ? 'confetti' : 'success');
+  await modal({ burst: best, title: `${D.HATCH_MULTI}회 부화 결과`,
+    body: `<div class="hatch-grid">${list.map((x) => `<div class="hg r-${x.rarity}">${x.isNew ? '<span class="new">NEW</span>' : ''}${svgImg(cloudSVG(x.id, { stage: 1, mood: 'joy' }))}<span>${D.SPECIES[x.id].names[0]}</span><i class="rarity r-${x.rarity}">${D.RARITY[x.rarity].name}</i></div>`).join('')}</div><p class="muted">새 뭉게 ${list.filter((x) => x.isNew).length}마리 · 중복은 별 조각으로 쌓여요</p>` });
+  G.sheets.render(true);
+};
+flows.claimAll = async (scope = 'all') => {
+  const r = await G.act('claimAll', { scope }, true);
+  if (!r.ok) { toast(r.code === 'NOTHING' ? '지금 받을 보상이 없어요' : errMsg(r.code)); return; }
+  G.sfx.fanfare(); G.haptic('success');
+  await modal({ burst: true, title: `보상 ${r.r.count}개를 받았어요`, body: rewardChips(r.r.reward) });
+  G.sheets.render(true);
+};
 flows.evolve = async (id) => {
   const r = await G.act('evolve', { id });
   if (!r.ok) return;
@@ -4226,7 +4569,7 @@ flows.deliver = async (i) => {
   for (const lv of r.r.villageUps || []) {
     G.sfx.fanfare();
     const unlocks = [...Object.entries(D.BUILDINGS).filter(([, b]) => b.unlock === lv).map(([, b]) => b.name), ...Object.values(D.REGIONS).filter((x) => x.unlock === lv).map((x) => x.name), ...Object.entries(D.RECIPES).filter(([, x]) => x.unlock === lv).map(([k]) => D.ITEMS[k].name)];
-    await modal({ burst: true, title: `보리울 Lv ${lv}!`, art: `<div class="art">${svgImg(villagerSVG('duckling'))}</div>`, body: `<p>마을이 조금 더 활기차졌어요</p>${rewardChips({ shard: 10 })}${unlocks.length ? `<p><b>새로 열림:</b> ${unlocks.join(', ')}</p>` : ''}` });
+    await modal({ burst: true, title: `보리울 Lv ${lv}!`, art: `<div class="art">${svgImg(villagerSVG('duckling'))}</div>`, body: `<p>마을이 조금 더 활기차졌어요</p>${rewardChips({ shard: 10 * D.SHARD_UNIT })}${unlocks.length ? `<p><b>새로 열림:</b> ${unlocks.join(', ')}</p>` : ''}` });
   }
 };
 flows.prestige = async () => {
@@ -4256,9 +4599,10 @@ flows.buy = async (sku) => {
   const P = D.PRODUCTS[sku];
   suspendAudio('iap');
   try {
-    await purchase(sku, async (orderId, subscriptionId) => { const res = await G.api.iapGrant(orderId, sku, subscriptionId); G.store.adopt(res); return res.ok; }, (k) => G.api.mockOrder(k));
+    let granted = null;
+    await purchase(sku, async (orderId, subscriptionId) => { const res = await G.api.iapGrant(orderId, sku, subscriptionId); G.store.adopt(res); granted = res.granted || null; return res.ok; }, (k) => G.api.mockOrder(k));
     G.sfx.fanfare(); G.haptic('confetti');
-    await modal({ burst: true, title: '구매 완료!', body: `<p>${esc(P.name)}</p>${rewardChips(P.grant.shard ? { shard: P.grant.shard * (P.firstBonus && !s.ent.first[sku] ? 2 : 1), seed: P.grant.seed, item: P.grant.item } : {})}<p class="muted">고마워요! 뭉게들이 신났어요.</p>` });
+    await modal({ burst: true, title: '구매 완료!', body: `<p>${esc(P.name)}</p>${granted ? rewardChips({ shard: granted.shard, seed: granted.seed, item: granted.item }) : ''}${granted?.bonus ? `<p class="muted">기본 ${granted.base.toLocaleString()}개 + 첫 구매 보너스 ${granted.bonus.toLocaleString()}개</p>` : ''}<p class="muted">고마워요! 뭉게들이 신났어요.</p>` });
   } catch (e) {
     if (e.code !== 'USER_CANCELED') { toast(e.code === 'PAYMENT_PENDING' ? '결제 확인 중이에요. 잠시 후 자동으로 지급돼요' : `결제를 완료하지 못했어요 (${e.code || '오류'})`); G.api.log({ level: 'warn', message: `iap_fail ${sku} ${e.code}` }); }
   } finally { resumeAudio('iap'); G.sheets.render(true); }
@@ -4279,11 +4623,18 @@ flows.rush = async () => {
     else if (v === 'shard') await G.act('refillWind', {});
     return;
   }
-  const r = await G.act('rushStart', {});
+  const last = (await storage.get('mungge.rushMode')) || 'assist';
+  const mode = await modal({ title: '소나기 배달', art: `<div class="art" style="height:96px">${img('wind')}</div>`,
+    body: `<div class="mode-pick">${[['assist', '기본 모드', `한 손가락으로 길만 옮기면 날씨는 자동! ${D.RUSH_MODES.assist.duration}초`], ['expert', '숙련자 모드', `날씨 버튼을 직접 골라요. ${D.RUSH_MODES.expert.duration}초 · 점수 ×${D.RUSH_MODES.expert.mult}`]].map(([k, n, d]) => `<button class="mode-card ${k === last ? 'on' : ''}" data-mode="${k}"><b>${n}</b>${k === 'assist' ? '<span class="tag">추천</span>' : ''}<small>${d}</small></button>`).join('')}</div><p class="muted">랭킹은 모드별로 따로 집계돼요 · 바람병 1개 사용 (남은 ${s.wind.n}개)</p>`,
+    buttons: [{ label: '취소', cls: 'paper', value: null }],
+    onMount: (w, close) => w.querySelectorAll('[data-mode]').forEach((b) => (b.onclick = () => close(b.dataset.mode))) });
+  if (!mode) return;
+  storage.set('mungge.rushMode', mode);
+  const r = await G.act('rushStart', { mode });
   if (!r.ok) return;
   G.sfx.whoosh();
-  const run = r.r; const first = !(await storage.get('mungge.rushTip'));
-  if (first) storage.set('mungge.rushTip', '1');
+  const run = r.r; const tipKey = 'mungge.rushTip.' + mode; const first = !(await storage.get(tipKey));
+  if (first) storage.set(tipKey, '1');
   G.island.stop();
   G.rush = new Rush($('#app'), {
     run, cloud: s.clouds[run.lead], sfx: G.sfx, haptic: G.haptic, firstTime: first,

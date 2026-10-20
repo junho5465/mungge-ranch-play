@@ -1088,6 +1088,65 @@ button.tag { cursor: pointer; font: inherit; } button.tag small { font-size: 10p
 .reco img { width: 20px; height: 20px; } .reco b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; }
 .reco:active { transform: translateX(-50%) translateY(2px); box-shadow: 0 1px 0 var(--ink); }
 .coach .bubble small { display: inline-block; font-size: 11px; background: var(--ink); color: #fff; border-radius: 8px; padding: 0 6px; margin-right: 4px; }
+
+/* ===== 하늘탑 ===== */
+.tower canvas { touch-action: none; }
+.t-hud { position: absolute; left: 0; right: 0; top: 0; padding: calc(8px + env(safe-area-inset-top)) 10px 0; pointer-events: none; z-index: 3; }
+.t-top { display: flex; align-items: center; gap: 8px; }
+.t-floor { background: var(--white); border: 2px solid var(--ink); border-radius: 12px; padding: 2px 10px; font-size: 15px; }
+.t-hp { display: flex; gap: 3px; } .t-hp i { width: 18px; height: 16px; background: #E8DCC8; border: 2px solid var(--ink); border-radius: 50% 50% 4px 4px / 60% 60% 4px 4px; transform: rotate(0deg); } .t-hp i.on { background: #FF8F9E; }
+.t-score { margin-left: auto; font-size: 22px; color: #fff; -webkit-text-stroke: 1px var(--ink); text-shadow: 0 2px 0 var(--ink); }
+.t-pause { pointer-events: auto; width: 40px; height: 40px; }
+.t-meter { position: relative; margin-top: 6px; height: 16px; border: 2px solid var(--ink); border-radius: 9px; background: rgba(255,255,255,.85); overflow: hidden; }
+.t-meter i { position: absolute; inset: 0; background: #FFC54D; transform-origin: left; transform: scaleX(0); transition: transform .25s ease-out; }
+.t-meter.ok i { background: #4FB892; } .t-meter b { position: absolute; top: -2px; bottom: -2px; width: 3px; background: var(--ink); }
+.t-meter span { position: absolute; left: 8px; top: -1px; font-size: 11px; }
+.t-sub { display: flex; gap: 8px; align-items: center; margin-top: 4px; font-size: 13px; color: #fff; -webkit-text-stroke: .5px var(--ink); }
+.t-combo { font-size: 16px; } .t-time { margin-left: auto; }
+.t-speed { pointer-events: auto; background: var(--white); color: var(--ink); -webkit-text-stroke: 0; border: 2px solid var(--ink); border-radius: 10px; padding: 0 8px; font-size: 13px; }
+.t-warn { position: absolute; top: 96px; left: 50%; transform: translateX(-50%); z-index: 3; background: #3A2D4D; color: #fff; border-radius: 12px; padding: 6px 12px; font-size: 14px; white-space: nowrap; animation: warnPulse .6s ease-in-out infinite alternate; }
+@keyframes warnPulse { to { transform: translateX(-50%) scale(1.05); } }
+.t-skills { position: absolute; left: 0; right: 0; bottom: calc(14px + env(safe-area-inset-bottom)); display: flex; justify-content: center; gap: 14px; z-index: 3; }
+.t-skill { position: relative; width: 84px; height: 96px; border: 0; background: none; display: flex; flex-direction: column; align-items: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.t-skill svg { position: absolute; top: 0; width: 76px; height: 76px; transform: rotate(-90deg); }
+.t-skill svg .bg { fill: var(--white); stroke: var(--ink); stroke-width: 3; } .t-skill svg .cd { fill: none; stroke: #4FB892; stroke-width: 6; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .1s linear; }
+.t-skill img { position: relative; width: 40px; height: 40px; margin-top: 18px; opacity: .45; transition: opacity .1s, transform .1s; }
+.t-skill b { position: absolute; bottom: 0; font-weight: 400; font-size: 13px; background: var(--white); border: 2px solid var(--ink); border-radius: 9px; padding: 0 6px; }
+.t-skill.ready img { opacity: 1; } .t-skill.ready svg .bg { fill: #FFFBEA; }
+.t-skill.active svg .bg { fill: #97E0C3; } .t-skill:active img { transform: scale(.88); }
+.t-skill.urge { animation: urge .5s ease-in-out infinite alternate; } @keyframes urge { to { transform: translateY(-6px); } }
+.t-skill.nope { animation: nope .2s; } @keyframes nope { 50% { transform: translateX(-5px); } }
+.t-tap { position: absolute; top: 120px; bottom: 200px; width: 50%; z-index: 2; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; touch-action: manipulation; }
+.t-tap.l { left: 0; } .t-tap.r { right: 0; } .t-tap span { font-size: 22px; color: rgba(58,45,77,.35); }
+.t-tap:active { background: rgba(255,255,255,.12); }
+.t-wbtns { position: absolute; left: 0; right: 0; bottom: calc(118px + env(safe-area-inset-bottom)); display: flex; justify-content: center; gap: 8px; z-index: 3; }
+.t-wbtns .wbtn { width: 52px; height: 52px; }
+.t-stars { font-size: 30px; color: #FFC54D; -webkit-text-stroke: 1px var(--ink); letter-spacing: 4px; }
+.contrib .cb { display: flex; align-items: center; gap: 6px; margin: 4px 0; font-size: 12px; text-align: left; } .contrib .cb img { width: 30px; height: 30px; } .contrib .cb > span { width: 84px; }
+.unlock { display: flex; align-items: center; gap: 6px; justify-content: center; margin: 6px 0; padding: 6px 10px; border: 2px dashed var(--ink); border-radius: 12px; background: #FFFBEA; font-size: 13px; } .unlock img { width: 32px; height: 32px; }
+.next-goal { margin-top: 8px; padding: 6px 10px; border-radius: 10px; background: #EAF6FF; font-size: 13px; }
+.advice { text-align: left; } .advice > div { display: flex; gap: 6px; align-items: flex-start; padding: 6px 8px; margin: 4px 0; border-radius: 10px; background: #FFF4E0; font-size: 13px; } .advice img { width: 20px; height: 20px; flex: none; }
+.zone-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 14px; margin-bottom: 8px; } .zone-banner b { font-size: 18px; font-weight: 400; } .zone-banner small { width: 100%; order: 3; } .zone-banner .tag { margin-left: auto; }
+.ladder { display: flex; gap: 4px; overflow-x: auto; padding: 4px 0 8px; } .ladder .lf { flex: none; width: 58px; padding: 4px 2px; border: 2px solid var(--ink); border-radius: 10px; background: var(--white); text-align: center; font-size: 10px; display: flex; flex-direction: column; }
+.ladder .lf b { font-size: 16px; } .ladder .lf.cur { background: #FFE07A; } .ladder .lf.boss { background: #FFD6D0; } .ladder .lf.ev { background: #E9FFF5; }
+.team-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tslot { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border: 2px solid var(--ink); border-radius: 14px; background: var(--white); box-shadow: 0 3px 0 var(--ink); font-size: 12px; min-height: 120px; justify-content: center; }
+.tslot img { width: 64px; height: 64px; } .tslot.empty { border-style: dashed; box-shadow: none; } .tslot.locked { opacity: .5; box-shadow: none; } .tslot .lead { position: absolute; top: -9px; background: var(--coral); color: #fff; border: 2px solid var(--ink); border-radius: 8px; font-size: 11px; padding: 0 6px; }
+.syn { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; } .syn span { font-size: 11px; padding: 2px 8px; border: 1.5px solid #CFC2AA; border-radius: 10px; color: #8A7C9C; } .syn span.on { border-color: var(--ink); background: #E9FFF5; color: var(--ink); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; } .seg button { padding: 8px; border: 2px solid var(--ink); border-radius: 12px; background: var(--white); text-align: left; } .seg button.on { background: #E9FFF5; box-shadow: inset 0 0 0 2px #4FB892; } .seg b { font-weight: 400; display: block; } .seg small { font-size: 11px; color: #6B5D7E; } .seg.two button { text-align: center; }
+.btn.big { font-size: 20px; padding: 14px; }
+.pick-list .pick { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px; margin-bottom: 6px; border: 2px solid var(--ink); border-radius: 12px; background: var(--white); text-align: left; font-size: 13px; } .pick-list .pick img { width: 48px; height: 48px; } .pick-list .pick.on { background: #FFFBEA; }
+.pick .up { color: #2E8A69; } .pick .down { color: #C0392B; }
+.role { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 8px; border: 1.5px solid var(--ink); background: #F3F7FF; }
+.ability { margin: 6px 0 12px; padding: 10px; border: 2px solid var(--ink); border-radius: 14px; background: #F7FBFF; text-align: left; } .ability .li2 { font-size: 12.5px; margin: 4px 0; display: flex; gap: 4px; align-items: flex-start; flex-wrap: wrap; } .ability .li2 img { width: 18px; height: 18px; }
+.hinfo { text-align: left; font-size: 13px; margin-top: 8px; } .hinfo > div { padding: 5px 8px; margin: 3px 0; border-radius: 10px; background: #FBF6EC; }
+.goal-card { position: absolute; left: 50%; transform: translateX(-50%); top: 118px; z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 4px; width: min(78%, 340px); pointer-events: none; }
+.goal-card > button { pointer-events: auto; }
+.gc-tower { display: flex; flex-direction: column; align-items: center; width: 100%; padding: 5px 10px; border: 2px solid var(--ink); border-radius: 14px; background: rgba(255,255,255,.93); box-shadow: 0 3px 0 var(--ink); font-size: 12.5px; }
+.gc-tower img { width: 18px; height: 18px; vertical-align: -3px; } .gc-tower b { font-weight: 400; } .gc-next { font-size: 11.5px; color: #6B5D7E; }
+.goal-card .reco { position: static; transform: none; max-width: 100%; }
+.goal-card .reco:active { transform: translateY(2px); }
+.linkish { background: none; border: 0; text-decoration: underline; color: inherit; font: inherit; padding: 0; }
 </style>
   <script>
     // 런타임 설정. 운영 빌드에서는 Vite 가 import.meta.env 로 주입 (client/src/config 참고)
@@ -1271,7 +1330,7 @@ const RUSH = {
 
 // 일일 / 주간 미션 풀
 const DAILY_POOL = {
-  rush: { name: '소나기 배달 2회', goal: 2 },
+  rush: { name: '하늘탑·소나기 배달 2회', goal: 2 },
   pet: { name: '뭉게 쓰다듬기 15회', goal: 15 },
   order: { name: '주민 의뢰 2건 해결', goal: 2 },
   expedition: { name: '탐험 1회 보내기', goal: 1 },
@@ -1428,22 +1487,315 @@ const REWARD_LIMITS = { drop: 1e12, shard: 100000, seed: 1000, wind: 100, mat: 1
 // 튜토리얼 (실제 행동으로 진행)
 const TUTORIAL = [
   { key: 'pet', text: '뭉게를 톡 쓰다듬어 보세요', stat: 'pets' },
-  { key: 'hatch', text: '구름씨를 부화해 새 뭉게를 만나요', stat: 'hatches' },
-  { key: 'levelup', text: '뭉게 앨범에서 몽실이를 레벨업해요', stat: 'levelups' },
-  { key: 'order', text: '모은 비로 주민 의뢰를 해결해요', stat: 'orders' },
+  { key: 'hatch', text: '구름씨를 부화해 새 친구를 만나요. 능력도 확인해요', stat: 'hatches' },
+  { key: 'team', text: '하늘탑에서 새 뭉게를 팀에 편성해요', stat: 'teamSize', goal: 2 },
+  { key: 'tower1', text: '하늘탑 1층에 도전해요!', stat: 'towerBest', goal: 1 },
+  { key: 'levelup', text: '뭉게를 레벨업하면 전투력이 올라요', stat: 'levelups' },
+  { key: 'tower3', text: '강해진 팀으로 3층까지 올라가요', stat: 'towerBest', goal: 3 },
   { key: 'explore', text: '탐험을 보내 진화 재료를 모아요', stat: 'expeditions' },
-  { key: 'rush', text: '소나기 배달로 직접 날씨를 내려요!', stat: 'runs' },
-  { key: 'evolve', text: '재료를 모아 뭉게를 진화시켜요', stat: 'evolves' },
 ];
 // 기능 해금 (초보자에게 메뉴를 한꺼번에 보여주지 않음)
 const FEATURE_UNLOCK = { workshop: { tut: 6, label: '탐험을 보낸 뒤 열려요' }, season: { tut: 7, label: '소나기 배달 후 열려요' }, rank: { tut: 7, label: '소나기 배달 후 열려요' }, breed: { village: 6, label: '마을 Lv 6에 열려요' } };
 
 Object.assign(__e,{SCHEMA_VERSION,SHARD_UNIT,ECON_VERSION,ELEMENTS,ELEMENT_KEYS,RARITY,RARITY_ORDER,HATCH_RATES,HATCH_PITY_RARE,HATCH_PITY_LEGEND,HATCH_MULTI,SPECIES,SPECIES_KEYS,STAGE_MULT,STAGE_MAX_LV,STAGE_COST,LEVEL_GROWTH,COST_GROWTH,EVOLVE_REQ,STAR_REQ,STAR_BONUS,MATERIAL_USE,MATERIALS,ITEMS,RECIPES,REGIONS,LETTERS,BUILDINGS,VILLAGE_MAX,villageXpNeed,VILLAGERS,VILLAGER_KEYS,RUSH_MODES,RUSH,DAILY_POOL,DAILY_COUNT,DAILY_REWARD,DAILY_ALL_REWARD,WEEKLY,WEEKLY_REWARD,LOGIN_CALENDAR,ACHIEVEMENTS,PRESTIGE,TALENTS,talentCost,AD_PLACEMENTS,AD_MIN_WATCH_MS,AD_TICKET_TTL_MS,SHARD_PRICES,HATS,SEASON_THEMES,SEASON_TIERS,SEASON_XP_PER_TIER,SEASON_RUSH_XP_DAILY_CAP,seasonReward,DAY_WEATHER,OFFLINE,WHALE,FIRST_BONUS,PRODUCTS,AFFECTION,BREED,REWARD_KEYS,REWARD_LIMITS,TUTORIAL,FEATURE_UNLOCK});})();
+/* shared\tower.js */
+(function(){const __e=__m["shared\\tower.js"]={};
+// 하늘탑: 층수 기반 성장 콘텐츠. 결정론적 시뮬레이션(클라이언트 실시간 재생 = 서버 재계산).
+// 0.1초 틱. 입력(스킬·직접 조작)은 틱 번호와 함께 기록되어 서버가 같은 결과를 다시 계산한다.
+const D = __m["shared\\data.js"];
+
+const TPS = 10; // 초당 틱
+const RUN_TICKS = 300; // 30초
+const LANES = 3;
+
+// ---------- 뭉게 역할 · 능력 ----------
+const ROLES = {
+  rain: { role: '배달', passive: '비 배달 +15% · 피버 게이지 +15%', skill: '소나기 폭탄: 특별 날씨 위력 증가' },
+  sun: { role: '회복', passive: '완벽 배달 몇 번마다 체력 1 회복', skill: '햇살 축복: 회복 주기 단축' },
+  snow: { role: '방어', passive: '장애물을 느리게 해 회피 +10% · 방어막 지속 +0.5초', skill: '눈송이 장막' },
+  wind: { role: '이동', passive: '이동 속도 증가 · 회피 +12% · 돌풍 저항', skill: '순풍' },
+  thunder: { role: '스킬', passive: '스킬 재사용 대기 -10% · 콤보 점수 +', skill: '번개 충전' },
+  rainbow: { role: '만능', passive: '모든 날씨 배달 +10% · 층 보상 +20%', skill: '일곱빛' },
+};
+// 단계·등급에 따른 능력 배율 (낮은 등급도 진화하면 충분히 쓸모 있게: 단계 영향이 등급보다 큼)
+const STAGE_FACTOR = [1, 1.5, 2];
+const abilityFactor = (c, id) => STAGE_FACTOR[c.stage - 1] * (1 + 0.1 * D.RARITY_ORDER.indexOf(D.SPECIES[id].rarity));
+
+// 전투력: 생산량과 분리된 선형에 가까운 곡선 (하늘탑 밸런스용)
+function cloudPower(c, id) {
+  const r = D.RARITY[D.SPECIES[id].rarity].power;
+  const aff = D.AFFECTION.levels.filter((x) => (c.aff || 0) >= x).length;
+  // 레벨보다 진화(재료)·별(중복 수집)·등급이 전투력을 크게 좌우하도록 설계
+  return Math.round(100 * r * (1 + 0.04 * (c.lv - 1)) * [1, 1.8, 3.2][c.stage - 1] * (1 + 0.2 * (c.stars || 0)) * (1 + 0.02 * aff));
+}
+const LEAD_MULT = 1.25;
+
+const SYNERGIES = [
+  { id: 'rainbowBonus', need: ['rain', 'sun'], name: '무지개 보너스', desc: '피버 게이지 +40% · 층 보상 +10%' },
+  { id: 'moveGuard', need: ['snow', 'wind'], name: '이동 방어', desc: '체력 +1 · 돌풍 면역' },
+  { id: 'storm', need: ['thunder', 'rain'], name: '폭풍', desc: '특별 날씨 위력 x1.2 · 지속 +0.5초' },
+  { id: 'warmWind', need: ['sun', 'wind'], name: '따뜻한 바람', desc: '회피 +10%' },
+  { id: 'iceBolt', need: ['snow', 'thunder'], name: '얼음번개', desc: '방어막 재사용 대기 -30%' },
+  { id: 'sevenLight', need: ['rainbow'], name: '일곱빛', desc: '모든 배달 +15%' },
+];
+
+// ---------- 팀 ----------
+// team: [lead, support1, support2] (중복 불가, 보유 뭉게만)
+function teamInfo(state, team, opts = {}) {
+  const members = team.filter((id, i) => id && state.clouds[id] && team.indexOf(id) === i).slice(0, 3).map((id, i) => {
+    const c = state.clouds[id];
+    return { id, el: D.SPECIES[id].el, lead: i === 0, power: cloudPower(c, id), af: abilityFactor(c, id), stage: c.stage };
+  });
+  const els = new Set(members.map((m) => m.el));
+  const syn = SYNERGIES.filter((x) => x.need.every((e) => els.has(e))).map((x) => x.id);
+  const best = (el) => Math.max(0, ...members.filter((m) => m.el === el).map((m) => m.af));
+  const has = (id) => syn.includes(id);
+  const strOf = (w) => {
+    let v = 0;
+    for (const m of members) {
+      const match = m.el === w ? 1 : m.el === 'rainbow' ? 0.8 : 0.3;
+      v += m.power * match * (m.lead ? LEAD_MULT : 1);
+    }
+    if (w === 'rain') v *= 1 + 0.15 * best('rain');
+    v *= 1 + 0.1 * best('rainbow') + (has('sevenLight') ? 0.15 : 0);
+    return v;
+  };
+  const str = {}; for (const e of ['rain', 'sun', 'snow', 'wind', 'thunder']) str[e] = strOf(e);
+  const sunF = best('sun'), snowF = best('snow'), windF = best('wind'), thF = best('thunder'), rainF = best('rain');
+  const lead = members[0];
+  return {
+    members, syn, str,
+    power: Math.round(members.reduce((a, m) => a + m.power * (m.lead ? LEAD_MULT : 1), 0)),
+    maxHp: 3 + (has('moveGuard') ? 1 : 0),
+    dodge: Math.min(0.85, 0.3 + 0.10 * snowF + 0.12 * windF + (has('warmWind') ? 0.1 : 0)),
+    moveTicks: windF ? 2 : 3,
+    gustImmune: has('moveGuard'), gustResist: Math.min(0.9, 0.5 * windF),
+    healEvery: sunF ? Math.max(3, Math.round(7 - 2 * sunF)) : 0,
+    gaugeMult: (1 + 0.15 * rainF) * (has('rainbowBonus') ? 1.4 : 1),
+    cdMult: 1 - Math.min(0.25, 0.1 * thF),
+    shieldCdMult: has('iceBolt') ? 0.7 : 1,
+    shieldTicks: Math.round(25 + 5 * snowF),
+    burstMult: 1.5 * (has('storm') ? 1.2 : 1) * (lead && lead.stage >= 3 ? 1.1 : 1),
+    burstTicks: 30 + (has('storm') ? 5 : 0),
+    comboBonus: 0.02 + 0.01 * thF,
+    rewardMult: 1 + 0.2 * (best('rainbow') ? 1 : 0) + (has('rainbowBonus') ? 0.1 : 0),
+    leadEl: lead?.el || 'rain',
+  };
+}
+
+// ---------- 층 설계 ----------
+const ZONES = [
+  { from: 1, name: '민들레 들판', sky: '#BFE6FA', ground: '#A9DB8E', els: ['rain', 'sun'], note: '날씨 배달 기초' },
+  { from: 11, name: '솔방울 숲길', sky: '#CDEBD9', ground: '#8FCB7E', els: ['rain', 'sun', 'wind'], note: '돌풍 등장 · 바람 뭉게가 유리' },
+  { from: 21, name: '별모래 해변', sky: '#FFE9C7', ground: '#F2D9A6', els: ['rain', 'sun', 'wind', 'snow'], note: '두 날씨가 필요한 집 등장' },
+  { from: 31, name: '천둥 고개', sky: '#DCD3F5', ground: '#B9C7A8', els: ['rain', 'sun', 'wind', 'snow', 'thunder'], note: '먹구름 폭풍 · 방어막이 중요' },
+  { from: 41, name: '오로라 언덕', sky: '#D6E4FF', ground: '#C9E2F0', els: ['rain', 'sun', 'wind', 'snow', 'thunder'], note: '빠른 장애물 · 진화 뭉게 활용' },
+  { from: 51, name: '구름 너머', sky: '#F3E6FF', ground: '#E3D7F5', els: ['rain', 'sun', 'wind', 'snow', 'thunder'], note: '모든 기믹 · 끝없는 도전' },
+];
+const zoneOf = (f) => ZONES.reduce((z, x, i) => (f >= x.from ? i : z), 0);
+const isBoss = (f) => f % 10 === 0;
+const isEvent = (f) => f % 5 === 0 && !isBoss(f);
+// 집 하나가 요구하는 날씨량. 초반은 빠르게, 이후 완만한 지수.
+// 층별 요구량 앵커 (tools/tower-sim.mjs 로 검증): 1~10층 빠른 돌파 → 18층 2단계 진화 → 26층 → 35층 3단계 진화 → 42~50층 별 승급·희귀 뭉게
+const ANCHORS = [[1, 60], [10, 450], [18, 2300], [26, 6000], [35, 7300], [42, 10000], [50, 15000], [60, 20000], [80, 32000]];
+const demandOf = (f) => {
+  let d;
+  if (f >= 80) d = 32000 * Math.pow(1.03, f - 80);
+  else { let i = 0; while (ANCHORS[i + 1][0] < f) i++; const [f0, d0] = ANCHORS[i], [f1, d1] = ANCHORS[i + 1]; d = d0 * Math.pow(d1 / d0, (f - f0) / (f1 - f0)); }
+  return Math.round(d * (isBoss(f) ? 1.12 : 1));
+};
+// 권장 전투력(안내용): 주력 날씨로 집 요구량을 넉넉히 넘기는 수준
+const recommendedPower = (f) => Math.round(demandOf(f));
+
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function genFloor(f, seed) {
+  const r = rng(seed ^ (f * 2654435761));
+  const z = zoneOf(f); const Z = ZONES[z];
+  const gap = Math.max(9, 13 - z);
+  const houses = []; const hazards = [];
+  let lane = 1;
+  for (let t = 18; t < RUN_TICKS - 8; t += gap + Math.floor(r() * 3)) {
+    if (r() < 0.6) lane = Math.max(0, Math.min(2, lane + (r() < 0.5 ? -1 : 1)));
+    const need = [Z.els[Math.floor(r() * Z.els.length)]];
+    if (z >= 2 && r() < 0.18 + 0.03 * (z - 2)) { let b = Z.els[Math.floor(r() * Z.els.length)]; if (b === need[0]) b = Z.els[(Z.els.indexOf(b) + 1) % Z.els.length]; need.push(b); }
+    const ev = isEvent(f) && r() < 0.25;
+    houses.push({ t, lane, need, demand: Math.round(demandOf(f) * (0.9 + 0.2 * r()) * (need.length > 1 ? 1.15 : 1)), kind: Math.floor(r() * 4), gold: ev });
+  }
+  // 장애물: 1~2층은 없음, 이후 구역별 증가
+  const nBird = f <= 2 ? 0 : Math.min(14, 2 + z * 2 + Math.floor((f % 10) / 3));
+  for (let i = 0; i < nBird; i++) {
+    const h = houses[1 + Math.floor(r() * (houses.length - 2))];
+    hazards.push({ t: h.t - Math.floor(gap / 2), lane: Math.floor(r() * 3), kind: 'bird', speed: z >= 4 ? 1.4 : 1 });
+  }
+  if (z >= 1) { const n = 2 + z; for (let i = 0; i < n; i++) hazards.push({ t: 40 + Math.floor(r() * (RUN_TICKS - 60)), lane: Math.floor(r() * 3), kind: 'gust' }); }
+  if (isBoss(f) || z >= 3) { const n = isBoss(f) ? 2 + (f >= 40 ? 1 : 0) : 1; for (let i = 0; i < n; i++) hazards.push({ t: Math.round((RUN_TICKS / (n + 1)) * (i + 1)), lane: -1, kind: 'storm', warn: 15 }); }
+  hazards.sort((a, b) => a.t - b.t);
+  return { f, zone: z, boss: isBoss(f), event: isEvent(f), houses, hazards, demand: demandOf(f) };
+}
+
+// ---------- 시뮬레이션 ----------
+// mode: 'auto' (자동 이동·자동 날씨) | 'manual' (직접 이동·날씨, 배달 +15%)
+// inputs: [{ k: 틱, a: 'shield'|'burst'|'fever'|'lane'|'w', v }]
+const SKILLS = {
+  shield: { name: '방어막', cd: 80, desc: '잠시 모든 장애물을 막아요' },
+  burst: { name: '특별 날씨', cd: 150, desc: '3초 동안 배달 위력 1.5배' },
+  fever: { name: '피버', cd: 0, desc: '게이지가 차면 5초간 점수 2배 · 위력 1.25배' },
+};
+class TowerSim {
+  constructor(spec, team, seed, mode = 'auto') {
+    this.spec = spec; this.T = team; this.mode = mode; this.r = rng(seed ^ 0x5bd1e995);
+    this.k = 0; this.hp = team.maxHp; this.lane = 1; this.target = 1; this.nextMove = 0; this.weather = spec.houses[0]?.need[0] || 'rain';
+    this.combo = 0; this.maxCombo = 0; this.gauge = 0; this.score = 0; this.perfects = 0;
+    this.shieldUntil = -1; this.burstUntil = -1; this.feverUntil = -1; this.cd = { shield: 0, burst: 0 };
+    this.hi = 0; this.zi = 0; this.sat = 0; this.events = []; this.contrib = Object.fromEntries(team.members.map((m) => [m.id, 0]));
+    // 자동 모드 회피 보조: 권장 전투력의 80% 이상이면 폭풍을 버팀 (스킬을 안 눌러도 성장으로 돌파 가능)
+    this.stormProof = team.power >= recommendedPower(spec.f) * (mode === 'auto' ? 0.8 : 1);
+    this.used = { shield: 0, burst: 0, fever: 0 }; this.hits = { bird: 0, gust: 0, storm: 0 }; this.lowEl = {}; this.done = false; this.cleared = false;
+  }
+  canUse(a) {
+    if (this.done) return false;
+    if (a === 'fever') return this.gauge >= 100 && this.k >= this.feverUntil;
+    if (a === 'shield' || a === 'burst') return this.k >= this.cd[a];
+    return a === 'lane' || a === 'w';
+  }
+  apply(inp) {
+    const { a, v } = inp; const T = this.T;
+    if (!this.canUse(a)) return false;
+    if (a === 'shield') { this.shieldUntil = this.k + T.shieldTicks; this.cd.shield = this.k + Math.round(SKILLS.shield.cd * T.cdMult * T.shieldCdMult); }
+    else if (a === 'burst') { this.burstUntil = this.k + T.burstTicks; this.cd.burst = this.k + Math.round(SKILLS.burst.cd * T.cdMult); }
+    else if (a === 'fever') { this.feverUntil = this.k + 50; this.gauge = 0; }
+    else if (a === 'lane' && this.mode === 'manual') { if (!Number.isInteger(v) || v < 0 || v >= LANES) return false; this.target = v; }
+    else if (a === 'w' && this.mode === 'manual') { if (!['rain', 'sun', 'snow', 'wind', 'thunder'].includes(v)) return false; this.weather = v; }
+    else return false;
+    if (this.used[a] !== undefined) this.used[a]++;
+    this.events.push({ k: this.k, e: a });
+    return true;
+  }
+  step(inputsAtTick = []) {
+    if (this.done) return;
+    const T = this.T, k = this.k, H = this.spec.houses;
+    for (const i of inputsAtTick) this.apply(i);
+    // 이동
+    if (this.mode === 'auto') { const nx = H[this.hi]; if (nx) this.target = nx.lane; }
+    if (this.lane !== this.target && k >= this.nextMove) { this.lane += Math.sign(this.target - this.lane); this.nextMove = k + T.moveTicks; }
+    if (this.mode === 'auto' && H[this.hi]) this.weather = H[this.hi].need[0];
+    const fever = k < this.feverUntil, burst = k < this.burstUntil, shield = k < this.shieldUntil;
+    // 집 배달
+    while (this.hi < H.length && H[this.hi].t <= k) {
+      const h = H[this.hi++];
+      let sat = 0;
+      if (h.lane === this.lane) {
+        const strFor = (w) => (this.mode === 'auto' || this.weather === w || h.need.length > 1 ? T.str[w] : T.str[w] * 0.3);
+        let s = h.need.reduce((a, w) => a + strFor(w), 0) / h.need.length;
+        if (this.mode === 'manual') s *= 1.15;
+        if (burst) s *= T.burstMult; if (fever) s *= 1.25;
+        sat = Math.min(1, s / h.demand);
+        for (const m of T.members) this.contrib[m.id] += sat * (m.el === h.need[0] || m.el === 'rainbow' ? 2 : 1) * (m.lead ? 1.25 : 1);
+      }
+      if (sat < 0.7) for (const w of h.need) this.lowEl[w] = (this.lowEl[w] || 0) + 1;
+      this.sat += sat;
+      if (sat >= 0.999) {
+        this.combo++; this.perfects++; this.maxCombo = Math.max(this.maxCombo, this.combo);
+        this.gauge = Math.min(100, this.gauge + 6 * T.gaugeMult);
+        if (T.healEvery && this.perfects % T.healEvery === 0 && this.hp < T.maxHp) { this.hp++; this.events.push({ k, e: 'heal' }); }
+      } else if (sat < 0.5) this.combo = 0;
+      const pts = Math.round(100 * sat * (1 + Math.min(1.5, this.combo * T.comboBonus)) * (fever ? 2 : 1) * (h.gold ? 2 : 1));
+      this.score += pts;
+      this.events.push({ k, e: 'house', t: h.t, sat, pts, lane: h.lane });
+    }
+    // 장애물
+    const Z = this.spec.hazards;
+    while (this.zi < Z.length && Z[this.zi].t <= k) {
+      const z = Z[this.zi++];
+      if (z.kind === 'storm') {
+        if (shield) this.events.push({ k, e: 'block', kind: 'storm' }); else if (this.stormProof) { this.combo = 0; this.events.push({ k, e: 'endure', kind: 'storm' }); } else { this.hp--; this.combo = 0; this.hits.storm++; this.events.push({ k, e: 'hit', kind: 'storm' }); }
+      } else if (z.lane === this.lane) {
+        if (shield) { this.events.push({ k, e: 'block', kind: z.kind }); continue; }
+        if (z.kind === 'bird') {
+          const dodge = this.mode === 'auto' ? T.dodge / (z.speed || 1) : 0;
+          if (this.r() < dodge) this.events.push({ k, e: 'dodge', lane: z.lane });
+          else { this.hp--; this.combo = 0; this.hits.bird++; this.events.push({ k, e: 'hit', kind: 'bird', lane: z.lane }); }
+        } else if (z.kind === 'gust') {
+          if (T.gustImmune || this.r() < T.gustResist) this.events.push({ k, e: 'resist', lane: z.lane });
+          else { this.lane = this.lane === 1 ? (this.r() < 0.5 ? 0 : 2) : 1; this.nextMove = k + T.moveTicks; this.hits.gust++; this.events.push({ k, e: 'gust', lane: z.lane }); }
+        }
+      }
+    }
+    this.k++;
+    if (this.hp <= 0) return this.finish(false);
+    if (this.k >= RUN_TICKS) return this.finish(true);
+  }
+  finish(alive) {
+    this.done = true;
+    const ratio = this.sat / Math.max(1, this.spec.houses.length);
+    this.ratio = ratio;
+    this.cleared = alive && ratio >= 0.7;
+    this.stars = !this.cleared ? 0 : ratio >= 0.95 ? 3 : ratio >= 0.85 ? 2 : 1;
+  }
+}
+
+// 입력 목록 정규화 + 전체 재생 (서버 검증용)
+function runSim(spec, team, seed, mode, inputs) {
+  const sim = new TowerSim(spec, team, seed, mode);
+  const byTick = new Map();
+  for (const i of inputs) { if (!i || !Number.isInteger(i.k) || i.k < 0 || i.k >= RUN_TICKS) continue; if (!byTick.has(i.k)) byTick.set(i.k, []); if (byTick.get(i.k).length < 4) byTick.get(i.k).push({ a: String(i.a), v: i.v }); }
+  while (!sim.done) sim.step(byTick.get(sim.k) || []);
+  return sim;
+}
+
+// 실패 원인 분석 → 육성 추천
+function advise(sim, team, f) {
+  const out = [];
+  const T = team; const need = recommendedPower(f);
+  const weakEl = Object.entries(sim.lowEl).sort((a, b) => b[1] - a[1])[0]?.[0];
+  if (sim.hp <= 0) {
+    if (sim.hits.storm) out.push({ k: 'shield', text: '먹구름 폭풍은 방어막으로 막을 수 있어요. 경고가 뜨면 방어막을 눌러 보세요.' });
+    if (sim.hits.bird >= 2) out.push({ k: 'team', el: 'wind', text: '새에 자주 부딪혔어요. 바람·눈 뭉게를 편성하면 회피가 쉬워져요.' });
+    if (sim.hits.gust >= 2) out.push({ k: 'team', el: 'wind', text: '돌풍에 밀렸어요. 바람 뭉게나 눈+바람 조합이 돌풍을 막아 줘요.' });
+  }
+  if (weakEl) out.push({ k: 'team', el: weakEl, text: `${D.ELEMENTS[weakEl].name} 집 배달이 부족했어요. ${D.ELEMENTS[weakEl].name} 뭉게를 팀에 넣거나 강화해 보세요.` });
+  if (T.power < need) out.push({ k: 'upgrade', text: `권장 전투력 ${need.toLocaleString()} (현재 ${T.power.toLocaleString()}). 뭉게 레벨업·진화로 올릴 수 있어요.` });
+  if (!sim.used.burst) out.push({ k: 'skill', text: '특별 날씨 스킬을 쓰면 3초 동안 배달 위력이 2배가 돼요.' });
+  return out.slice(0, 3);
+}
+
+// ---------- 보상 ----------
+const TOWER_UNLOCKS = {
+  3: { name: '팀 편성 3칸', desc: '지원 뭉게 2마리까지 편성' },
+  5: { name: '주간 소나기 랭킹', desc: '소나기 배달 점수 경쟁이 열려요' },
+  10: { name: '구름 교배소', desc: '서로 다른 날씨 뭉게로 새 뭉게를 만나요' },
+  15: { name: '오로라실 · 머리띠 모자', desc: '3단계 진화 재료(오로라실)를 받아요. 15층부터 반복 도전에서도 나와요' },
+  20: { name: '탐험 열기구 +1', desc: '동시에 탐험할 수 있는 열기구가 늘어요' },
+  35: { name: '오로라실 보급', desc: '3단계 진화 재료를 받아요' },
+  30: { name: '공방 제작칸 +1', desc: '동시에 만들 수 있는 아이템이 늘어요' },
+  40: { name: '오프라인 보상 +2시간', desc: '접속하지 않아도 더 오래 모아요' },
+  50: { name: '리본 모자 · 무지개뭉게', desc: '50층 정복 기념' },
+};
+// 특정 보스 층 최초 돌파 시 해당 뭉게 획득 (이미 있으면 별 조각)
+const FLOOR_SPECIES = { 20: 'hambak', 30: 'hoeori', 40: 'ureureung', 50: 'mujigae' };
+const ZONE_MAT = ['feather', 'pinecone', 'starsand', 'thunderstone', 'aurora', 'aurora'];
+function firstReward(f) {
+  const z = zoneOf(f); const r = { shard: isBoss(f) ? 200 : isEvent(f) ? 100 : 20, vxp: 15 + 2 * f, mats: { [ZONE_MAT[z]]: 2 + Math.floor(f / 10) } };
+  if (f % 3 === 0) r.seed = 1;
+  if (isBoss(f)) { r.seed = (r.seed || 0) + 2; r.item = 'rainbow_candy'; }
+  if (f === 15 || f === 20 || f === 35) r.mats.aurora = (r.mats.aurora || 0) + 2;
+  if (f === 15) r.hat = 'headband';
+  if (f === 50) r.hat = 'ribbon';
+  if (FLOOR_SPECIES[f]) r.species = FLOOR_SPECIES[f];
+  return r;
+}
+function repeatReward(f) { const z = zoneOf(f); const mats = { [ZONE_MAT[z]]: 1 + Math.floor(f / 15) }; if (f >= 15) mats.aurora = (mats.aurora || 0) + 1; return { mats, vxp: 5 + Math.floor(f / 2) }; }
+const TOWER_REPEAT_DAILY = 20;
+const MIN_ELAPSED_MS = (speed) => Math.round(((RUN_TICKS / TPS) * 1000) / (speed >= 2 ? 2 : 1)) - 2500;
+
+Object.assign(__e,{TPS,RUN_TICKS,LANES,ROLES,STAGE_FACTOR,abilityFactor,cloudPower,LEAD_MULT,SYNERGIES,teamInfo,ZONES,zoneOf,isBoss,isEvent,demandOf,recommendedPower,genFloor,SKILLS,TowerSim,runSim,advise,TOWER_UNLOCKS,FLOOR_SPECIES,firstReward,repeatReward,TOWER_REPEAT_DAILY,MIN_ELAPSED_MS});})();
 /* shared\rules.js */
 (function(){const __e=__m["shared\\rules.js"]={};
 // 뭉게목장 - 결정론적 게임 룰 엔진 (클라이언트 예측 + 서버 권위 검증 공용)
 // 원칙: 모든 시간은 서버 시각(now, ms)을 사용. 무작위 액션은 서버 전용 RNG(ctx.rand)로만 처리.
 const D = __m["shared\\data.js"];
+const TW = __m["shared\\tower.js"];
 
 const DAY_MS = 86400000;
 const KST = 9 * 3600000;
@@ -1577,10 +1929,12 @@ const levelCost = (c, id) => Math.round(12 * D.RARITY[D.SPECIES[id].rarity].cost
 const buildCost = (b, lv) => Math.round(D.BUILDINGS[b].base * Math.pow(D.BUILDINGS[b].growth, lv));
 const globalDropMult = (s) => (1 + 0.2 * s.village.b.mill) * (1 + D.PRESTIGE.perCrystal * s.prestige.total);
 const orderSlots = (s) => 3 + (s.village.b.post >= 3 ? 1 : 0) + (s.village.b.post >= 7 ? 1 : 0);
-const expSlots = (s) => 2 + (s.village.b.port >= 4 ? 1 : 0) + (s.ent.lifetime ? 1 : 0);
-const craftSlots = (s) => 1 + (s.village.b.workshop >= 3 ? 1 : 0) + (s.village.b.workshop >= 7 ? 1 : 0);
+const towerBest = (s) => s.tower?.best || 0;
+const towerTeamMax = (s) => (towerBest(s) >= 3 ? 3 : 2);
+const expSlots = (s) => 2 + (s.village.b.port >= 4 ? 1 : 0) + (s.ent.lifetime ? 1 : 0) + (towerBest(s) >= 20 ? 1 : 0);
+const craftSlots = (s) => 1 + (s.village.b.workshop >= 3 ? 1 : 0) + (s.village.b.workshop >= 7 ? 1 : 0) + (towerBest(s) >= 30 ? 1 : 0);
 const monthlyActive = (s, now) => s.ent.monthlyUntil > now;
-const offlineCapSec = (s, now) => (D.OFFLINE.baseCapH + s.village.b.lighthouse + s.prestige.talents.pocket + (monthlyActive(s, now) ? D.OFFLINE.monthlyBonusH : 0)) * 3600;
+const offlineCapSec = (s, now) => (D.OFFLINE.baseCapH + s.village.b.lighthouse + s.prestige.talents.pocket + (monthlyActive(s, now) ? D.OFFLINE.monthlyBonusH : 0) + (towerBest(s) >= 40 ? 2 : 0)) * 3600;
 const dayBonus = (id, t) => { const w = dayWeather(t); return D.SPECIES[id].el === w.el ? 1 + w.bonus : 1; };
 
 function rates(s, now) {
@@ -1627,7 +1981,7 @@ function applyProduction(s, p) {
 
 // ---------- v1 → v2 세이브 마이그레이션 (기존 데이터 유지, 누락 필드만 채움) ----------
 function migrate(s) {
-  if ((s.v || 1) >= 2) return migrateEcon(s);
+  if ((s.v || 1) >= 2) return migrateTower(migrateEcon(s));
   s.stats.levelups ??= Object.values(s.clouds).some((c) => c.lv > 1) ? 1 : 0;
   s.stats.breeds ??= 0;
   for (const c of Object.values(s.clouds)) { c.aff ??= 0; c.affDay ??= -1; c.affToday ??= 0; }
@@ -1637,7 +1991,13 @@ function migrate(s) {
   s.dex.combos ??= [];
   if (s.rush.active && !s.rush.active.mode) s.rush.active = null; // v1 진행 중 판은 폐기
   s.v = 2;
-  return migrateEcon(s);
+  return migrateTower(migrateEcon(s));
+}
+// v3: 하늘탑 (기존 데이터 유지, 필드만 추가)
+function migrateTower(s) {
+  if (s.tower) return s;
+  s.tower = { best: 0, team: [s.lead || Object.keys(s.clouds)[0]].filter(Boolean), active: null, rDay: -1, repeats: 0, stars: {}, runs: 0 };
+  return s;
 }
 // 경제 v2: 조각 단위 2배. 기존 보유 조각의 실질 가치(구름씨 개수)를 유지하도록 2배 환산 (1회, econ 플래그로 멱등)
 function migrateEcon(s) {
@@ -1866,6 +2226,8 @@ function statValue(s, stat) {
     case 'villageLv': return s.village.lv;
     case 'letters': return s.dex.letters;
     case 'prestige': return s.prestige.count;
+    case 'towerBest': return towerBest(s);
+    case 'teamSize': return s.tower?.team?.length || 0;
     default: return s.stats[stat] || 0;
   }
 }
@@ -2047,7 +2409,7 @@ const ACTIONS = {
   // 교배: 서로 다른 원소의 2단계 이상 뭉게 둘 + 재료 → 서버 RNG
   breed: { random: true, run(s, p, now, ctx) {
     const rand = needRand(ctx);
-    if (s.village.lv < (D.FEATURE_UNLOCK.breed.village || 0)) fail('LOCKED');
+    if (s.village.lv < (D.FEATURE_UNLOCK.breed.village || 0) && towerBest(s) < 10) fail('LOCKED');
     const a = owned(s, p.a), b = owned(s, p.b);
     if (p.a === p.b) fail('BAD_PARAM');
     const ea = D.SPECIES[p.a].el, eb = D.SPECIES[p.b].el;
@@ -2108,7 +2470,68 @@ const ACTIONS = {
     s.rush.active = { id: seed.toString(36), seed, startAt: now, els: rushElements(s), bonus: leadBonus(s), lead: s.lead, mode, duration: D.RUSH_MODES[mode].duration };
     return { ...s.rush.active };
   } },
-  rushAbort: { run(s) { if (!s.rush.active) fail('NO_RUN'); s.rush.active = null; return {}; } },
+  // ---------- 하늘탑 ----------
+  setTeam: { run(s, p) {
+    if (!Array.isArray(p.team)) fail('BAD_PARAM');
+    const max = towerTeamMax(s);
+    const team = p.team.slice(0, max);
+    if (!team.length || new Set(team).size !== team.length) fail('BAD_PARAM');
+    for (const id of team) owned(s, id);
+    s.tower.team = team; s.lead = team[0];
+    return { team };
+  } },
+  towerStart: { random: true, run(s, p, now, ctx) {
+    const rand = needRand(ctx);
+    const T = s.tower; const f = int(p.floor, 1, 9999);
+    if (f > T.best + 1) fail('LOCKED');
+    const mode = p.mode === 'manual' ? 'manual' : 'auto'; const speed = p.speed === 2 ? 2 : 1;
+    const team = (T.team || []).filter((id) => s.clouds[id]).slice(0, towerTeamMax(s));
+    if (!team.length) fail('NO_TEAM');
+    const repeat = f <= T.best;
+    if (repeat) {
+      const dk = dayKey(now); if (T.rDay !== dk) { T.rDay = dk; T.repeats = 0; }
+      if (T.repeats >= TW.TOWER_REPEAT_DAILY) fail('DAILY_CAP');
+      if (s.wind.n < 1) fail('NO_WIND');
+      s.wind.n--; if (s.wind.n === D.RUSH.windMax - 1) s.wind.t = now;
+    }
+    const snap = Object.fromEntries(team.map((id) => { const c = s.clouds[id]; return [id, { lv: c.lv, stage: c.stage, stars: c.stars, aff: c.aff || 0 }]; }));
+    const seed = Math.floor(rand() * 2147483647);
+    T.active = { id: seed.toString(36), f, seed, mode, speed, startAt: now, team, snap, repeat };
+    return { id: T.active.id, f, seed, mode, speed, team, snap, repeat };
+  } },
+  towerAbort: { run(s) { const a = s.tower.active; if (!a) fail('NO_RUN'); if (a.repeat) s.wind.n = Math.min(99, s.wind.n + 1); s.tower.active = null; return {}; } },
+  towerEnd: { run(s, p, now) {
+    const T = s.tower; const a = T.active;
+    if (!a || p.runId !== a.id) fail('NO_RUN');
+    const el = now - a.startAt;
+    if (el < TW.MIN_ELAPSED_MS(a.speed)) fail('TOO_FAST');
+    T.active = null;
+    if (el > 15 * 60000) { if (a.repeat) s.wind.n = Math.min(99, s.wind.n + 1); return { expired: true, cleared: false }; }
+    if (!Array.isArray(p.inputs) || p.inputs.length > 600) fail('BAD_PARAM');
+    const team = TW.teamInfo({ clouds: a.snap }, a.team);
+    const sim = TW.runSim(TW.genFloor(a.f, a.seed), team, a.seed, a.mode, p.inputs);
+    T.runs = (T.runs || 0) + 1; s.stats.towerRuns = (s.stats.towerRuns || 0) + 1; bump(s, 'rush');
+    const out = { f: a.f, cleared: sim.cleared, stars: sim.stars, ratio: Math.round(sim.ratio * 1000) / 1000, score: sim.score, hp: sim.hp, maxCombo: sim.maxCombo, contrib: sim.contrib, repeat: a.repeat, newBest: false, reward: {}, unlocks: [] };
+    if (!sim.cleared) { if (a.repeat) s.wind.n = Math.min(99, s.wind.n + 1); return out; } // 실패해도 손해 없음
+    T.stars[a.f] = Math.max(T.stars[a.f] || 0, sim.stars);
+    const r = rates(s, now).drop; const mult = team.rewardMult;
+    let rw;
+    if (!a.repeat && a.f === T.best + 1) {
+      rw = { ...TW.firstReward(a.f), mats: { ...TW.firstReward(a.f).mats } };
+      rw.drop = Math.round((r * 120 + 50 * a.f) * mult); if (rw.shard) rw.shard = Math.round(rw.shard * mult);
+      T.best = a.f; out.newBest = true;
+      if (TW.TOWER_UNLOCKS[a.f]) out.unlocks.push({ f: a.f, ...TW.TOWER_UNLOCKS[a.f] });
+    } else {
+      T.repeats++;
+      rw = TW.repeatReward(a.f); rw.drop = Math.round((r * 40 + 20 * a.f) * mult);
+    }
+    const sp = rw.species; delete rw.species; const vxp = rw.vxp; delete rw.vxp;
+    grant(s, rw, now);
+    if (sp) { const res = addCloud(s, sp); out.species = { id: sp, isNew: res.isNew }; }
+    out.villageUps = villageXp(s, vxp);
+    out.reward = { ...rw, vxp };
+    return out;
+  } },  rushAbort: { run(s) { if (!s.rush.active) fail('NO_RUN'); s.rush.active = null; return {}; } },
   rushEnd: { run(s, p, now) {
     const a = s.rush.active;
     if (!a || p.runId !== a.id) fail('NO_RUN');
@@ -2291,7 +2714,7 @@ function publicView(s) {
   return rest;
 }
 
-Object.assign(__e,{DAY_MS,dayKey,weekKey,nextDayAt,GameError,hash32,mulberry,stateRand,seasonOf,dayWeather,newState,newCloud,addCloud,validateRewards,grantRewards,cloudDropRate,affLevel,cloudElemRate,levelCost,buildCost,globalDropMult,orderSlots,expSlots,craftSlots,monthlyActive,offlineCapSec,rates,production,migrate,tick,rollDay,bump,addSeasonXp,grant,makeOrder,maintain,genCourse,scoreRun,sumRewards,leadBonus,rushElements,whaleWindow,doHatch,statValue,expDuration,partyPower,craftDuration,prestigeGain,seasonTier,ACTIONS,applyAction,isRandomAction,grantProduct,revokeProduct,publicView});})();
+Object.assign(__e,{DAY_MS,dayKey,weekKey,nextDayAt,GameError,hash32,mulberry,stateRand,seasonOf,dayWeather,newState,newCloud,addCloud,validateRewards,grantRewards,cloudDropRate,affLevel,cloudElemRate,levelCost,buildCost,globalDropMult,orderSlots,towerTeamMax,expSlots,craftSlots,monthlyActive,offlineCapSec,rates,production,migrate,tick,rollDay,bump,addSeasonXp,grant,makeOrder,maintain,genCourse,scoreRun,sumRewards,leadBonus,rushElements,whaleWindow,doHatch,statValue,expDuration,partyPower,craftDuration,prestigeGain,seasonTier,ACTIONS,applyAction,isRandomAction,grantProduct,revokeProduct,publicView});})();
 /* client\src\platform\toss.js */
 (function(){const __e=__m["client\\src\\platform\\toss.js"]={};
 // 앱인토스 SDK 어댑터. 토스 앱 안에서는 @apps-in-toss/web-framework 를, 일반 브라우저(개발)에서는 명시적 모의 구현을 사용한다.
@@ -2946,6 +3369,8 @@ const ICONS = {
   shop: () => `<path d="M6 12h20v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" fill="#fff" ${st}/><path d="M4 12l3-7h18l3 7q-2 3-4.8 3T19 12q-1.2 3-3 3t-3-3q-1.4 3-4.2 3T4 12z" fill="#FF8F7E" ${st}/><path d="M13 28v-7h6v7" fill="#97E0C3" ${st}/>`,
   mission: () => `<rect x="7" y="4" width="18" height="24" rx="2.5" fill="#FFF6E8" ${st}/><path d="M11 11l2 2 3-4M11 18l2 2 3-4M19 11h3M19 18h3" ${st} fill="none"/><path d="M12 4v-1h8v1" ${st}/>`,
   mail: () => `<path d="M3 15L29 4l-6 23-7-7-4 6v-8z" fill="#fff" ${st}/><path d="M12 18L29 4" ${st}/>`,
+  shield: () => `<path d="M16 3l11 4v8c0 7-5 11.5-11 14C10 26.5 5 22 5 15V7z" fill="#97E0C3" ${st}/><path d="M11 15.5l3.5 3.5L21 12" fill="none" ${st}/>`,
+  tower: () => `<path d="M11 28V12l5-7 5 7v16z" fill="#FFF6E8" ${st}/><path d="M8 28h16" ${st}/><rect x="14" y="14" width="4" height="5" rx="1" fill="#79C4F0" ${st}/><path d="M16 5V2" ${st}/><path d="M16 2l5 1.5L16 5" fill="#FF8F7E" ${st}/>`,
   gear: () => { const n = 8, R1 = 13.2, R2 = 10.2, cx = 16, cy = 16; const pts = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2 - Math.PI / 2, w = Math.PI / n; for (const [ang, r] of [[a - w * 0.62, R2], [a - w * 0.36, R1], [a + w * 0.36, R1], [a + w * 0.62, R2]]) pts.push(`${(cx + Math.cos(ang) * r).toFixed(2)} ${(cy + Math.sin(ang) * r).toFixed(2)}`); } return `<path d="M${pts.join(" L")} Z" fill="#E9E2F5" ${st}/><circle cx="16" cy="16" r="4.2" fill="#FFF6E8" ${st}/>`; },
   trophy: () => `<path d="M10 5h12v7a6 6 0 0 1-12 0z" fill="#FFD84D" ${st}/><path d="M10 7H6q0 6 5 7M22 7h4q0 6-5 7" fill="none" ${st}/><path d="M16 18v5M11 27h10l-1-4h-8z" fill="#C98E62" ${st}/>`,
   book: () => `<path d="M5 6q5-2 11 1v20q-6-3-11-1z" fill="#97E0C3" ${st}/><path d="M27 6q-5-2-11 1v20q6-3 11-1z" fill="#FFF6E8" ${st}/><path d="M19 12q3-1 5 0M19 16q3-1 5 0" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>`,
@@ -3355,7 +3780,7 @@ class Rush {
   frame(t) {
     if (this.dead) return;
     this.raf = requestAnimationFrame((tt) => this.frame(tt));
-    const dt = Math.min(0.05, (t - this.last) / 1000); this.last = t;
+    const dt = Math.max(0, Math.min(0.05, (t - this.last) / 1000)); this.last = Math.max(this.last, t);
     if (!this.paused && !this.ended) this.step(dt);
     this.draw(t / 1000, dt);
   }
@@ -3526,6 +3951,280 @@ class Rush {
 
 
 Object.assign(__e,{Rush,KIND_NAME});})();
+/* client\src\minigame\tower.js */
+(function(){const __e=__m["client\\src\\minigame\\tower.js"]={};
+// 하늘탑 도전 화면. shared/tower.js 의 TowerSim 을 실시간(0.1초 틱)으로 돌리고 그 상태를 그린다.
+// 기본(자동) 모드: 뭉게가 스스로 이동·날씨 선택 → 플레이어는 하단 큰 스킬 버튼 3개로 개입.
+// 직접 모드: 화면 왼쪽/오른쪽 탭으로 한 칸 이동 + 날씨 버튼. 스와이프 불필요.
+const { TowerSim, TPS, RUN_TICKS, LANES, SKILLS, ZONES } = __m["shared\\tower.js"];
+const { ELEMENTS } = __m["shared\\data.js"];
+const { cloudSVG, toImage, icon, iconURL, EL_ICON, INK } = __m["client\\src\\art\\sprites.js"];
+
+class TowerRun {
+  constructor(app, { run, spec, team, clouds, sfx, haptic, onFinish, onAbort, firstTime, speed = 1, reduceMotion = false }) {
+    Object.assign(this, { app, run, spec, team, sfx, haptic, onFinish, onAbort, speed, reduceMotion });
+    this.sim = new TowerSim(spec, team, run.seed, run.mode);
+    this.manual = run.mode === 'manual';
+    this.inputs = []; this.queue = []; this.acc = 0; this.pre = -3; this.paused = !!firstTime; this.ended = false;
+    this.cx = null; this.res = new Map(); this.fx = []; this.texts = []; this.flash = 0; this.shake = 0; this.seenEv = 0;
+    this.Z = ZONES[spec.zone];
+    this.el = document.createElement('div'); this.el.className = 'rush tower';
+    const els = [...new Set(spec.houses.flatMap((h) => h.need))];
+    this.el.innerHTML = `<canvas></canvas>
+      <div class="t-hud"><div class="t-top"><span class="t-floor">${spec.f}층${spec.boss ? ' · 보스' : spec.event ? ' · 이벤트' : ''}</span><span class="t-hp"></span><span class="t-score num">0</span><button class="iconbtn t-pause" aria-label="일시정지">${icon('clock', 24)}</button></div>
+        <div class="t-meter"><i></i><b style="left:70%"></b><span>만족도</span></div><div class="t-sub"><span class="t-combo"></span><span class="t-time"></span><button class="t-speed">${speed}x</button></div></div>
+      <div class="t-warn hidden"></div>
+      ${this.manual ? `<div class="t-tap l" data-mv="-1" aria-label="왼쪽으로"><span>◀</span></div><div class="t-tap r" data-mv="1" aria-label="오른쪽으로"><span>▶</span></div>
+        <div class="t-wbtns">${els.map((e) => `<button class="wbtn ${e}" data-w="${e}" aria-label="${ELEMENTS[e].name}"><img src="${iconURL(EL_ICON[e])}" alt=""></button>`).join('')}</div>` : ''}
+      <div class="t-skills">${['shield', 'burst', 'fever'].map((k) => `<button class="t-skill sk-${k}" data-sk="${k}"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" class="bg"/><circle cx="32" cy="32" r="29" class="cd" pathLength="100"/></svg><img src="${iconURL({ shield: 'shield', burst: EL_ICON[team.leadEl] || 'drop', fever: 'star' }[k])}" alt=""><b>${SKILLS[k].name}</b></button>`).join('')}</div>
+      <div class="countdown"></div>
+      ${firstTime ? `<div class="rush-tip"><b style="font-size:19px">하늘탑 도전 방법</b><br>${this.manual ? '화면 <b>왼쪽·오른쪽을 탭</b>해서 한 칸씩 움직이고<br>아래 날씨 버튼으로 말풍선과 같은 날씨를 골라요.' : '뭉게가 <b>알아서 이동하고 날씨를 배달</b>해요.<br>가만히 둬도 진행돼요!'}<br>아래 <b>큰 버튼</b>으로 더 잘할 수 있어요.<br>· 방어막: 새·폭풍 막기 · 특별 날씨: 위력 2배 · 피버: 점수 2배<br>만족도가 <b>70%</b>를 넘으면 층 돌파!<br><button class="btn mint" data-go style="margin-top:10px">시작!</button></div>` : ''}`;
+    app.appendChild(this.el);
+    this.c = this.el.querySelector('canvas'); this.g = this.c.getContext('2d', { alpha: false });
+    this.$ = (q) => this.el.querySelector(q);
+    this.ui = { hp: this.$('.t-hp'), score: this.$('.t-score'), meter: this.$('.t-meter i'), combo: this.$('.t-combo'), time: this.$('.t-time'), warn: this.$('.t-warn'), cd: this.$('.countdown'), sk: Object.fromEntries(['shield', 'burst', 'fever'].map((k) => [k, this.$(`[data-sk="${k}"]`)])) };
+    this.imgs = {};
+    const lead = team.members[0]; const lc = clouds[lead.id] || { stage: 1 };
+    const sz = 200;
+    toImage(cloudSVG(lead.id, { stage: lc.stage, hat: lc.hat }), sz, sz).then((i) => (this.imgs.cloud = i));
+    toImage(cloudSVG(lead.id, { stage: lc.stage, hat: lc.hat, mood: 'dizzy' }), sz, sz).then((i) => (this.imgs.dizzy = i));
+    toImage(cloudSVG(lead.id, { stage: lc.stage, hat: lc.hat, mood: 'joy' }), sz, sz).then((i) => (this.imgs.joy = i));
+    team.members.slice(1).forEach((m, i) => { const c = clouds[m.id] || { stage: 1 }; toImage(cloudSVG(m.id, { stage: c.stage, hat: c.hat }), 96, 96).then((im) => (this.imgs['s' + i] = im)); });
+    for (const e of Object.keys(EL_ICON)) toImage(icon(EL_ICON[e], 64), 64, 64).then((i) => (this.imgs[e] = i));
+    toImage(icon('check', 64), 64, 64).then((i) => (this.imgs.check = i));
+    toImage(icon('star', 64), 64, 64).then((i) => (this.imgs.star = i));
+    this.bind(); this.resize(); this.hud(true);
+    this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(this.c);
+    this.last = performance.now(); this.perf = { frames: 0, work: 0, max: 0, long: 0, t0: performance.now() };
+    this.raf = requestAnimationFrame((t) => this.frame(t));
+    this.vis = () => { if (document.hidden) this.pause(true); };
+    document.addEventListener('visibilitychange', this.vis);
+  }
+  resize() { const r = this.c.getBoundingClientRect(); this.dpr = Math.min(2, devicePixelRatio || 1); this.W = r.width; this.H = r.height; this.c.width = Math.round(r.width * this.dpr); this.c.height = Math.round(r.height * this.dpr); this.cy = this.H * 0.58; this.pxt = this.H * 0.032; this.bg = null; }
+  laneX(l) { return this.W * (l + 0.5) / LANES; }
+  bind() {
+    const press = (fn) => (e) => { e.preventDefault(); e.stopPropagation(); fn(e); };
+    for (const [k, b] of Object.entries(this.ui.sk)) b.addEventListener('pointerdown', press(() => this.cmd(k)));
+    this.el.querySelectorAll('[data-mv]').forEach((b) => b.addEventListener('pointerdown', press(() => this.cmd('lane', Math.max(0, Math.min(LANES - 1, this.sim.target + Number(b.dataset.mv)))))));
+    this.el.querySelectorAll('[data-w]').forEach((b) => b.addEventListener('pointerdown', press(() => this.cmd('w', b.dataset.w))));
+    this.$('.t-pause').addEventListener('click', () => this.pause(true));
+    this.$('.t-speed').addEventListener('click', press(() => { this.speed = this.speed === 1 ? 2 : 1; this.$('.t-speed').textContent = `${this.speed}x`; if (this.run.speed < 2 && this.speed === 2) { this.speed = 1; this.$('.t-speed').textContent = '1x'; } }));
+    this.$('[data-go]')?.addEventListener('click', (e) => { e.target.closest('.rush-tip').remove(); this.paused = false; this.last = performance.now(); });
+    this.key = (e) => {
+      const k = e.key;
+      if (k === 'ArrowLeft') this.cmd('lane', Math.max(0, this.sim.target - 1));
+      if (k === 'ArrowRight') this.cmd('lane', Math.min(LANES - 1, this.sim.target + 1));
+      if (k === 'q' || k === '1') this.cmd('shield'); if (k === 'w' || k === '2') this.cmd('burst'); if (k === 'e' || k === '3') this.cmd('fever');
+    };
+    window.addEventListener('keydown', this.key);
+  }
+  // 입력은 다음 틱에 적용(서버 재계산과 동일). 즉시 버튼 반응·소리로 피드백.
+  cmd(a, v) {
+    if (this.ended || this.paused || this.pre < 0) return;
+    if ((a === 'lane' || a === 'w') && !this.manual) return;
+    if (['shield', 'burst', 'fever'].includes(a) && !this.sim.canUse(a)) { this.ui.sk[a]?.classList.add('nope'); setTimeout(() => this.ui.sk[a]?.classList.remove('nope'), 200); this.haptic('tickWeak'); return; }
+    if (a === 'lane') this.sim.target = v; // 즉시 시각 반응 (틱에서 동일 값 재적용)
+    this.queue.push({ a, v }); this.sfx.tap(); this.haptic(a === 'lane' || a === 'w' ? 'tickWeak' : 'tickMedium');
+    if (a === 'w') this.el.querySelectorAll('[data-w]').forEach((b) => b.classList.toggle('on', b.dataset.w === v));
+  }
+  pause(show) {
+    if (this.ended || this.paused) return;
+    this.paused = true; if (!show) return;
+    const m = document.createElement('div'); m.className = 'modal-wrap';
+    m.innerHTML = `<div class="modal"><h2>잠깐 쉬어요</h2><p class="muted">그만두면 이번 도전은 기록되지 않아요${this.run.repeat ? ' (바람병은 돌려받아요)' : ''}.</p><div class="btns"><button class="btn paper" data-q>그만두기</button><button class="btn mint" data-r>계속하기</button></div></div>`;
+    this.el.appendChild(m);
+    m.querySelector('[data-r]').onclick = () => { m.remove(); this.paused = false; this.last = performance.now(); };
+    m.querySelector('[data-q]').onclick = () => { m.remove(); this.destroy(); this.onAbort(); };
+  }
+  frame(t) {
+    if (this.dead) return;
+    this.raf = requestAnimationFrame((tt) => this.frame(tt));
+    const w0 = performance.now();
+    const dt = Math.max(0, Math.min(0.1, (t - this.last) / 1000)); this.last = Math.max(this.last, t);
+    if (!this.paused && !this.ended) this.advance(dt);
+    this.draw(t / 1000, dt);
+    const w = performance.now() - w0; const P = this.perf; P.frames++; P.work += w; P.max = Math.max(P.max, w); if (dt > 0.034) P.long++;
+  }
+  advance(dt) {
+    if (this.pre < 0) { // 3초 카운트다운
+      const before = Math.ceil(-this.pre); this.pre += dt; const now = Math.ceil(-this.pre);
+      if (this.pre < 0 && now !== before) { this.ui.cd.innerHTML = `<span>${now}</span>`; this.sfx.tap(); }
+      if (this.pre >= 0) { this.ui.cd.innerHTML = '<span>출발!</span>'; this.sfx.whoosh(); setTimeout(() => (this.ui.cd.innerHTML = ''), 500); }
+      return;
+    }
+    this.acc += dt * this.speed;
+    const step = 1 / TPS;
+    let n = 0;
+    while (this.acc >= step && !this.sim.done && n < 8) {
+      const batch = this.queue.splice(0, 4).map((x) => ({ k: this.sim.k, ...x }));
+      this.inputs.push(...batch); this.sim.step(batch); this.acc -= step; n++;
+      this.consumeEvents();
+    }
+    this.hud();
+    if (this.sim.done) this.finish();
+  }
+  consumeEvents() {
+    const ev = this.sim.events;
+    for (; this.seenEv < ev.length; this.seenEv++) {
+      const e = ev[this.seenEv];
+      if (e.e === 'house') {
+        this.res.set(e.t, e);
+        const x = this.laneX(e.lane);
+        if (e.sat >= 0.999) { this.text(x, this.cy - 70, `+${e.pts}`, '#fff', 22); this.ring(x, this.cy - 10); this.sfx.hit(this.sim.combo); this.haptic('tickMedium'); }
+        else if (e.sat > 0) { this.text(x, this.cy - 70, `${Math.round(e.sat * 100)}%`, '#FFD66E', 18); this.sfx.pick(); }
+        else this.text(x, this.cy - 70, '놓쳤어요', '#fff', 15);
+      } else if (e.e === 'hit') { this.flash = 0.35; this.shake = this.reduceMotion ? 0 : 0.15; this.text(this.W / 2, this.cy - 120, e.kind === 'storm' ? '폭풍에 휘말렸어요!' : '아야!', '#fff', 20); this.sfx.thunder(); this.haptic('error'); }
+      else if (e.e === 'block') { this.text(this.W / 2, this.cy - 120, '막았다!', '#97E0C3', 22); this.sfx.coin(); }
+      else if (e.e === 'dodge') this.text(this.laneX(this.sim.lane), this.cy - 100, '휙!', '#fff', 18);
+      else if (e.e === 'gust') { this.text(this.W / 2, this.cy - 110, '돌풍에 밀렸어요', '#fff', 17); this.haptic('basicWeak'); }
+      else if (e.e === 'resist') this.text(this.W / 2, this.cy - 110, '돌풍을 버텼어요', '#97E0C3', 16);
+      else if (e.e === 'endure') this.text(this.W / 2, this.cy - 120, '폭풍을 버텼어요', '#97E0C3', 18);
+      else if (e.e === 'heal') { this.text(this.laneX(this.sim.lane), this.cy - 110, '체력 +1', '#FF9EAE', 18); this.sfx.coin(); }
+      else if (e.e === 'fever') { this.sfx.fever(); this.haptic('confetti'); }
+      else if (e.e === 'burst') { this.sfx.fanfare(); }
+    }
+    if (this.texts.length > 24) this.texts.splice(0, this.texts.length - 24);
+  }
+  hud(force) {
+    const s = this.sim, u = this.ui;
+    const key = `${s.hp}|${s.score}|${s.combo}|${Math.round((s.sat / Math.max(1, s.hi)) * 100)}|${Math.ceil((RUN_TICKS - s.k) / TPS)}`;
+    if (!force && key === this.prevHud) { this.skills(); return; }
+    this.prevHud = key;
+    u.hp.innerHTML = Array.from({ length: s.T.maxHp }, (_, i) => `<i class="${i < s.hp ? 'on' : ''}"></i>`).join('');
+    u.score.textContent = s.score.toLocaleString();
+    const ratio = s.hi ? s.sat / s.hi : 0; u.meter.style.transform = `scaleX(${Math.min(1, ratio)})`; u.meter.parentElement.classList.toggle('ok', ratio >= 0.7);
+    u.combo.textContent = s.combo >= 2 ? `${s.combo} 콤보` : '';
+    u.time.textContent = `${Math.max(0, Math.ceil((RUN_TICKS - s.k) / TPS))}초`;
+    this.skills();
+  }
+  skills() {
+    const s = this.sim, k = s.k;
+    for (const a of ['shield', 'burst', 'fever']) {
+      const b = this.ui.sk[a]; let frac, ready;
+      if (a === 'fever') { frac = s.gauge / 100; ready = s.canUse('fever'); }
+      else { const total = Math.round(SKILLS[a].cd * s.T.cdMult * (a === 'shield' ? s.T.shieldCdMult : 1)); const left = Math.max(0, s.cd[a] - k); frac = 1 - left / total; ready = left <= 0; }
+      const active = a === 'shield' ? k < s.shieldUntil : a === 'burst' ? k < s.burstUntil : k < s.feverUntil;
+      const st = `${ready ? 1 : 0}${active ? 1 : 0}${Math.round(frac * 20)}`;
+      if (b.dataset.st === st) continue; b.dataset.st = st;
+      b.classList.toggle('ready', ready && !active); b.classList.toggle('active', active);
+      b.querySelector('.cd').style.strokeDashoffset = String(100 - Math.max(0, Math.min(1, frac)) * 100);
+    }
+    // 폭풍 경고 (자동 모드에서도 방어막 사용 유도)
+    const z = this.spec.hazards.find((h) => h.kind === 'storm' && h.t > k && h.t - k <= 18);
+    const msg = z ? (s.stormProof ? '먹구름 폭풍! (팀이 충분히 강해 버틸 수 있어요)' : '먹구름 폭풍이 와요! 방어막을 눌러요') : '';
+    if (this.ui.warn.dataset.m !== msg) { this.ui.warn.dataset.m = msg; this.ui.warn.textContent = msg; this.ui.warn.classList.toggle('hidden', !msg); this.ui.sk.shield.classList.toggle('urge', !!z && !s.stormProof); }
+  }
+  text(x, y, s, color, size) { this.texts.push({ x, y, s, color, size, life: 0.9 }); }
+  ring(x, y) { this.fx.push({ x, y, life: 0.45 }); }
+  finish() {
+    if (this.ended) return; this.ended = true;
+    const s = this.sim;
+    this.ui.cd.innerHTML = `<span style="font-size:48px">${s.cleared ? '층 돌파!' : '아쉬워요'}</span>`;
+    this.sfx[s.cleared ? 'fanfare' : 'miss'](); this.haptic(s.cleared ? 'success' : 'basicWeak');
+    const P = this.perf; const secs = (performance.now() - P.t0) / 1000;
+    this.stats = { fps: Math.round(P.frames / secs), avgWorkMs: +(P.work / Math.max(1, P.frames)).toFixed(2), maxWorkMs: +P.max.toFixed(1), longFrames: P.long, frames: P.frames };
+    setTimeout(() => this.onFinish({ inputs: this.inputs, sim: s, perf: this.stats }), 700);
+  }
+  destroy() {
+    this.dead = true; cancelAnimationFrame(this.raf); this.ro.disconnect();
+    window.removeEventListener('keydown', this.key); document.removeEventListener('visibilitychange', this.vis);
+    this.el.remove();
+  }
+  // ---------- 그리기 (정적 배경은 오프스크린 캐시) ----------
+  background() {
+    if (this.bg && this.bg.width === this.c.width) return this.bg;
+    const cv = new OffscreenCanvas(this.c.width, Math.round(this.c.height + 80 * this.dpr)); const g = cv.getContext('2d');
+    g.scale(this.dpr, this.dpr);
+    const W = this.W, H = this.H + 80;
+    g.fillStyle = this.Z.ground; g.fillRect(0, 0, W, H);
+    g.strokeStyle = 'rgba(58,45,77,.07)'; g.lineWidth = 6;
+    for (let y = 0; y < H; y += 40) { g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+    g.fillStyle = 'rgba(255,255,255,.35)';
+    for (let l = 1; l < LANES; l++) { const x = (W * l) / LANES; g.fillRect(x - 4, 0, 8, H); }
+    this.bg = cv; return cv;
+  }
+  draw(T, dt) {
+    const g = this.g, W = this.W, H = this.H, s = this.sim;
+    if (!W) return;
+    g.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    const kf = s.k + (this.pre >= 0 && !s.done && !this.paused ? Math.min(1, this.acc * TPS) : 0); // 틱 사이 보간
+    const scroll = (kf * this.pxt) % 40;
+    const sh = this.shake > 0 ? ((this.shake -= dt), (Math.random() - 0.5) * 6) : 0;
+    g.save(); g.translate(sh, 0);
+    g.drawImage(this.background(), 0, -40 + scroll, W, H + 80);
+    const yOf = (t) => this.cy - (t - kf) * this.pxt;
+    // 집
+    for (let i = Math.max(0, s.hi - 3); i < this.spec.houses.length; i++) {
+      const h = this.spec.houses[i]; const y = yOf(h.t); if (y < -90) break; if (y > H + 90) continue;
+      const res = this.res.get(h.t);
+      this.house(g, this.laneX(h.lane), y, h, res, T);
+    }
+    // 장애물
+    for (const z of this.spec.hazards) {
+      const y = yOf(z.t); if (y < -60 || y > H + 60) continue;
+      if (z.kind === 'bird') this.bird(g, this.laneX(z.lane) + Math.sin(T * 3 + z.t) * 8, y - 30, T);
+      else if (z.kind === 'gust') this.gust(g, this.laneX(z.lane), y - 20, T);
+      else if (z.kind === 'storm' && z.t >= s.k - 3) { g.fillStyle = 'rgba(80,70,110,.22)'; g.fillRect(0, y - 26, W, 52); g.font = '18px Jua, sans-serif'; g.textAlign = 'center'; g.fillStyle = '#3A2D4D'; g.fillText('먹구름 폭풍', W / 2, y + 6); }
+    }
+    // 뭉게 (부드러운 이동: 지수 감쇠 보간)
+    const tx = this.laneX(s.lane); if (this.cx === null) this.cx = tx;
+    this.cx += (tx - this.cx) * Math.min(1, dt * 16);
+    const fever = s.k < s.feverUntil, shield = s.k < s.shieldUntil, burst = s.k < s.burstUntil;
+    const sz = Math.min(120, W * 0.3);
+    g.fillStyle = 'rgba(58,45,77,.16)'; g.beginPath(); g.ellipse(this.cx, this.cy + 30, sz * 0.3, 8, 0, 0, 7); g.fill();
+    this.weatherFx(g, this.cx, this.cy, s.weather, T, burst);
+    const img = this.flash > 0 ? this.imgs.dizzy : fever ? this.imgs.joy : this.imgs.cloud;
+    if (img) g.drawImage(img, this.cx - sz / 2, this.cy - 40 - sz / 2 + Math.sin(T * 6) * 3, sz, sz);
+    // 지원 뭉게 (뒤따라 다님)
+    [this.imgs.s0, this.imgs.s1].forEach((im, i) => { if (im) g.drawImage(im, this.cx + (i ? 34 : -70), this.cy + 6 + Math.sin(T * 5 + i) * 3, 40, 40); });
+    if (shield) { g.strokeStyle = 'rgba(151,224,195,.9)'; g.lineWidth = 5; g.beginPath(); g.arc(this.cx, this.cy - 36, sz * 0.62, 0, 7); g.stroke(); }
+    for (const f of this.fx) { f.life -= dt; g.strokeStyle = INK; g.lineWidth = 3; g.globalAlpha = Math.max(0, f.life * 2); g.beginPath(); g.arc(f.x, f.y, (0.45 - f.life) * 150 + 18, 0, 7); g.stroke(); g.globalAlpha = 1; }
+    this.fx = this.fx.filter((f) => f.life > 0);
+    g.textAlign = 'center';
+    for (const t of this.texts) { t.life -= dt; t.y -= 36 * dt; g.globalAlpha = Math.max(0, Math.min(1, t.life * 2)); g.font = `${t.size}px Jua, sans-serif`; g.lineWidth = 5; g.strokeStyle = INK; g.strokeText(t.s, t.x, t.y); g.fillStyle = t.color; g.fillText(t.s, t.x, t.y); }
+    g.globalAlpha = 1; this.texts = this.texts.filter((t) => t.life > 0);
+    if (this.flash > 0) { this.flash -= dt; g.fillStyle = `rgba(255,120,120,${Math.max(0, this.flash)})`; g.fillRect(-10, 0, W + 20, H); }
+    if (fever) { g.strokeStyle = ['#FF8F8F', '#FFD66E', '#97E0C3', '#79C4F0'][Math.floor(T * 6) % 4]; g.lineWidth = 8; g.strokeRect(4, 4, W - 8, H - 8); }
+    g.restore();
+  }
+  house(g, x, y, h, res, T) {
+    const w = Math.min(92, this.W / 3 - 18), hh = w * 0.62;
+    g.lineWidth = 3; g.strokeStyle = INK; g.lineJoin = 'round';
+    const happy = res && res.sat >= 0.999;
+    g.fillStyle = h.gold ? '#FFE07A' : ['#C99566', '#FFF6E8', '#F2D9A6', '#8FD18A'][h.kind];
+    this.rr(g, x - w / 2, y - hh / 2, w, hh, 10); g.fill(); g.stroke();
+    g.fillStyle = happy ? '#4FB892' : '#FF8F7E'; g.beginPath(); g.moveTo(x - w * 0.36, y - hh * 0.5); g.lineTo(x, y - hh * 0.95); g.lineTo(x + w * 0.36, y - hh * 0.5); g.closePath(); g.fill(); g.stroke();
+    if (res) { // 결과 막대
+      g.fillStyle = '#fff'; this.rr(g, x - w / 2 + 6, y + hh / 2 - 12, w - 12, 8, 4); g.fill();
+      g.fillStyle = res.sat >= 0.999 ? '#4FB892' : res.sat >= 0.5 ? '#FFC54D' : '#FF8F7E'; this.rr(g, x - w / 2 + 6, y + hh / 2 - 12, (w - 12) * Math.max(0.05, res.sat), 8, 4); g.fill();
+    }
+    const by = y - hh - 20 + Math.sin(T * 4 + h.t) * 2;
+    if (!res || happy) {
+      const n = h.need.length; const bw = 22 + 20 * (n - 1);
+      g.fillStyle = happy ? '#97E0C3' : '#fff'; this.rr(g, x - bw, by - 20, bw * 2, 40, 20); g.fill(); g.stroke();
+      if (happy) { if (this.imgs.check) g.drawImage(this.imgs.check, x - 14, by - 14, 28, 28); }
+      else h.need.forEach((e, i) => { const im = this.imgs[e]; if (im) g.drawImage(im, x - 14 * n - 2 * (n - 1) + i * 32, by - 14, 28, 28); });
+    }
+  }
+  bird(g, x, y, T) {
+    const f = Math.sin(T * 14) * 7; g.strokeStyle = INK; g.lineWidth = 3; g.fillStyle = '#5E5873';
+    g.beginPath(); g.ellipse(x, y, 13, 9, 0, 0, 7); g.fill(); g.stroke();
+    g.beginPath(); g.moveTo(x - 4, y - 2); g.quadraticCurveTo(x - 18, y - 12 - f, x - 26, y - 4 - f); g.stroke();
+    g.beginPath(); g.moveTo(x + 4, y - 2); g.quadraticCurveTo(x + 18, y - 12 - f, x + 26, y - 4 - f); g.stroke();
+    g.fillStyle = '#FFB347'; g.beginPath(); g.moveTo(x, y + 6); g.lineTo(x - 4, y + 12); g.lineTo(x + 4, y + 12); g.closePath(); g.fill(); g.stroke();
+  }
+  gust(g, x, y, T) { g.strokeStyle = 'rgba(46,138,105,.8)'; g.lineWidth = 4; g.lineCap = 'round'; for (let i = 0; i < 3; i++) { const o = ((T * 60 + i * 14) % 40) - 20; g.beginPath(); g.moveTo(x - 30 + o, y + i * 10 - 10); g.quadraticCurveTo(x + o, y + i * 10 - 22, x + 30 + o, y + i * 10 - 10); g.stroke(); } }
+  weatherFx(g, x, y, w, T, burst) {
+    if (this.pre < 0) return;
+    const n = burst ? 14 : 8;
+    if (w === 'rain') { g.strokeStyle = '#4FA6DA'; g.lineWidth = 3; g.lineCap = 'round'; for (let i = 0; i < n; i++) { const xx = x - 34 + ((i * 9 + T * 30) % 68), yy = y - 10 + ((i * 17 + T * 260) % 50); g.beginPath(); g.moveTo(xx, yy); g.lineTo(xx - 2, yy + 9); g.stroke(); } }
+    else if (w === 'sun') { g.fillStyle = burst ? 'rgba(255,224,122,.8)' : 'rgba(255,224,122,.5)'; g.beginPath(); g.moveTo(x - 20, y - 10); g.lineTo(x + 20, y - 10); g.lineTo(x + 46, y + 44); g.lineTo(x - 46, y + 44); g.closePath(); g.fill(); }
+    else if (w === 'snow' || w === 'wind' || w === 'thunder') { g.fillStyle = w === 'thunder' ? '#B9A0FF' : w === 'wind' ? '#97E0C3' : '#fff'; g.strokeStyle = INK; g.lineWidth = 1.5; for (let i = 0; i < n; i++) { const xx = x - 34 + ((i * 11 + Math.sin(T * 2 + i) * 6) % 68), yy = y - 6 + ((i * 13 + T * 70) % 50); g.beginPath(); g.arc(xx, yy, 3.5, 0, 7); g.fill(); g.stroke(); } }
+  }
+  rr(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+}
+
+Object.assign(__e,{TowerRun});})();
 /* client\src\audio.js */
 (function(){const __e=__m["client\\src\\audio.js"]={};
 // WebAudio 합성 사운드 (에셋 0KB). 효과음 + 오르골 BGM. 백그라운드/광고 중 자동 정지.
@@ -3761,19 +4460,39 @@ const ERR = {
 };
 const errMsg = (code) => ERR[code] || `잠시 후 다시 시도해 주세요 (${code})`;
 
-Object.assign(__e,{$,esc,fmt,josa,fmtRate,dur,img,elImg,itemImg,svgImg,rewardChips,costHtml,toast,floaty,modal,topModal,ERR,errMsg});})();
+// 부분 갱신: 새 HTML 과 현재 DOM 을 비교해 바뀐 노드·속성·텍스트만 수정 (입력값·포커스·스크롤·이미지 디코딩 유지)
+const _tpl = document.createElement('template');
+function patch(el, html) { _tpl.innerHTML = html; morph(el, _tpl.content); }
+function morph(a, b) {
+  const an = Array.from(a.childNodes), bn = Array.from(b.childNodes);
+  for (let i = 0; i < bn.length; i++) {
+    const x = an[i], y = bn[i];
+    if (!x) { a.appendChild(y); continue; }
+    if (x.nodeType !== y.nodeType || x.nodeName !== y.nodeName) { a.replaceChild(y, x); continue; }
+    if (x.nodeType !== 1) { if (x.nodeValue !== y.nodeValue) x.nodeValue = y.nodeValue; continue; }
+    const xa = x.attributes, ya = y.attributes;
+    for (let j = xa.length - 1; j >= 0; j--) { const n = xa[j].name; if (!y.hasAttribute(n)) x.removeAttribute(n); }
+    for (let j = 0; j < ya.length; j++) { const { name, value } = ya[j]; if (x.getAttribute(name) !== value) x.setAttribute(name, value); }
+    if (x.tagName === 'INPUT' || x.tagName === 'TEXTAREA' || x.tagName === 'SVG' || x.tagName === 'svg') { if (x.tagName === 'svg' || x.tagName === 'SVG') { if (x.innerHTML !== y.innerHTML) x.innerHTML = y.innerHTML; } continue; }
+    morph(x, y);
+  }
+  for (let i = an.length - 1; i >= bn.length; i--) a.removeChild(an[i]);
+}
+
+Object.assign(__e,{$,esc,fmt,josa,fmtRate,dur,img,elImg,itemImg,svgImg,rewardChips,costHtml,toast,floaty,modal,topModal,ERR,errMsg,patch});})();
 /* client\src\ui\sheets.js */
 (function(){const __e=__m["client\\src\\ui\\sheets.js"]={};
 // 바텀시트 화면 모음: 뭉게, 공방, 탐험, 상점, 마을, 의뢰, 미션, 시즌, 랭킹, 도감, 통계, 설정
 const D = __m["shared\\data.js"];
 const R = __m["shared\\rules.js"];
+const TW = __m["shared\\tower.js"];
 const { cloudSVG, villagerSVG, icon, iconURL, EL_ICON, ITEM_ICON } = __m["client\\src\\art\\sprites.js"];
 const { regionArt, buildingIcon, villageSVG, seedSVG } = __m["client\\src\\ui\\art2.js"];
-const { $, esc, fmt, fmtRate, dur, img, elImg, itemImg, svgImg, rewardChips, costHtml, toast, modal, errMsg, josa } = __m["client\\src\\ui\\kit.js"];
+const { $, esc, fmt, fmtRate, dur, img, elImg, itemImg, svgImg, rewardChips, costHtml, toast, modal, errMsg, josa, patch } = __m["client\\src\\ui\\kit.js"];
 
 const TITLES = {
   clouds: ['뭉게 앨범', 'sky'], workshop: ['날씨 공방', 'lilac'], explore: ['표류 탐험', 'mint'], shop: ['하늘 장터', 'coral'], village: ['아랫마을 보리울', 'mint'],
-  orders: ['주민 의뢰함', 'coral'], missions: ['목동 수첩', ''], mail: ['구름 우체국', 'coral'], season: ['시즌 패스', 'lilac'], rank: ['주간 랭킹', ''], dex: ['구름 도감', 'sky'], stats: ['목장 통계', ''], settings: ['설정', ''],
+  orders: ['주민 의뢰함', 'coral'], missions: ['목동 수첩', ''], mail: ['구름 우체국', 'coral'], tower: ['하늘탑', 'sky'], season: ['시즌 패스', 'lilac'], rank: ['주간 랭킹', ''], dex: ['구름 도감', 'sky'], stats: ['목장 통계', ''], settings: ['설정', ''],
 };
 
 function createSheets(G) {
@@ -3783,7 +4502,7 @@ function createSheets(G) {
 
   function open(name, p = {}) {
     const wasOpen = !!cur;
-    cur = name; P = p; asyncData = {};
+    cur = name; P = p; asyncData = {}; fresh = true;
     const [t, c] = P.breed ? ['구름 교배소', 'lilac'] : TITLES[name];
     head.innerHTML = `${P.back ? `<button class="iconbtn" data-a="back" aria-label="뒤로">${img('arrowUp')}</button>` : ''}<div class="ribbon ${c}">${t}</div><span class="sub"></span><button class="iconbtn x" data-a="close" aria-label="닫기">${img('close')}</button>`;
     head.querySelector('[data-a="back"] img')?.setAttribute('style', 'transform:rotate(-90deg)');
@@ -3800,17 +4519,20 @@ function createSheets(G) {
     cur = null; wrap.classList.remove('open'); G.onSheet(null);
     if (!fromPop && history.state?.sheet) { G.ignorePop = true; history.back(); }
   }
+  let lastHtml = '', fresh = true;
+  G.perfSheets = { renders: 0, skipped: 0, ms: 0, max: 0 };
   function render(force) {
     if (!cur) return;
     const t = Date.now();
     if (!force && t - lastRender < 400) return;
     lastRender = t;
-    const st = body.scrollTop;
-    const fn = VIEWS[cur];
-    body.innerHTML = fn(v());
-    body.scrollTop = st;
-  }
-  async function loadRank() { try { asyncData.rank = await G.api.rank(P.mode || 'assist'); } catch (e) { asyncData.rank = { error: true }; } render(true); }
+    const p0 = performance.now();
+    const html = VIEWS[cur](v());
+    if (html === lastHtml && !fresh) { G.perfSheets.skipped++; return; } // 바뀐 게 없으면 DOM 을 건드리지 않음
+    lastHtml = html;
+    if (fresh || G.noMorph) { const st = body.scrollTop; body.innerHTML = html; body.scrollTop = st; fresh = false; } else patch(body, html);
+    const ms = performance.now() - p0; const P = G.perfSheets; P.renders++; P.ms += ms; P.max = Math.max(P.max, ms);
+  }  async function loadRank() { try { asyncData.rank = await G.api.rank(P.mode || 'assist'); } catch (e) { asyncData.rank = { error: true }; } render(true); }
   async function loadMail() { try { asyncData.mail = await G.api.mail(); G.mailUnread = asyncData.mail.unread; } catch { asyncData.mail = { error: true }; } render(true); }
   async function loadHistory() { try { asyncData.history = (await G.api.iapHistory()).orders; } catch { asyncData.history = []; } render(true); }
   async function claimMails(ids) {
@@ -3870,6 +4592,7 @@ function createSheets(G) {
         <div>레벨<b class="num">${c.lv} / ${maxLv}</b></div><div>별 등급<b class="num">${'★'.repeat(c.stars) || '-'} <small class="muted">(+${c.stars * 25}%)</small></b></div></div>
       <div class="bar butter" style="margin-bottom:10px"><i style="width:${(c.lv / maxLv) * 100}%"></i><span>Lv ${c.lv}/${maxLv}</span></div>
       ${affHtml(c)}
+      ${abilityHtml(s, id, c)}
       ${c.lv < maxLv ? `<div class="actions"><button class="btn" data-a="lv" data-id="${id}" data-n="1" ${s.wallet.drop < cost ? 'disabled' : ''}>+1 ${costHtml('drop', cost, s.wallet.drop)}</button>
         <button class="btn" data-a="lv" data-id="${id}" data-n="10" ${nMax < 10 ? 'disabled' : ''}>+10</button>
         <button class="btn mint" data-a="lv" data-id="${id}" data-n="${nMax}" ${nMax < 1 ? 'disabled' : ''}>MAX +${nMax}</button></div>` : `<div class="muted">이 단계의 최고 레벨이에요${req ? ' · 진화할 수 있어요!' : ''}</div>`}
@@ -3885,7 +4608,17 @@ function createSheets(G) {
       <div class="desc">${esc(sp.desc)}</div></div>`;
   }
 
-  function affHtml(c) {
+  function abilityHtml(s, id, c) {
+    const el = D.SPECIES[id].el; const Rl = TW.ROLES[el]; const pw = TW.cloudPower(c, id);
+    const nextLv = c.lv < D.STAGE_MAX_LV[c.stage - 1] ? TW.cloudPower({ ...c, lv: c.lv + 1 }, id) - pw : 0;
+    const nextSt = c.stage < 3 ? TW.cloudPower({ ...c, stage: c.stage + 1 }, id) - pw : 0;
+    const inTeam = (s.tower?.team || []).indexOf(id);
+    return `<div class="ability"><div class="row"><span class="role el-${el}">${D.ELEMENTS[el].name} · ${Rl.role}</span><b class="grow num" style="text-align:right">전투력 ${pw.toLocaleString()}</b></div>
+      <div class="li2">${img('star')} <b>패시브</b> ${Rl.passive} <small class="muted">· 능력 x${TW.abilityFactor(c, id).toFixed(1)}${c.stage < 3 ? ` → 진화 시 x${TW.abilityFactor({ ...c, stage: c.stage + 1 }, id).toFixed(1)}` : ''}</small></div>
+      <div class="li2">${img('tower')} <b>하늘탑</b> ${D.ELEMENTS[el].name} 집 배달 담당 · 시너지: ${TW.SYNERGIES.filter((x) => x.need.includes(el)).map((x) => x.name).join(', ') || '-'}</div>
+      <div class="li2">${img('arrowUp')} <b>육성 효과</b> 레벨업 +${nextLv} · ${c.stage < 3 ? `진화 +${nextSt.toLocaleString()} · ` : '3단계: 대표일 때 특별 날씨 x1.25 · '}별 1개당 +20%</div>
+      ${inTeam >= 0 ? `<span class="tag">하늘탑 팀 ${inTeam ? '지원' : '대표'}</span>` : `<button class="btn sky sm" data-a="toTeam" data-id="${id}">하늘탑 팀에 편성</button>`}</div>`;
+  }  function affHtml(c) {
     const A = D.AFFECTION; const lv = R.affLevel(c.aff); const next = A.levels[lv]; const prevT = lv ? A.levels[lv - 1] : 0;
     const pct = next ? ((c.aff || 0) - prevT) / (next - prevT) * 100 : 100;
     return `<div class="aff"><span class="tag">친밀도 · ${A.titles[lv]}</span><div class="bar pink grow"><i style="width:${pct}%"></i><span class="num">${next ? `${c.aff || 0}/${next}` : '최고 단계'}</span></div><small class="muted">생산 +${Math.round(lv * A.bonus * 100)}%</small></div>
@@ -3914,6 +4647,43 @@ function createSheets(G) {
     const evo = D.EVOLVE_REQ.filter(Boolean).map((q, i) => (q.mats[k] ? `${i + 2}단계 진화 ${q.mats[k]}개` : null)).filter(Boolean);
     return `<div class="list" style="text-align:left"><div class="li"><span><b>얻는 곳</b><br>${regions.join('<br>') || '-'}${['feather', 'pinecone'].includes(k) ? '<br>주민 의뢰 보상 (가끔)' : ''}</span></div>
       <div class="li"><span><b>쓰는 곳</b><br>${[...evo, ...recipes.map((n) => `공방: ${n}`), ...(D.BREED.cost.mats[k] ? [`교배 ${D.BREED.cost.mats[k]}개`] : [])].join('<br>') || '-'}</span></div></div>`;
+  }
+  // ---------------- 하늘탑 ----------------
+  function roleLine(id, c) {
+    const el = D.SPECIES[id].el; const Rl = TW.ROLES[el];
+    return `<span class="role el-${el}">${D.ELEMENTS[el].name} · ${Rl.role}</span> <small class="muted">${Rl.passive} (능력 x${TW.abilityFactor(c, id).toFixed(1)})</small>`;
+  }
+  function towerView(s) {
+    const T = s.tower || { best: 0, team: [], stars: {} }; const nf = T.best + 1; const max = R.towerTeamMax(s);
+    const team = TW.teamInfo(s, T.team); const rec = TW.recommendedPower(nf); const Z = TW.ZONES[TW.zoneOf(nf)];
+    if (P.slot !== undefined) return teamPicker(s, T, team);
+    const fr = TW.firstReward(nf); const un = TW.TOWER_UNLOCKS[nf];
+    const ladder = Array.from({ length: 8 }, (_, i) => nf + i).map((f) => { const r = TW.firstReward(f); const u = TW.TOWER_UNLOCKS[f]; return `<div class="lf ${f === nf ? 'cur' : ''} ${TW.isBoss(f) ? 'boss' : TW.isEvent(f) ? 'ev' : ''}"><b class="num">${f}</b><span>${r.species ? D.SPECIES[r.species].names[0] : u ? u.name : TW.isBoss(f) ? '보스' : r.seed ? `씨앗 ${r.seed}` : `조각 ${r.shard}`}</span></div>`; }).join('');
+    const pct = Math.min(100, Math.round((team.power / rec) * 100));
+    const dk = R.dayKey(G.store.now()); const repLeft = TW.TOWER_REPEAT_DAILY - (T.rDay === dk ? T.repeats : 0);
+    return `<div class="zone-banner" style="background:${Z.sky}"><b>${Z.name}</b><small>${Z.note}</small><span class="tag">최고 ${T.best}층</span></div>
+      <div class="ladder">${ladder}</div>
+      <div class="pack sky" style="display:block"><div class="row"><h4 class="grow" style="margin:0">${nf}층 ${TW.isBoss(nf) ? '<span class="tag" style="background:var(--coral);color:#fff">보스</span>' : TW.isEvent(nf) ? '<span class="tag">이벤트</span>' : ''}</h4><span class="muted">최초 돌파 보상</span></div>
+        ${rewardChips({ seed: fr.seed, shard: fr.shard, mats: fr.mats, item: fr.item, hat: fr.hat })}${fr.species ? `<div class="unlock">${svgImg(cloudSVG(fr.species, { stage: 1 }))}<b>${D.SPECIES[fr.species].names[0]}</b> 획득 기회</div>` : ''}${un ? `<div class="unlock">${img('lock')} <b>${un.name}</b> 해금</div>` : ''}
+        <div class="row" style="margin-top:8px"><span class="muted">전투력</span><div class="bar ${pct >= 100 ? 'mint' : 'butter'} grow"><i style="width:${pct}%"></i><span class="num">${team.power.toLocaleString()} / 권장 ${rec.toLocaleString()}</span></div></div></div>
+      <div class="sec">내 팀 <small class="muted">대표 1 + 지원 ${max - 1}${max < 3 ? ' (3층 돌파 시 3칸)' : ''}</small></div>
+      <div class="team-slots">${[0, 1, 2].map((i) => { const id = T.team[i]; const c = id && s.clouds[id]; if (i >= max) return `<div class="tslot locked">${img('lock')}<small>3층 돌파</small></div>`; if (!c) return `<button class="tslot empty" data-a="tslot" data-i="${i}">${img('plus')}<small>${i ? '지원' : '대표'} 편성</small></button>`;
+        return `<button class="tslot el-${D.SPECIES[id].el}" data-a="tslot" data-i="${i}">${i === 0 ? '<span class="lead">대표</span>' : ''}${svgImg(cloudSVG(id, { stage: c.stage, hat: c.hat }))}<b>${D.SPECIES[id].names[c.stage - 1]}</b><small>${TW.ROLES[D.SPECIES[id].el].role} · ${TW.cloudPower(c, id).toLocaleString()}</small></button>`; }).join('')}</div>
+      <div class="syn">${TW.SYNERGIES.map((x) => `<span class="${team.syn.includes(x.id) ? 'on' : ''}" title="${x.desc}">${x.need.map((e) => D.ELEMENTS[e].name).join('+')} ${x.name}${team.syn.includes(x.id) ? ` · ${x.desc}` : ''}</span>`).join('')}</div>
+      <div class="sec">조작</div>
+      <div class="seg">${[['auto', '자동 (추천)', '이동·날씨 자동, 스킬로 개입'], ['manual', '직접', '탭 이동 + 날씨 선택, 배달 +15%']].map(([k, n, d]) => `<button class="${(G.prefs.towerMode || 'auto') === k ? 'on' : ''}" data-a="tmode" data-m="${k}"><b>${n}</b><small>${d}</small></button>`).join('')}</div>
+      <div class="seg two">${[[1, '보통 속도'], [2, '2배속']].map(([k, n]) => `<button class="${(G.prefs.towerSpeed || 1) === k ? 'on' : ''}" data-a="tspeed" data-v="${k}"><b>${n}</b></button>`).join('')}</div>
+      <button class="btn coral block big" style="margin-top:12px" data-a="tgo">${nf}층 도전하기</button>
+      ${T.best ? `<button class="btn paper block" style="margin-top:8px" data-a="trep" ${s.wind.n < 1 || repLeft < 1 ? 'disabled' : ''}>${T.best}층 반복 도전 · ${img('wind')}1 · 재료 보상 (오늘 ${repLeft}회)</button>` : ''}
+      <div class="muted" style="margin-top:8px">새 층 도전은 무료예요. 실패해도 잃는 건 없어요. 랭킹용 소나기 배달은 <button class="linkish" data-a="rushGo">여기</button>에서 할 수 있어요.</div>`;
+  }
+  function teamPicker(s, T, team) {
+    const i = P.slot; const cur = T.team[i];
+    const ids = Object.keys(s.clouds).sort((a, b) => TW.cloudPower(s.clouds[b], b) - TW.cloudPower(s.clouds[a], a));
+    return `<div class="muted" style="margin-bottom:8px">${i === 0 ? '대표 뭉게는 위력 x1.25, 특별 날씨 스킬 속성이 돼요' : '지원 뭉게도 자기 날씨 집에 힘을 보태고 패시브가 적용돼요'}</div>
+      <div class="pick-list">${ids.map((id) => { const c = s.clouds[id]; const inTeam = T.team.indexOf(id); const nt = [...T.team]; if (inTeam >= 0) nt.splice(inTeam, 1); nt.splice(i, cur ? 1 : 0, id); const after = TW.teamInfo(s, nt).power;
+        return `<button class="pick ${id === cur ? 'on' : ''}" data-a="tpick" data-id="${id}">${svgImg(cloudSVG(id, { stage: c.stage, hat: c.hat }))}<span class="grow"><b>${D.SPECIES[id].names[c.stage - 1]}</b> <span class="rarity r-${D.SPECIES[id].rarity}">${D.RARITY[D.SPECIES[id].rarity].name}</span>${inTeam >= 0 ? ` <span class="tag">${inTeam ? '지원' : '대표'}</span>` : ''}<br>${roleLine(id, c)}</span><span class="num">${TW.cloudPower(c, id).toLocaleString()}<br><small class="${after >= team.power ? 'up' : 'down'}">팀 ${after >= team.power ? '+' : ''}${(after - team.power).toLocaleString()}</small></span></button>`; }).join('')}</div>
+      ${cur && i > 0 ? `<button class="btn paper block" style="margin-top:8px" data-a="tremove">이 칸 비우기</button>` : ''}`;
   }
   // ---------------- 공방 ----------------
   function workshopView(s) {
@@ -4178,7 +4948,7 @@ function createSheets(G) {
     return headHtml + tabs + `<div class="row" style="margin-bottom:8px"><span class="grow muted">받을 선물 ${can.length}개</span><button class="btn mint sm" data-a="mailAll" ${can.length ? '' : 'disabled'}>모두 받기</button></div>` +
       (d.mails.length ? d.mails.map((m) => `<div class="mail-item ${m.claimed ? 'claimed' : ''}">${!m.read && !m.claimed ? '<span class="unread"></span>' : ''}<div class="stamp-ic">${img(m.rewards ? 'shard' : 'letter')}</div><div class="grow"><h5>${esc(m.title)}</h5><div class="meta">${KIND_NAME[m.kind] || '안내'} · ${Math.max(0, Math.ceil((m.expiresAt - now) / 86400000))}일 남음</div><div class="desc" style="color:var(--ink);white-space:pre-wrap;margin:4px 0">${esc(m.body)}</div>${m.rewards ? rewardChips(m.rewards) : ''}</div>${m.rewards ? (m.claimed ? '<span class="tag">받음</span>' : `<button class="btn coral sm" data-a="mailClaim" data-id="${m.id}">받기</button>`) : ''}</div>`).join('') : '<div class="muted" style="padding:10px">우편함이 비어 있어요</div>');
   }
-  const VIEWS = { mail: mailView, clouds: cloudsView, workshop: workshopView, explore: exploreView, shop: shopView, village: villageView, orders: ordersView, missions: missionsView, season: seasonView, rank: rankView, dex: dexView, stats: statsView, settings: settingsView };
+  const VIEWS = { tower: towerView, mail: mailView, clouds: cloudsView, workshop: workshopView, explore: exploreView, shop: shopView, village: villageView, orders: ordersView, missions: missionsView, season: seasonView, rank: rankView, dex: dexView, stats: statsView, settings: settingsView };
 
   // ---------------- 이벤트 ----------------
   const H = {
@@ -4187,6 +4957,15 @@ function createSheets(G) {
     cloud: (d) => open('clouds', { id: d.id, back: true }),
     hatch: () => G.flows.hatch(),
     hatch10: () => G.flows.hatch10(),
+    toTeam: (d) => G.flows.addToTeam(d.id).then(() => render(true)),
+    tslot: (d) => open('tower', { slot: +d.i, back: true }),
+    tpick: async (d) => { const s = v(); const t = [...(s.tower.team || [])]; const j = t.indexOf(d.id); if (j >= 0) t.splice(j, 1); if (P.slot >= t.length) t.push(d.id); else t.splice(P.slot, t[P.slot] === undefined ? 0 : 1, d.id); const r = await G.act('setTeam', { team: t.filter(Boolean) }); if (r.ok) { G.sfx.pop(); open('tower'); } },
+    tremove: async () => { const t = [...v().tower.team]; t.splice(P.slot, 1); const r = await G.act('setTeam', { team: t }); if (r.ok) open('tower'); },
+    tmode: (d) => { G.setPref('towerMode', d.m); render(true); },
+    tspeed: (d) => { G.setPref('towerSpeed', +d.v); render(true); },
+    tgo: () => G.flows.tower(v().tower.best + 1),
+    trep: () => G.flows.tower(v().tower.best),
+    rushGo: () => { close(); G.flows.rush(); },
     breedOpen: () => open('clouds', { breed: true, pick: [], back: true }),
     breedPick: (d) => { const p = P.pick; const i = p.indexOf(d.id); if (i >= 0) p.splice(i, 1); else { if (p.length >= 2) p.shift(); p.push(d.id); } G.sfx.tap(); render(true); },
     breedGo: async () => { const [a, b] = P.pick; const r = await G.act('breed', { a, b }); if (!r.ok) return; G.sfx.fanfare(); G.haptic('confetti'); const sp = D.SPECIES[r.r.id]; P.pick = []; await modal({ burst: true, art: `<div class="art">${svgImg(cloudSVG(r.r.id, { stage: 1, mood: 'joy' }))}</div>`, title: r.r.isNew ? `${sp.names[0]}${josa(sp.names[0], '이', '가')} 태어났어요!` : `또 만난 ${sp.names[0]}`, body: `<span class="rarity r-${sp.rarity}">${D.RARITY[sp.rarity].name}</span>${r.r.combo ? `<p>${r.r.combo} 조합 성공</p>` : ''}<p class="muted">${r.r.isNew ? esc(sp.desc) : '별 조각 +1'}</p>` }); render(true); },
@@ -4259,6 +5038,8 @@ const { RemoteBackend, LocalBackend } = __m["client\\src\\net\\api.js"];
 const { Store } = __m["client\\src\\state\\store.js"];
 const { Island } = __m["client\\src\\scene\\island.js"];
 const { Rush } = __m["client\\src\\minigame\\rush.js"];
+const { TowerRun } = __m["client\\src\\minigame\\tower.js"];
+const TW = __m["shared\\tower.js"];
 const { sfx, unlockAudio, setAudioPrefs, suspendAudio, resumeAudio } = __m["client\\src\\audio.js"];
 const { cloudSVG, villagerSVG, logoSVG, icon, iconURL, toURL, EL_ICON, ITEM_ICON } = __m["client\\src\\art\\sprites.js"];
 const { seedSVG } = __m["client\\src\\ui\\art2.js"];
@@ -4387,7 +5168,7 @@ function buildHud() {
     <button class="iconbtn" data-open="stats">${img('chart')}<span>통계</span></button>
   </div>
   <div class="dock">
-    <div class="rush-cta"><button class="rush-btn" data-rush><img class="cloudy" alt="" data-v="leadimg"><span><b>소나기 배달</b><small>${img('wind')}<span class="num" data-v="wind">5/5</span><span data-v="windt"></span></small></span></button></div>
+    <div class="rush-cta"><button class="rush-btn" data-tower><img class="cloudy" alt="" data-v="leadimg"><span><b data-v="towerTitle">하늘탑 도전</b><small><span data-v="towerSub"></span> · ${img('wind')}<span class="num" data-v="wind">5/5</span><span data-v="windt"></span></small></span></button></div>
     <nav class="nav">
       <button data-tab="home" class="on">${img('home')}목장</button>
       <button data-tab="clouds">${img('cloud')}뭉게<b class="badge hidden" data-b="clouds"></b></button>
@@ -4396,13 +5177,14 @@ function buildHud() {
       <button data-tab="shop">${img('shop')}장터<b class="badge hidden" data-b="shop"></b></button>
     </nav>
   </div>
-  <button class="reco hidden" aria-label="오늘의 추천"></button>
+  <div class="goal-card"><button class="gc-tower" data-open="tower"><span class="gc-floor"></span><span class="gc-next"></span></button><button class="reco hidden" aria-label="오늘의 추천"></button></div>
   <div class="coach hidden"></div>`);
   app.addEventListener('click', (e) => {
     const o = e.target.closest('[data-open]'); if (o) { G.sfx.tap(); G.haptic('tickWeak'); G.sheets.open(o.dataset.open); return; }
     const t = e.target.closest('[data-tab]'); if (t) { G.sfx.tap(); G.haptic('tickWeak'); if (t.dataset.tab === 'home') G.sheets.close(); else G.sheets.open(t.dataset.tab); return; }
     if (e.target.closest('[data-rush]')) { unlockAudio(); flows.rush(); return; }
-    const rc = e.target.closest('.reco'); if (rc) { G.sfx.tap(); if (rc.dataset.to === 'rush') flows.rush(); else G.sheets.open(rc.dataset.to); }
+    if (e.target.closest('[data-tower]')) { unlockAudio(); G.sfx.tap(); G.sheets.open('tower'); return; }
+    const rc = e.target.closest('.reco'); if (rc) { G.sfx.tap(); G.sheets.open(rc.dataset.to); }
   });
 }
 
@@ -4424,6 +5206,11 @@ function hudTick(force) {
   setHtml('elems', [...new Set(els)].map((k) => `<span class="el">${elImg(k)}<span class="num">${fmt(s.elem[k])}</span></span>`).join(''));
   const w = R.dayWeather(now); setText('weather', `오늘: ${w.name} · ${D.ELEMENTS[w.el].name} +${Math.round(w.bonus * 100)}%`);
   setText('wind', `${s.wind.n}/${D.RUSH.windMax}`);
+  { const best = s.tower?.best || 0; const nf = best + 1; const tp = TW.teamInfo(s, s.tower?.team || []).power; const fr = TW.firstReward(nf);
+    setText('towerTitle', `하늘탑 ${nf}층 도전`); setText('towerSub', `전투력 ${tp.toLocaleString()}`);
+    setHtml('gcf', ''); const gf = document.querySelector('.gc-floor'); const gn = document.querySelector('.gc-next');
+    const fk = `${best}|${tp}`; if (gf && prev.gcf !== fk) { prev.gcf = fk; gf.innerHTML = `${img('tower')}<b>최고 ${best}층</b> · 전투력 <b class="num">${tp.toLocaleString()}</b> / 권장 ${TW.recommendedPower(nf).toLocaleString()}`; }
+    const nk = `n${nf}`; if (gn && prev.gcn !== nk) { prev.gcn = nk; const un = TW.TOWER_UNLOCKS[nf]; gn.innerHTML = `다음 ${nf}층: ${[fr.species ? D.SPECIES[fr.species].names[0] + ' 획득' : '', fr.seed ? `구름씨 ${fr.seed}` : '', `조각 ${fr.shard}`, un ? un.name + ' 해금' : ''].filter(Boolean).slice(0, 3).join(' · ')}`; } }
   setText('windt', s.wind.n < D.RUSH.windMax ? ` · ${dur(s.wind.t + D.RUSH.windRegenSec * 1000 - now).replace(/ \d+초/, '')}` : '');
   const lead = s.clouds[s.lead];
   if (lead) { const key = `${s.lead}${lead.stage}${lead.hat}`; if (prev.lead !== key) { prev.lead = key; document.querySelector('[data-v="leadimg"]').src = toURL(cloudSVG(s.lead, { stage: lead.stage, hat: lead.hat, mood: 'joy' })); } }
@@ -4454,8 +5241,8 @@ function hudTick(force) {
 
 // ---------------------------------------------------------------- 튜토리얼
 // 튜토리얼: D.TUTORIAL 7단계. 실제 행동(통계)으로 진행되며 서버에 단계가 저장된다.
-const TUT_SEL = { pet: ['#scene', 'center'], hatch: ['[data-tab="clouds"]'], levelup: ['[data-tab="clouds"]'], order: ['[data-open="orders"]'], explore: ['[data-tab="explore"]'], rush: ['[data-rush]'], evolve: ['[data-tab="clouds"]'] };
-const COACH = [null, ...D.TUTORIAL.map((t) => ({ sel: TUT_SEL[t.key][0], pos: TUT_SEL[t.key][1], text: `<small>${D.TUTORIAL.indexOf(t) + 1}/${D.TUTORIAL.length}</small> ${t.text}`, done: (s) => (s.stats[t.stat] || 0) > 0 }))];
+const TUT_SEL = { pet: ['#scene', 'center'], hatch: ['[data-tab="clouds"]'], team: ['[data-tower]'], tower1: ['[data-tower]'], levelup: ['[data-tab="clouds"]'], tower3: ['[data-tower]'], explore: ['[data-tab="explore"]'] };
+const COACH = [null, ...D.TUTORIAL.map((t, i) => ({ sel: TUT_SEL[t.key][0], pos: TUT_SEL[t.key][1], text: `<small>${i + 1}/${D.TUTORIAL.length}</small> ${t.text}`, done: (s) => R.statValue(s, t.stat) >= (t.goal || 1) }))];
 // 오늘의 추천: 지금 하면 좋은 행동 하나
 function recommend(s, now) {
   const m = s.missions;
@@ -4467,7 +5254,9 @@ function recommend(s, now) {
   if (s.wallet.seed > 0) return ['clouds', '구름씨 부화하기', 'seed'];
   if (Object.entries(s.clouds).some(([, c]) => { const q = D.EVOLVE_REQ[c.stage]; return q && c.lv >= q.lv && Object.entries(q.mats).every(([k, n]) => s.mats[k] >= n); })) return ['clouds', '진화할 수 있는 뭉게가 있어요', 'star'];
   if (s.exp.some((e) => !e)) return ['explore', '빈 열기구로 탐험 보내기', 'balloon'];
-  if (s.wind.n >= D.RUSH.windMax) return ['rush', '바람병 가득! 소나기 배달', 'wind'];
+  const tp = TW.teamInfo(s, s.tower?.team || []).power, nf = (s.tower?.best || 0) + 1;
+  if (tp >= TW.recommendedPower(nf) * 0.8) return ['tower', `하늘탑 ${nf}층에 도전해요`, 'tower'];
+  return ['clouds', `팀 뭉게를 강화해 전투력을 올려요`, 'arrowUp'];
   return ['missions', '오늘의 미션 확인하기', 'mission'];
 }
 let storyShown = false;
@@ -4507,6 +5296,7 @@ async function refreshMeta() {
 }
 setInterval(() => { if (G.api && !document.hidden) G.api.mail?.().then((m) => (G.mailUnread = m.unread)).catch(() => {}); }, 300000);
 function afterBoot(res) {
+  if (G.api.kind === 'local') window.__G = G; // 미리보기 전용 QA 훅 (운영 서버 연결 빌드에서는 노출 안 됨)
   refreshMeta();
   checkOffline();
   recoverPurchases();
@@ -4574,13 +5364,35 @@ flows.hatch = async () => {
   await modal({
     burst: true, art: `<div class="art">${svgImg(cloudSVG(id, { stage: 1, mood: 'joy' }))}</div>`,
     title: isNew ? `${sp.names[0]}${josa(sp.names[0], '이', '가')} 태어났어요!` : `또 만난 ${sp.names[0]}`,
-    body: `<span class="rarity r-${rarity}">${D.RARITY[rarity].name}</span> <span class="tag">${elImg(sp.el)}${D.ELEMENTS[sp.el].name}</span><p>${isNew ? esc(sp.desc) : '별 조각 +1 · 모으면 별 승급으로 생산량이 올라가요'}</p>`,
-    buttons: G.store.view().wallet.seed > 0 ? [{ label: '닫기', cls: 'paper', value: 0 }, { label: `한 번 더 (${G.store.view().wallet.seed})`, cls: 'coral', value: 1 }] : [{ label: '좋아요!', cls: 'mint', value: 0 }],
-  }).then((x) => { if (x === 1) flows.hatch(); });
+    body: `<span class="rarity r-${rarity}">${D.RARITY[rarity].name}</span> <span class="tag">${elImg(sp.el)}${D.ELEMENTS[sp.el].name} · ${TW.ROLES[sp.el].role}</span>${hatchInfo(id, isNew)}`,
+    buttons: [...(inTeamOf(id) < 0 ? [{ label: '팀에 편성', cls: 'sky', value: 2 }] : []), ...(G.store.view().wallet.seed > 0 ? [{ label: '닫기', cls: 'paper', value: 0 }, { label: `한 번 더 (${G.store.view().wallet.seed})`, cls: 'coral', value: 1 }] : [{ label: '좋아요!', cls: 'mint', value: 0 }])],
+  }).then(async (x) => { if (x === 1) flows.hatch(); if (x === 2) await flows.addToTeam(id); });
   G.sheets.render(true);
 };
 
-flows.hatch10 = async () => {
+const inTeamOf = (id) => (G.store.view().tower?.team || []).indexOf(id);
+// 뽑기 결과 안내: 역할·고유 능력·추천 콘텐츠·보유 뭉게와 비교·팀 편성 시 변화
+function hatchInfo(id, isNew) {
+  const s = G.store.view(); const c = s.clouds[id]; const sp = D.SPECIES[id]; const Rl = TW.ROLES[sp.el];
+  const team = s.tower?.team || []; const before = TW.teamInfo(s, team).power;
+  const cand = team.length < R.towerTeamMax(s) ? [...team, id] : (() => { const t = [...team]; let w = 1; for (let i = 2; i < t.length; i++) if (TW.cloudPower(s.clouds[t[i]], t[i]) < TW.cloudPower(s.clouds[t[w]], t[w])) w = i; if (t.length > 1) t[w] = id; return t; })();
+  const after = inTeamOf(id) >= 0 ? before : TW.teamInfo(s, cand).power;
+  const sameEl = Object.keys(s.clouds).filter((x) => x !== id && D.SPECIES[x].el === sp.el);
+  const bestSame = sameEl.sort((a, b) => TW.cloudPower(s.clouds[b], b) - TW.cloudPower(s.clouds[a], a))[0];
+  const newSyn = TW.teamInfo(s, cand).syn.filter((x) => !TW.teamInfo(s, team).syn.includes(x)).map((x) => TW.SYNERGIES.find((y) => y.id === x).name);
+  return `<div class="hinfo"><div>${isNew ? esc(sp.desc) : `별 조각 +1 (${c.dupes}/${D.STAR_REQ[c.stars] || '-'}) · 별 승급하면 전투력 +20%`}</div>
+    <div><b>고유 능력</b> ${Rl.passive}</div>
+    <div><b>추천</b> 하늘탑 ${D.ELEMENTS[sp.el].name} 집이 많은 구간${sp.el === 'wind' || sp.el === 'snow' ? ' · 장애물이 많은 11층 이후' : sp.el === 'thunder' ? ' · 스킬을 자주 쓰는 보스 층' : ''}</div>
+    <div><b>보유 비교</b> 전투력 ${TW.cloudPower(c, id).toLocaleString()}${!isNew ? (c.dupes >= (D.STAR_REQ[c.stars] || 99) ? ' · 지금 별 승급할 수 있어요!' : ' · 이미 함께하는 뭉게') : bestSame ? ` · 같은 ${D.ELEMENTS[sp.el].name} 최고 ${D.SPECIES[bestSame].names[s.clouds[bestSame].stage - 1]} ${TW.cloudPower(s.clouds[bestSame], bestSame).toLocaleString()}` : ` · 첫 ${D.ELEMENTS[sp.el].name} 뭉게!`}</div>
+    ${inTeamOf(id) < 0 ? `<div><b>팀에 넣으면</b> 전투력 ${before.toLocaleString()} → ${after.toLocaleString()}${newSyn.length ? ` · 시너지 「${newSyn.join(', ')}」` : ''}</div>` : '<div><b>이미 하늘탑 팀에 있어요</b></div>'}</div>`;
+}
+flows.addToTeam = async (id) => {
+  const s = G.store.view(); const t = [...(s.tower?.team || [])].filter((x) => x !== id);
+  if (t.length < R.towerTeamMax(s)) t.push(id);
+  else { let w = 1; for (let i = 2; i < t.length; i++) if (TW.cloudPower(s.clouds[t[i]], t[i]) < TW.cloudPower(s.clouds[t[w]], t[w])) w = i; if (t.length > 1) t[w] = id; else t[0] = id; }
+  const r = await G.act('setTeam', { team: t });
+  if (r.ok) { G.sfx.pop(); toast(`${D.SPECIES[id].names[0]}${josa(D.SPECIES[id].names[0], '이', '가')} 하늘탑 팀에 들어왔어요`, 'tower'); }
+};flows.hatch10 = async () => {
   const s = G.store.view();
   if (s.wallet.seed < D.HATCH_MULTI) { toast(`구름씨가 ${D.HATCH_MULTI}개 필요해요`); return; }
   let res;
@@ -4723,6 +5535,66 @@ flows.rush = async () => {
   });
 };
 
+// ---------------------------------------------------------------- 하늘탑
+flows.tower = async (floor) => {
+  if (G.rush) return;
+  let s = G.store.view();
+  if (!s.tower?.team?.length) { await G.act('setTeam', { team: [s.lead || Object.keys(s.clouds)[0]] }, true); s = G.store.view(); }
+  const mode = G.prefs.towerMode === 'manual' ? 'manual' : 'auto';
+  const r = await G.act('towerStart', { floor, mode, speed: 2 });
+  if (!r.ok) return;
+  const run = r.r; G.sheets.close();
+  const spec = TW.genFloor(run.f, run.seed); const team = TW.teamInfo({ clouds: run.snap }, run.team);
+  const tipKey = 'mungge.towerTip.' + run.mode; const first = !(await storage.get(tipKey)); if (first) storage.set(tipKey, '1');
+  G.island.stop(); G.sfx.whoosh();
+  G.rush = new TowerRun($('#app'), {
+    run, spec, team, clouds: s.clouds, sfx: G.sfx, haptic: G.haptic, firstTime: first, speed: G.prefs.towerSpeed === 2 ? 2 : 1, reduceMotion: !!G.prefs.reduceMotion,
+    onAbort: async () => { G.rush = null; G.island.start(); await G.act('towerAbort', {}, true); },
+    onFinish: async ({ inputs, sim, perf }) => {
+      G.lastPerf = perf; G.perfLog = [...(G.perfLog || []).slice(-9), perf];
+      const res = await G.act('towerEnd', { runId: run.id, inputs });
+      await G.store.flush();
+      G.rush.destroy(); G.rush = null; G.island.start();
+      if (!res.ok) return;
+      const o = res.r;
+      if (o.cleared !== sim.cleared || o.score !== sim.score) G.api.log({ level: 'warn', message: `tower_mismatch f${run.f} ${sim.cleared}/${o.cleared} ${sim.score}/${o.score}` });
+      if (o.newBest) submitScore(o.f);
+      await flows.towerResult(o, sim, team, run);
+    },
+  });
+};
+// 결과는 팝업 하나로: 돌파 층·보상·뭉게별 기여도·해금·다음 목표 / 실패 시 원인과 육성 추천
+flows.towerResult = async (o, sim, team, run) => {
+  const s = G.store.view(); const best = s.tower.best; const nf = best + 1;
+  const total = Object.values(o.contrib || {}).reduce((a, b) => a + b, 0) || 1;
+  const contrib = team.members.map((m) => `<div class="cb"><img src="${toURL(cloudSVG(m.id, { stage: s.clouds[m.id]?.stage || 1, mood: 'joy' }))}" alt=""><span>${D.SPECIES[m.id].names[(s.clouds[m.id]?.stage || 1) - 1]}${m.lead ? ' (대표)' : ''}</span><div class="bar mint grow"><i style="width:${Math.round(((o.contrib?.[m.id] || 0) / total) * 100)}%"></i><span class="num">${Math.round(((o.contrib?.[m.id] || 0) / total) * 100)}%</span></div></div>`).join('');
+  const pct = Math.round(o.ratio * 100);
+  if (o.cleared) {
+    const stars = '★'.repeat(o.stars) + '☆'.repeat(3 - o.stars);
+    const un = (o.unlocks || []).map((u) => `<div class="unlock">${img('lock')} <b>${u.name}</b> 해금 · ${u.desc}</div>`).join('');
+    const sp = o.species ? `<div class="unlock">${svgImg(cloudSVG(o.species.id, { stage: 1, mood: 'joy' }))}<b>${D.SPECIES[o.species.id].names[0]}</b> ${o.species.isNew ? '합류!' : '별 조각 +1'}</div>` : '';
+    const vu = (o.villageUps || []).length ? `<p class="muted">마을 Lv ${o.villageUps[o.villageUps.length - 1]} 달성!</p>` : '';
+    const nextRec = TW.recommendedPower(nf); const tp = TW.teamInfo(s, s.tower.team).power;
+    const v = await modal({
+      burst: o.newBest, title: o.newBest ? `${o.f}층 돌파!` : `${o.f}층 반복 완료`,
+      body: `<div class="t-stars">${stars}</div><p class="muted">만족도 ${pct}% · 점수 ${o.score.toLocaleString()} · 최고 콤보 ${o.maxCombo}</p>${rewardChips(o.reward)}${sp}${un}${vu}
+        <div class="sec" style="text-align:left">뭉게별 기여도</div><div class="contrib">${contrib}</div>
+        <div class="next-goal">다음 목표 <b>${nf}층</b> · 권장 전투력 ${nextRec.toLocaleString()} (현재 ${tp.toLocaleString()})</div>`,
+      buttons: [{ label: '목장으로', cls: 'paper', value: 'home' }, o.repeat ? { label: `다시 반복 ${img('wind')}${s.wind.n}`, cls: 'mint', value: 'again', disabled: s.wind.n < 1 } : { label: `${nf}층 도전`, cls: 'coral', value: 'next' }], dismiss: false,
+    });
+    if (v === 'next') flows.tower(nf); else if (v === 'again') flows.tower(o.f);
+  } else {
+    const adv = TW.advise(sim, team, o.f);
+    const v = await modal({
+      title: `${o.f}층 도전 실패`, art: `<div class="art" style="height:100px">${svgImg(cloudSVG(run.team[0], { stage: s.clouds[run.team[0]]?.stage || 1, mood: 'dizzy' }))}</div>`,
+      body: `<p class="muted">만족도 ${pct}% / 필요 70%${sim.hp <= 0 ? ' · 체력이 바닥났어요' : ''}${o.repeat ? ' · 바람병은 돌려받았어요' : ''}</p>
+        <div class="advice">${adv.map((a) => `<div>${img(a.k === 'shield' ? 'shield' : a.k === 'upgrade' ? 'arrowUp' : a.k === 'skill' ? 'star' : 'cloud')} ${esc(a.text)}</div>`).join('') || '<div>조금만 더 하면 돼요! 다시 도전해 보세요.</div>'}</div>
+        <div class="sec" style="text-align:left">뭉게별 기여도</div><div class="contrib">${contrib}</div>`,
+      buttons: [{ label: '팀 변경', cls: 'paper', value: 'team' }, { label: '강화하러 가기', cls: 'paper', value: 'up' }, { label: '다시 도전', cls: 'coral', value: 'retry' }], dismiss: false,
+    });
+    if (v === 'retry') flows.tower(o.f); else if (v === 'team') G.sheets.open('tower'); else if (v === 'up') G.sheets.open('clouds');
+  }
+};
 boot();
 
 Object.assign(__e,{});})();

@@ -1386,6 +1386,22 @@ body.reduce-motion .cal.cal7 > div.today { animation: none; }
 .modal .btns .btn { flex: 1 1 0; min-width: 0; padding: 0 8px; white-space: normal; line-height: 1.15; text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
 .modal .btns:has(> .btn:nth-child(3)) .btn { font-size: 15px; padding: 0 6px; gap: 3px; }
 .modal .btns:has(> .btn:nth-child(4)) { flex-wrap: wrap; } .modal .btns:has(> .btn:nth-child(4)) .btn { flex: 1 1 calc(50% - 8px); }
+
+/* v5.1 버그 수정: 등급 배지는 어떤 부모의 외곽선 효과도 물려받지 않음 */
+.grade { text-shadow: none !important; -webkit-text-stroke: 0 !important; }
+.reveal .rv-grade { display: flex; justify-content: center; }
+.reveal .rv-grade .grade { font-size: 15px; padding: 2px 12px; gap: 6px; border-width: 2.5px; }
+.reveal .rv-grade .grade i { font-size: 13px; }
+.reveal .rv-name { line-height: 1.3; word-break: keep-all; }
+/* 10회 결과 카드: 카드 폭에 맞춰 이름·등급 글자 크기 자동 축소 (좁은 폰에서 잘림 방지) */
+.hatch-grid .hg { min-width: 0; container-type: inline-size; }
+.hatch-grid .hg > span:not(.grade):not(.new):not(.dup) { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+.hatch-grid .hg .grade { max-width: 100%; overflow: hidden; justify-content: center; box-sizing: border-box; }
+@supports (font-size: 1cqw) {
+  .hatch-grid .hg > span:not(.grade):not(.new):not(.dup) { font-size: min(11px, 19cqw); }
+  .hatch-grid .hg .grade { width: 100%; font-size: min(10px, 16.5cqw); padding: 0 1px; border-width: 1.5px; border-radius: 7px; letter-spacing: -.2px; }
+  .hatch-grid .hg .dup { font-size: min(10px, 17cqw); }
+}
 </style>
   <script>
     // 런타임 설정. 운영 빌드에서는 Vite 가 import.meta.env 로 주입 (client/src/config 참고)
@@ -5435,7 +5451,8 @@ function reveal(G, info) {
       <div class="rv-card">
         ${['epic', 'legendary', 'hidden'].includes(rarity) ? `<div class="rv-title">${D.RARITY[rarity].en}!</div>` : ''}
         <div class="rv-art gframe g-${rarity}"><img src="${toURL(cloudSVG(id, { stage: 1, mood: 'joy' }))}" alt=""></div>
-        <div class="rv-name">${info.isNew === false ? '또 만난 ' : ''}<b>${sp.names[0]}</b> ${gradeTag(rarity, true)}</div>
+        <div class="rv-name">${info.isNew === false ? '또 만난 ' : ''}<b>${sp.names[0]}</b></div>
+        <div class="rv-grade">${gradeTag(rarity, true)}</div>
         ${hidden ? `<div class="rv-sub">${sp.names[0]} 뭉게 획득!</div>` : ''}
         ${info.isNew === false ? `<div class="rv-sub">별 조각 +1 · 별 승급 재료 ${info.dupes}/${D.STAR_REQ[info.stars ?? 0] ?? '-'}</div>` : ''}
         <div class="rv-tap">화면을 누르면 계속</div>
